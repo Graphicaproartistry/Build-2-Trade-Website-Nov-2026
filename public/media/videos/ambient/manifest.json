@@ -1,0 +1,6 @@
+{
+  "silk-ribbons": "Amber and cyan silk ribbons on black. Letterbox bars cropped (1280x544). Seamless 8.5s loop.",
+  "dust-beam": "Warm dust particles drifting through a light beam on black. Seamless 8.5s loop.",
+  "usage": "Overlay on dark sections with mix-blend-mode: screen at low opacity (0.15-0.35); black becomes transparent. Files: <name>.av1.mp4, <name>.mp4 (H.264), <name>.poster.webp",
+  "notes": "silk-ribbons has faint horizontal flare dashes; dust-beam has spiral swirls in the smoke. Both disappear at low opacity, so never use them full-strength."
+}
