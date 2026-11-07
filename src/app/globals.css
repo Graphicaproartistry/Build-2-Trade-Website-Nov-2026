@@ -154,3 +154,35 @@ body {
     transform: scaleX(1);
   }
 }
+
+/* "Everything a build needs": horizontal slide while the section is held.
+   Height = one screen + the slide distance (--dist, measured in JS). */
+.features-scroll {
+  height: calc(100svh + var(--dist, 0px));
+}
+@media (prefers-reduced-motion: reduce) {
+  .features-scroll {
+    height: auto;
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .features-scroll {
+      view-timeline-name: --features;
+      view-timeline-axis: block;
+    }
+    .features-track {
+      animation: features-slide linear both;
+      animation-timeline: --features;
+      animation-range: contain 0% contain 100%;
+    }
+  }
+}
+@keyframes features-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-1 * var(--dist, 0px)));
+  }
+}

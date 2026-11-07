@@ -23,27 +23,32 @@ const HOLE = {
 const steps = [
   {
     src: "home",
+    head: "Connecting builders to quality trades.",
     line: "Hire verified tradies in minutes and run every job from one app.",
     tap: null,
   },
   {
     src: "create-project",
-    line: "Post a job from site: address, start date, plans and the trades you need.",
+    head: "Post a job from site.",
+    line: "Address, start date, plans and the trades you need, in about a minute.",
     tap: { x: 0.5, y: 0.93 },
   },
   {
     src: "my-projects",
-    line: "Budget, trades and timeline for every build, on one card.",
+    head: "Every build on one card.",
+    line: "Budget, trades and timeline for every project, always up to date.",
     tap: { x: 0.32, y: 0.93 },
   },
   {
     src: "alerts",
+    head: "Quotes come to you.",
     line: "Know the moment a quote or message comes in.",
     tap: { x: 0.68, y: 0.93 },
   },
   {
     src: "invite-tradies",
-    line: "Already have tradies you trust? Invite them by email or phone.",
+    head: "Bring your own tradies.",
+    line: "Invite the tradies you already trust by email or phone.",
     tap: null,
   },
 ] as const;
@@ -89,11 +94,13 @@ export function Hero() {
       const hand = root.querySelector<HTMLElement>("[data-hand]");
 
       const dims = q("[data-dim]");
+      const heads = q("[data-head]");
       const isMobile = window.matchMedia("(max-width: 767px)").matches;
       const last = steps.length - 1;
 
       gsap.set(shots.slice(1), { xPercent: 100 });
       gsap.set(lines.slice(1), { autoAlpha: 0, y: 16 });
+      gsap.set(heads.slice(1), { autoAlpha: 0, yPercent: 30 });
 
       // Entrance on load (blur is skipped on phones; it's expensive there).
       gsap.from(q("[data-intro]"), {
@@ -184,6 +191,19 @@ export function Hero() {
         lines.forEach((el, i) => {
           if (i !== to && i !== from) gsap.set(el, { autoAlpha: 0 });
         });
+        heads.forEach((el, i) => {
+          if (i !== to && i !== from) gsap.set(el, { autoAlpha: 0 });
+        });
+        tl.to(
+          heads[from],
+          { autoAlpha: 0, yPercent: forward ? -30 : 30, duration: 0.3, ease: "power2.in" },
+          at,
+        ).fromTo(
+          heads[to],
+          { autoAlpha: 0, yPercent: forward ? 30 : -30 },
+          { autoAlpha: 1, yPercent: 0, duration: 0.55, ease: "power3.out" },
+          at + 0.18,
+        );
         tl.to(lines[from], { autoAlpha: 0, y: forward ? -16 : 16, duration: 0.25 }, at).fromTo(
           lines[to],
           { autoAlpha: 0, y: forward ? 16 : -16 },
@@ -229,24 +249,36 @@ export function Hero() {
             ref={headRef}
             className="relative z-10 flex flex-col items-center px-5 pt-28 text-center md:pt-28"
           >
+            {/* The headline changes with each app screen. All versions share one grid
+                cell, so the box is always as tall as the longest: nothing can overlap.
+                Screen readers get the brand tagline only. */}
             <h1
               data-intro
-              className="font-display text-b2t-navy max-w-[13ch] text-[12.5vw] leading-[0.95] md:max-w-[17ch] md:text-[4.6vw]"
+              className="font-display text-b2t-navy grid w-full max-w-[13ch] text-[11.5vw] leading-[0.95] md:max-w-[17ch] md:text-[4.6vw]"
             >
-              Connecting builders to quality trades.
+              {steps.map((s, i) => (
+                <span
+                  key={s.src}
+                  data-head
+                  aria-hidden={i > 0 || undefined}
+                  className="col-start-1 row-start-1 self-center"
+                >
+                  {s.head}
+                </span>
+              ))}
             </h1>
-            <div data-intro className="relative mt-4 h-14 w-full max-w-2xl md:mt-5 md:h-10">
+            <div data-intro className="mt-4 grid w-full max-w-xl md:mt-5">
               {steps.map((s) => (
                 <p
                   key={s.src}
                   data-line
-                  className="text-b2t-navy/80 absolute inset-x-0 top-0 text-base font-semibold md:text-xl"
+                  className="text-b2t-navy/75 col-start-1 row-start-1 text-base font-semibold md:text-xl"
                 >
                   {s.line}
                 </p>
               ))}
             </div>
-            <div data-intro className="flex items-center gap-4">
+            <div data-intro className="mt-6 flex items-center gap-4 md:mt-7">
               <Button href={site.links.signUp} size="lg">
                 Start free for 3 months
               </Button>

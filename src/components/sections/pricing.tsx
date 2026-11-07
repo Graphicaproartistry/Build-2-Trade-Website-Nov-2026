@@ -22,7 +22,7 @@ export function Pricing() {
   return (
     <section id="pricing" className="px-5 py-24 md:px-12 md:py-36 lg:px-20">
       <Reveal className="mx-auto max-w-3xl text-center">
-        <h2 className="font-display text-b2t-navy text-5xl leading-[0.95] md:text-7xl">
+        <h2 className="font-display text-b2t-navy text-5xl leading-[0.95] md:text-8xl">
           Free for three months.
         </h2>
         <p className="text-b2t-navy/60 mt-6 text-lg font-medium">
