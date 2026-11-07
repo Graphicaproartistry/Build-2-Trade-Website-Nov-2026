@@ -1,94 +1,226 @@
 "use client";
 
-import { ScrollSequence } from "@/components/scroll-sequence";
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 import { site } from "@/content/site";
+import { Button } from "@/components/ui/button";
 
 /**
- * Hero: the blueprint becomes a finished home as you scroll.
- * The headline is visible on load, steps aside while the house builds,
- * and a closing line lands on the finished house.
+ * Hero: yellow panel, big headline, and the B2T app in a tradie's gloved hand.
+ * As you scroll, the phone steps through real app screens (with a tap before
+ * each change), and the line under the headline follows along.
+ *
+ * Screen hole in hand-phone.webp (1122x1402): x 360-761, y 150-1005, corner radius ~50px.
  */
-export function Hero() {
-  return (
-    <ScrollSequence
-      name="hero-blueprint"
-      frameCount={95}
-      length={3}
-      eager
-      feather="#101827"
-      label="A blueprint becomes a finished home"
-      fit={{ mode: "cover" }}
-      mobileFit={{ mode: "width", visible: 0.62, align: 0.62 }}
-      className="bg-b2t-navy"
-      build={(tl, root) => {
-        const q = (s: string) => root.querySelectorAll(s);
-        tl.to(
-          q("[data-hero-intro]"),
-          { opacity: 0, y: -40, filter: "blur(8px)", duration: 0.22, ease: "power1.in" },
-          0.08,
-        )
-          .to(q("[data-hero-hint]"), { opacity: 0, duration: 0.06 }, 0.02)
-          .fromTo(
-            q("[data-hero-outro] > *"),
-            { opacity: 0, y: 30, filter: "blur(10px)" },
-            {
-              opacity: 1,
-              y: 0,
-              filter: "blur(0px)",
-              duration: 0.12,
-              stagger: 0.04,
-              ease: "power2.out",
-            },
-            0.78,
-          );
-      }}
-    >
-      {/* Readability: soft navy falloff top and bottom (no coloured glow) */}
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgb(16_24_39/0.85),transparent_30%,transparent_55%,rgb(16_24_39/0.95))]" />
+const HOLE = {
+  left: (360 / 1122) * 100,
+  top: (150 / 1402) * 100,
+  width: (402 / 1122) * 100,
+  height: (856 / 1402) * 100,
+};
 
-      <div
-        data-hero-intro
-        className="absolute inset-x-0 top-0 flex flex-col items-start px-5 pt-32 md:px-10 md:pt-40 lg:px-16"
-      >
-        <p className="text-b2t-yellow mb-5 max-w-xs text-xs font-medium tracking-[0.18em] uppercase md:max-w-none">
-          Australia&apos;s first digital network for builders &amp; tradies
-        </p>
-        <h1 className="font-display max-w-[14ch] text-[13vw] leading-[0.92] font-semibold text-white md:text-[5.6vw]">
-          Connecting builders to quality trades.
-        </h1>
-        <p className="mt-6 max-w-md text-base leading-relaxed text-white/70 md:text-lg">
-          Hire verified tradies in minutes, run every project in one place, and keep your builds on
-          schedule.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button href={site.links.signUp} size="lg">
-            Start free for 3 months
-          </Button>
-          <Button href="#platform" variant="ghost" size="lg">
-            See the platform
-          </Button>
+const steps = [
+  {
+    src: "home",
+    line: "Hire verified tradies in minutes and run every job from one app.",
+    tap: null,
+  },
+  {
+    src: "create-project",
+    line: "Post a job from site: address, start date, plans and the trades you need.",
+    tap: { x: 0.5, y: 0.93 },
+  },
+  {
+    src: "my-projects",
+    line: "Budget, trades and timeline for every build, on one card.",
+    tap: { x: 0.32, y: 0.93 },
+  },
+  {
+    src: "alerts",
+    line: "Know the moment a quote or message comes in.",
+    tap: { x: 0.68, y: 0.93 },
+  },
+  {
+    src: "invite-tradies",
+    line: "Already have tradies you trust? Invite them by email or phone.",
+    tap: null,
+  },
+] as const;
+
+export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const root = ref.current;
+      if (!root) return;
+      const q = (s: string) => Array.from(root.querySelectorAll<HTMLElement>(s));
+      const shots = q("[data-shot]");
+      const lines = q("[data-line]");
+      const dots = q("[data-dot]");
+      const tap = root.querySelector<HTMLElement>("[data-tap]");
+      const hand = root.querySelector<HTMLElement>("[data-hand]");
+
+      gsap.set(shots.slice(1), { xPercent: 100 });
+      gsap.set(lines.slice(1), { opacity: 0, y: 16 });
+
+      // Entrance on load.
+      gsap.from(q("[data-intro]"), {
+        opacity: 0,
+        y: 24,
+        filter: "blur(8px)",
+        duration: 1.1,
+        ease: "expo.out",
+        stagger: 0.08,
+        clearProps: "filter",
+      });
+      if (hand) gsap.from(hand, { yPercent: 18, duration: 1.4, ease: "expo.out", delay: 0.15 });
+
+      const tl = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: true },
+      });
+      if (hand) tl.fromTo(hand, { rotate: -2 }, { rotate: 2, duration: 1 }, 0);
+
+      const seg = 1 / steps.length;
+      steps.forEach((s, i) => {
+        if (i === 0) return;
+        const t = i * seg - seg * 0.4;
+        const prev = shots[i - 1];
+        const next = shots[i];
+        if (s.tap && tap) {
+          tl.set(tap, { left: `${s.tap.x * 100}%`, top: `${s.tap.y * 100}%` }, t - 0.06)
+            .fromTo(
+              tap,
+              { opacity: 0, scale: 1.6 },
+              { opacity: 1, scale: 1, duration: 0.03, ease: "power2.out" },
+              t - 0.06,
+            )
+            .to(tap, { scale: 0.8, duration: 0.015 }, t - 0.025)
+            .to(tap, { opacity: 0, scale: 1.4, duration: 0.02 }, t - 0.01);
+        }
+        if (i === steps.length - 1) {
+          tl.fromTo(
+            next,
+            { xPercent: 0, yPercent: 100 },
+            { yPercent: 0, duration: 0.08, ease: "power3.out" },
+            t,
+          );
+        } else {
+          tl.to(next, { xPercent: 0, duration: 0.08, ease: "power3.inOut" }, t).to(
+            prev,
+            { xPercent: -30, filter: "brightness(0.7)", duration: 0.08, ease: "power3.inOut" },
+            t,
+          );
+        }
+        tl.to(lines[i - 1], { opacity: 0, y: -16, duration: 0.04 }, t)
+          .fromTo(
+            lines[i],
+            { opacity: 0, y: 16 },
+            { opacity: 1, y: 0, duration: 0.05, ease: "power2.out" },
+            t + 0.03,
+          )
+          .to(dots[i - 1], { backgroundColor: "rgb(16 24 39 / 0.2)", width: 8, duration: 0.03 }, t)
+          .to(dots[i], { backgroundColor: "#101827", width: 24, duration: 0.03 }, t);
+      });
+    },
+    { scope: ref },
+  );
+
+  return (
+    <section
+      ref={ref}
+      id="app"
+      aria-label="Build 2 Trade: connecting builders to quality trades"
+      className="relative"
+      style={{ height: `${steps.length * 80 + 40}vh` }}
+    >
+      <div className="sticky top-0 h-dvh px-1.5 pb-1.5 md:px-2 md:pb-2">
+        <div className="bg-b2t-yellow relative flex h-full flex-col items-center overflow-hidden rounded-b-[28px] md:rounded-b-[44px]">
+          <div className="relative z-10 flex flex-col items-center px-5 pt-28 text-center md:pt-28">
+            <h1
+              data-intro
+              className="font-display text-b2t-navy max-w-[13ch] text-[12.5vw] leading-[0.95] md:max-w-[16ch] md:text-[5.2vw]"
+            >
+              Connecting builders to quality trades.
+            </h1>
+            <div data-intro className="relative mt-5 h-16 w-full max-w-2xl md:mt-6">
+              {steps.map((s) => (
+                <p
+                  key={s.src}
+                  data-line
+                  className="text-b2t-navy/80 absolute inset-x-0 top-0 text-base font-semibold md:text-xl"
+                >
+                  {s.line}
+                </p>
+              ))}
+            </div>
+            <div data-intro className="flex items-center gap-4">
+              <Button href={site.links.signUp} size="lg">
+                Start free for 3 months
+              </Button>
+              <div className="hidden gap-1.5 sm:flex" aria-hidden>
+                {steps.map((s, i) => (
+                  <span
+                    key={s.src}
+                    data-dot
+                    className="h-2 rounded-full"
+                    style={{
+                      width: i === 0 ? 24 : 8,
+                      backgroundColor: i === 0 ? "#101827" : "rgb(16 24 39 / 0.2)",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="relative mt-auto flex w-full justify-center">
+            <div
+              data-hand
+              className="relative aspect-[1122/1402] h-[50dvh] origin-bottom md:h-[57dvh]"
+            >
+              <div
+                className="absolute overflow-hidden bg-white"
+                style={{
+                  left: `${HOLE.left}%`,
+                  top: `${HOLE.top}%`,
+                  width: `${HOLE.width}%`,
+                  height: `${HOLE.height}%`,
+                  borderRadius: "12.5% / 5.9%",
+                }}
+              >
+                {steps.map((s, i) => (
+                  <div key={s.src} data-shot className="absolute inset-0" style={{ zIndex: i }}>
+                    <Image
+                      src={`/media/images/app/mobile/${s.src}.webp`}
+                      alt={i === 0 ? "Build 2 Trade app home screen" : ""}
+                      fill
+                      priority={i === 0}
+                      sizes="(max-width: 768px) 40vw, 18vw"
+                      className="object-cover object-top"
+                    />
+                  </div>
+                ))}
+                <span
+                  data-tap
+                  aria-hidden
+                  className="absolute z-20 size-9 -translate-1/2 rounded-full border-2 border-white/90 bg-white/35 opacity-0 shadow-[0_2px_10px_rgb(0_0_0/0.25)]"
+                />
+              </div>
+              <Image
+                src="/media/images/hand-phone.webp"
+                alt=""
+                fill
+                priority
+                sizes="(max-width: 768px) 80vw, 40vw"
+                className="pointer-events-none object-contain"
+              />
+            </div>
+          </div>
         </div>
       </div>
-
-      <div
-        data-hero-hint
-        className="absolute inset-x-0 bottom-8 flex justify-center text-[11px] tracking-[0.25em] text-white/50 uppercase"
-      >
-        Scroll to build
-      </div>
-
-      <div
-        data-hero-outro
-        className="absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-14 text-center md:pb-20"
-      >
-        <p className="font-display text-4xl leading-none font-semibold text-white md:text-6xl">
-          Every build. Every trade.
-        </p>
-        <p className="font-display text-b2t-yellow mt-1 text-4xl leading-none font-semibold md:text-6xl">
-          One network.
-        </p>
-      </div>
-    </ScrollSequence>
+    </section>
   );
 }

@@ -1,20 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Geist } from "next/font/google";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import "lenis/dist/lenis.css";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { site } from "@/content/site";
 
-const sans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const sans = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
-// Display face: variable width lets headlines run slightly condensed and confident.
-const display = Archivo({
-  variable: "--font-archivo",
+// Heavy, chunky display serif for headlines.
+const display = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
-  axes: ["wdth"],
+  axes: ["opsz", "SOFT", "WONK"],
 });
 
 export const metadata: Metadata = {
@@ -31,8 +28,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#101827",
-  colorScheme: "dark",
+  themeColor: "#fec124",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

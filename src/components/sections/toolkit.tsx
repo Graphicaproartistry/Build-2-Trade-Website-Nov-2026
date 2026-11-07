@@ -2,14 +2,14 @@
 
 import { ScrollSequence } from "@/components/scroll-sequence";
 
-/** Callouts anchored to tools in the final (exploded) frame. x/y are 0..1 of the footage. */
+/** Labels anchored to tools in the final (exploded) frame. x/y are 0..1 of the footage. */
 const callouts = [
-  { x: 0.36, y: 0.27, label: "Metal fabricators", side: "right" },
-  { x: 0.7, y: 0.2, label: "Carpenters", side: "right" },
-  { x: 0.16, y: 0.44, label: "Verified & insured", side: "right" },
-  { x: 0.74, y: 0.54, label: "Builders", side: "left" },
-  { x: 0.24, y: 0.66, label: "Electricians", side: "right" },
-  { x: 0.47, y: 0.79, label: "Quotes to the cent", side: "right" },
+  { x: 0.36, y: 0.27, label: "Fabrication", side: "right" },
+  { x: 0.7, y: 0.2, label: "Carpentry", side: "right" },
+  { x: 0.16, y: 0.44, label: "Safety & compliance", side: "right" },
+  { x: 0.74, y: 0.54, label: "Building", side: "left" },
+  { x: 0.24, y: 0.66, label: "Electrical", side: "right" },
+  { x: 0.47, y: 0.79, label: "Quoting", side: "right" },
 ] as const;
 
 export function Toolkit() {
@@ -18,10 +18,11 @@ export function Toolkit() {
       name="toolkit-exploded"
       frameCount={143}
       length={2.6}
+      framed
       feather="#000000"
       label="A stack of tools separates into every trade"
       mobileFit={{ mode: "width", visible: 0.82, align: 0.5 }}
-      className="bg-black"
+      stageClassName="bg-black"
       overlay={
         <div className="absolute inset-0 hidden md:block">
           {callouts.map((c) => (
@@ -31,12 +32,12 @@ export function Toolkit() {
               className="absolute opacity-0"
               style={{ left: `${c.x * 100}%`, top: `${c.y * 100}%` }}
             >
-              <span className="bg-b2t-yellow ring-b2t-yellow/20 absolute size-2 -translate-1/2 rounded-full ring-4" />
+              <span className="absolute size-1.5 -translate-1/2 rounded-full bg-white" />
               <span
-                className={`absolute top-0 flex -translate-y-1/2 items-center gap-2 ${c.side === "right" ? "left-2" : "right-2 flex-row-reverse"}`}
+                className={`absolute top-0 flex -translate-y-1/2 items-center gap-2 ${c.side === "right" ? "left-1" : "right-1 flex-row-reverse"}`}
               >
-                <span className="h-px w-10 bg-white/50" />
-                <span className="rounded-full border border-white/15 bg-black/60 px-3 py-1 text-sm whitespace-nowrap text-white backdrop-blur">
+                <span className="h-px w-8 bg-white/60" />
+                <span className="text-sm font-semibold whitespace-nowrap text-white">
                   {c.label}
                 </span>
               </span>
@@ -45,15 +46,11 @@ export function Toolkit() {
         </div>
       }
       build={(tl, root) => {
-        tl.to(
-          root.querySelectorAll("[data-tk-title]"),
-          { opacity: 0.0, y: -30, duration: 0.2 },
-          0.32,
-        )
+        tl.to(root.querySelectorAll("[data-tk-title]"), { opacity: 0, y: -30, duration: 0.2 }, 0.3)
           .fromTo(
             root.querySelectorAll("[data-callout]"),
-            { opacity: 0, scale: 0.9 },
-            { opacity: 1, scale: 1, stagger: 0.03, duration: 0.08, ease: "power2.out" },
+            { opacity: 0 },
+            { opacity: 1, stagger: 0.03, duration: 0.06 },
             0.66,
           )
           .fromTo(
@@ -64,26 +61,18 @@ export function Toolkit() {
           );
       }}
     >
-      <div data-tk-title className="absolute inset-x-0 top-0 px-5 pt-28 md:px-10 md:pt-32 lg:px-16">
-        <p className="mb-5 text-xs font-medium tracking-[0.18em] text-white/45 uppercase">
-          Every trade
-        </p>
-        <h2 className="font-display max-w-[12ch] text-5xl leading-[0.95] font-semibold text-white md:text-7xl">
-          The right trade for every stage.
+      <div data-tk-title className="absolute inset-x-0 top-0 p-6 md:p-12">
+        <h2 className="font-display max-w-[13ch] text-5xl leading-[0.95] text-white md:text-7xl">
+          Chippies, sparkies, plumbers and more.
         </h2>
       </div>
-
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-black via-black/80 to-transparent" />
-      <div
-        data-tk-end
-        className="absolute inset-x-0 bottom-0 flex flex-col items-start gap-4 px-5 pb-10 md:flex-row md:items-end md:justify-between md:px-10 md:pb-14 lg:px-16"
-      >
-        <p className="font-display text-3xl leading-none font-semibold text-white md:text-5xl">
-          Every trade. <span className="text-b2t-yellow">One platform.</span>
+      <div data-tk-end className="absolute inset-x-0 bottom-0 p-6 md:p-12">
+        <p className="font-display max-w-[20ch] text-3xl leading-[1.02] text-white md:text-5xl">
+          Checked before anyone can quote.
         </p>
-        <p className="max-w-sm text-sm leading-relaxed text-white/60 md:text-base">
-          From slab to handover: carpenters, electricians, plumbers, fabricators and suppliers, all
-          verified and ready to quote.
+        <p className="mt-3 max-w-md text-sm text-white/65 md:text-base">
+          ABN, trade licences and insurance are verified, and reviews come from real jobs.
         </p>
       </div>
     </ScrollSequence>

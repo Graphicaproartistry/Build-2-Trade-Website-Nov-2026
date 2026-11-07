@@ -1,5 +1,0 @@
-{
-  "dust-beam": "Warm dust particles drifting through a light beam on black. Seamless 8.5s loop.",
-  "usage": "Overlay on dark sections with mix-blend-mode: screen at low opacity (0.15-0.35); black becomes transparent. Files: <name>.av1.mp4, <name>.mp4 (H.264), <name>.poster.webp",
-  "notes": "dust-beam has spiral swirls in the smoke that disappear at low opacity, so never use it full-strength. silk-ribbons was dropped (too 'AI/tech stock'); its source stays in media-src/ambient/."
-}
