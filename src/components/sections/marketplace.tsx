@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { site } from "@/content/site";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 
 /**
- * B2T Marketplace, pitched to suppliers: import your catalogue (Shopify, WordPress or
+ * B2T Marketplace, pitched to suppliers: set up a shop (by hand or imported from an online store,
  * by hand), get listed with your pricing, receive quote requests from builders and
  * tradies, then approve and send your quote. An animated four-step flow (time-based,
  * so it stays smooth on phones) with example data.
@@ -32,7 +31,7 @@ function ImportVisual() {
   return (
     <Panel>
       <div className="flex gap-2">
-        {["Shopify", "WordPress"].map((s) => (
+        {["WooCommerce", "Your online store"].map((s) => (
           <span
             key={s}
             className="bg-b2t-mist flex-1 rounded-xl px-3 py-2 text-center text-xs font-semibold"
@@ -45,7 +44,7 @@ function ImportVisual() {
       <div className="bg-b2t-navy/10 mt-2 h-1.5 overflow-hidden rounded-full">
         <div className="bg-b2t-navy h-full w-full origin-left animate-[spotlightBar_2.4s_cubic-bezier(0.22,1,0.36,1)_both] rounded-full" />
       </div>
-      <p className="text-b2t-navy/55 mt-2 text-[11px]">1,248 products · photos · prices · stock</p>
+      <p className="text-b2t-navy/55 mt-2 text-[11px]">Products · photos · prices · specs</p>
     </Panel>
   );
 }
@@ -122,41 +121,39 @@ function ApproveVisual() {
       </div>
       <div className="mt-3 flex gap-2">
         <span className="bg-b2t-navy flex-1 rounded-full py-2 text-center text-[11px] font-semibold text-white">
-          Approve & send quote
+          Send quote
         </span>
         <span className="bg-b2t-mist rounded-full px-3 py-2 text-[11px] font-semibold">Adjust</span>
       </div>
-      <p className="text-b2t-navy/55 mt-2 text-[11px]">
-        Then invoice through B2T when it&apos;s delivered.
-      </p>
+      <p className="text-b2t-navy/55 mt-2 text-[11px]">Then track delivery and send invoices.</p>
     </Panel>
   );
 }
 
 const steps = [
   {
-    title: "Import your catalogue",
-    body: "Connect your Shopify or WordPress store and bring in your products, photos and prices. Or add products by hand.",
+    title: "Set up your shop",
+    body: "List products with photos, prices, units, minimum order and specs, or connect your online store (for example WooCommerce) and import them, then publish in bulk.",
     visual: ImportVisual,
   },
   {
-    title: "Get listed on B2T",
-    body: "Your products appear in the B2T marketplace with your pricing, specials and the states you supply.",
+    title: "Get found",
+    body: "Builders and tradies browse your products by category, see prices and sales, and save the ones they like. Put products on sale with a SALE badge.",
     visual: ListedVisual,
   },
   {
     title: "Receive quote requests",
-    body: "Builders and tradies add your products to a quote request for their project and send it straight to you.",
+    body: "They add your products to a quote list and send it to you, with the delivery address and the date they need them.",
     visual: RequestVisual,
   },
   {
-    title: "Approve and send your quote",
-    body: "You get a notification, check the request, adjust anything you need to, and send your quote.",
+    title: "Quote, deliver, invoice",
+    body: "Your quote starts pre-filled from the request and your prices. Track the order to delivery, with deposit and final invoices.",
     visual: ApproveVisual,
   },
 ];
 
-export function Marketplace() {
+export function Marketplace({ showCta = true }: { showCta?: boolean }) {
   const [active, setActive] = useState(0);
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -190,16 +187,18 @@ export function Marketplace() {
               Your products, in front of every builder.
             </h2>
             <p className="mt-6 max-w-xl text-lg text-white/65">
-              Suppliers list their products on B2T, and builders and tradies request quotes for
-              whole projects in a few taps. You get the request, you approve the quote, and you get
-              the job.
+              Builders and tradies on Build2Trade need materials every day. Get their quote
+              requests, send quotes, invoice, deliver and sell from your own shop on the Build2Trade
+              marketplace.
             </p>
           </Reveal>
-          <Reveal className="shrink-0">
-            <Button href={site.links.signUp} variant="accent" size="lg">
-              List your products
-            </Button>
-          </Reveal>
+          {showCta && (
+            <Reveal className="shrink-0">
+              <Button href="/suppliers" variant="accent" size="lg">
+                See how it works for suppliers
+              </Button>
+            </Reveal>
+          )}
         </div>
 
         {/* Animated flow */}
@@ -263,25 +262,15 @@ export function Marketplace() {
         </ol>
 
         {/* For builders and tradies */}
-        <div className="mt-16 grid gap-8 border-t border-white/10 pt-12 md:mt-20 md:grid-cols-[1fr_2fr] md:gap-16">
-          <h3 className="font-display text-3xl leading-tight md:text-4xl">
-            For builders and tradies: materials priced without the phone calls.
+        <div className="mt-16 grid gap-8 border-t border-white/10 pt-12 md:mt-20 md:grid-cols-[1fr_1.4fr] md:gap-16">
+          <h3 className="font-display text-4xl leading-tight md:text-5xl">
+            Building supplies, a tap away.
           </h3>
-          <ul className="grid gap-6 sm:grid-cols-3">
-            {[
-              ["Browse suppliers", "Find suppliers by product and by the state they deliver to."],
-              [
-                "One request, whole project",
-                "Add everything the job needs to one quote request and send it.",
-              ],
-              ["Keep it on the job", "Supplier quotes and invoices stay with the project budget."],
-            ].map(([t, b]) => (
-              <li key={t}>
-                <p className="font-semibold">{t}</p>
-                <p className="mt-2 text-[15px] leading-relaxed text-white/60">{b}</p>
-              </li>
-            ))}
-          </ul>
+          <p className="text-lg leading-relaxed text-white/65">
+            Browse products from Australian building suppliers by category, see prices and sales,
+            save the ones you like and add them to a quote list. Send the list to the supplier and
+            get a proper quote back, with delivery to your site.
+          </p>
         </div>
       </div>
     </section>

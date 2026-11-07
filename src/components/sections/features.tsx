@@ -9,9 +9,9 @@ const D: [number, number] = [2000, 985]; // dashboard screenshot
 
 const cards = [
   {
-    title: "Post projects in minutes",
-    body: "Unlimited projects with trades and sub-trades ready to tick. Set dates, budget or PO, notes and scopes for each trade.",
-    icon: "M12 5v14M5 12h14",
+    title: "Quotes from the right tradies",
+    body: "Projects go to tradies by trade and by distance, so you hear from people who can actually do the job.",
+    icon: "M12 21s-6-5.6-6-11a6 6 0 1112 0c0 5.4-6 11-6 11z",
     crop: {
       src: "/media/images/app/mobile/create-project.webp",
       img: M,
@@ -19,8 +19,8 @@ const cards = [
     },
   },
   {
-    title: "Quotes without the back-and-forth",
-    body: "Request quotes from a posted project and compare them in one place. Accept, or reject with a reason, and tradies can requote.",
+    title: "Fair, recorded quotes",
+    body: "Every quote version and every project change is saved with the date and time. No more “that wasn't in the scope”.",
     icon: "M7 3h10l3 3v15H4V3zM8 11h8M8 15h5",
     crop: {
       src: "/media/images/app/dashboard-dark.webp",
@@ -29,18 +29,8 @@ const cards = [
     },
   },
   {
-    title: "Leads that match your trade",
-    body: "Tradies see new jobs for their trade and location range, and members get priority access to fresh projects.",
-    icon: "M12 21s-6-5.6-6-11a6 6 0 1112 0c0 5.4-6 11-6 11z",
-    crop: {
-      src: "/media/images/app/mobile/alerts.webp",
-      img: M,
-      rect: [34, 700, 853, 680] as const,
-    },
-  },
-  {
-    title: "Schedules that keep up",
-    body: "Calendar and Gantt views with reminders, so every trade knows when they're on.",
+    title: "Your trades on one calendar",
+    body: "Start and end dates for every trade, with reminders before work starts.",
     icon: "M4 6h16v14H4zM4 10h16M9 3v4M15 3v4",
     crop: {
       src: "/media/images/app/dashboard-dark.webp",
@@ -49,19 +39,33 @@ const cards = [
     },
   },
   {
-    title: "Verified profiles and reviews",
-    body: "ABN-verified badges, plus ratings and reviews from completed work, so you know who you're hiring.",
-    icon: "M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z",
-    crop: { src: "/media/images/app/mobile/home.webp", img: M, rect: [0, 740, 921, 330] as const },
+    title: "Materials sorted",
+    body: "Ask suppliers for a quote, compare them, accept, and track delivery and invoices.",
+    icon: "M4 9l2-5h12l2 5M4 9h16v11H4zM9 20v-6h6v6",
+    crop: {
+      src: "/media/images/app/dashboard-dark.webp",
+      img: D,
+      rect: [0, 620, 330, 365] as const,
+    },
   },
   {
-    title: "Budgets, invoices and reports",
-    body: "Assign quotes to each trade, collect trade invoices and download lifecycle reports in Excel or PDF to see profit or loss.",
+    title: "Know where the money goes",
+    body: "Log every project expense with receipts and see totals by trade.",
     icon: "M5 20V10M12 20V4M19 20v-7",
     crop: {
       src: "/media/images/app/mobile/my-projects.webp",
       img: M,
       rect: [34, 570, 853, 740] as const,
+    },
+  },
+  {
+    title: "Chat built in",
+    body: "Message tradies and suppliers about the job, with notifications on your phone.",
+    icon: "M4 5h16v11H8l-4 4z",
+    crop: {
+      src: "/media/images/app/mobile/alerts.webp",
+      img: M,
+      rect: [34, 470, 853, 700] as const,
     },
   },
 ];
@@ -122,7 +126,7 @@ export function Features() {
       <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden motion-reduce:static motion-reduce:h-auto motion-reduce:py-20">
         <div className="px-5 md:px-12 lg:px-20">
           <h2 className="font-display text-b2t-navy max-w-[16ch] text-5xl leading-[0.95] md:text-8xl">
-            Everything a build needs.
+            Everything a job needs.
           </h2>
         </div>
         <div className="motion-reduce:overflow-x-auto">

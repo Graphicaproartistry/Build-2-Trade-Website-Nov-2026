@@ -43,14 +43,24 @@ export function FinalCta() {
         </video>
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgb(16_24_39/0.92)_5%,rgb(16_24_39/0.55)_40%,transparent_75%)]" />
         <Reveal className="relative w-full p-6 md:p-12">
-          <h2 className="font-display max-w-[13ch] text-5xl leading-[0.95] text-white md:text-8xl">
-            Start networking smarter today.
+          <h2 className="font-display max-w-[14ch] text-5xl leading-[0.95] text-white md:text-8xl">
+            Ready to run your next job on Build2Trade?
           </h2>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button href={site.links.signUp} variant="accent" size="lg">
-              Start free for 3 months
+              Sign up free
             </Button>
-            <span className="text-sm font-medium text-white/60">No charges during the trial</span>
+            <Button href="/get-the-app" variant="light" size="lg">
+              Get the app
+            </Button>
+            <Button
+              href="/book-a-demo"
+              variant="outline"
+              size="lg"
+              className="border-white/25 text-white hover:border-white/50"
+            >
+              Book a demo
+            </Button>
           </div>
         </Reveal>
       </div>

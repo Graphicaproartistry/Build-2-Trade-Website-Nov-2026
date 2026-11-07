@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import { site } from "@/content/site";
 import { Button } from "@/components/ui/button";
 
 /**
@@ -23,32 +22,32 @@ const HOLE = {
 const steps = [
   {
     src: "home",
-    head: "Connecting builders to quality trades.",
-    line: "Hire verified tradies in minutes and run every job from one app.",
+    head: "Where builders, tradies and suppliers get the job done.",
+    line: "Built for Australian construction. Quotes, hiring, schedules, materials and invoices in one place.",
     tap: null,
   },
   {
     src: "create-project",
-    head: "Post a job from site.",
-    line: "Address, start date, plans and the trades you need, in about a minute.",
+    head: "Post the job.",
+    line: "Add the trades you need, the scope and your plans. Local tradies who do that trade see it.",
     tap: { x: 0.5, y: 0.93 },
   },
   {
-    src: "my-projects",
-    head: "Every build on one card.",
-    line: "Budget, trades and timeline for every project, always up to date.",
-    tap: { x: 0.32, y: 0.93 },
-  },
-  {
     src: "alerts",
-    head: "Quotes come to you.",
-    line: "Know the moment a quote or message comes in.",
+    head: "Get the quotes.",
+    line: "Quotes, messages and changes arrive as notifications on your phone.",
     tap: { x: 0.68, y: 0.93 },
   },
   {
+    src: "my-projects",
+    head: "Hire the right tradie.",
+    line: "Compare quotes side by side, hire in one tap and every trade lands on the calendar.",
+    tap: { x: 0.32, y: 0.93 },
+  },
+  {
     src: "invite-tradies",
-    head: "Bring your own tradies.",
-    line: "Invite the tradies you already trust by email or phone.",
+    head: "Bring your team with you.",
+    line: "Invite the tradies and suppliers you already work with by phone or email.",
     tap: null,
   },
 ] as const;
@@ -254,7 +253,7 @@ export function Hero() {
                 Screen readers get the brand tagline only. */}
             <h1
               data-intro
-              className="font-display text-b2t-navy grid w-full max-w-[13ch] text-[11.5vw] leading-[0.95] md:max-w-[17ch] md:text-[4.6vw]"
+              className="font-display text-b2t-navy grid w-full max-w-[14ch] text-[10vw] leading-[0.95] md:max-w-[22ch] md:text-[4.3vw]"
             >
               {steps.map((s, i) => (
                 <span
@@ -278,22 +277,55 @@ export function Hero() {
                 </p>
               ))}
             </div>
-            <div data-intro className="mt-6 flex items-center gap-4 md:mt-7">
-              <Button href={site.links.signUp} size="lg">
-                Start free for 3 months
-              </Button>
-              <div className="hidden gap-1.5 sm:flex" aria-hidden>
-                {steps.map((s, i) => (
-                  <span
-                    key={s.src}
-                    data-dot
-                    className="h-2 rounded-full"
-                    style={{
-                      width: i === 0 ? 24 : 8,
-                      backgroundColor: i === 0 ? "#101827" : "rgb(16 24 39 / 0.2)",
-                    }}
-                  />
-                ))}
+            <div data-intro className="mt-5 flex flex-col items-center gap-3 md:mt-7">
+              <div className="flex flex-wrap justify-center gap-2">
+                <Button
+                  href="/builders"
+                  size="lg"
+                  className="max-md:h-10 max-md:px-4 max-md:text-sm"
+                >
+                  I&apos;m a Builder
+                </Button>
+                <Button
+                  href="/tradies"
+                  size="lg"
+                  variant="outline"
+                  className="max-md:h-10 max-md:px-4 max-md:text-sm"
+                >
+                  I&apos;m a Tradie
+                </Button>
+                <Button
+                  href="/suppliers"
+                  size="lg"
+                  variant="outline"
+                  className="max-md:h-10 max-md:px-4 max-md:text-sm"
+                >
+                  I&apos;m a Supplier
+                </Button>
+              </div>
+              <div className="flex items-center gap-4">
+                <p className="text-b2t-navy/65 text-xs font-medium md:text-sm">
+                  Free to look around. Sign up on the web, then use the app on site.{" "}
+                  <a
+                    href="#demo"
+                    className="text-b2t-navy font-semibold whitespace-nowrap underline underline-offset-4"
+                  >
+                    Book a demo →
+                  </a>
+                </p>
+                <div className="hidden gap-1.5 sm:flex" aria-hidden>
+                  {steps.map((s, i) => (
+                    <span
+                      key={s.src}
+                      data-dot
+                      className="h-2 rounded-full"
+                      style={{
+                        width: i === 0 ? 24 : 8,
+                        backgroundColor: i === 0 ? "#101827" : "rgb(16 24 39 / 0.2)",
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>

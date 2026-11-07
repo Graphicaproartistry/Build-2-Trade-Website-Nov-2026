@@ -2,6 +2,7 @@
 
 import { ReactLenis, type LenisRef } from "lenis/react";
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 /**
@@ -29,6 +30,14 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       window.removeEventListener("load", refresh);
     };
   }, []);
+
+  // New page: jump to the top and recalculate scroll triggers for the new layout.
+  const pathname = usePathname();
+  useEffect(() => {
+    lenisRef.current?.lenis?.scrollTo(0, { immediate: true });
+    const id = requestAnimationFrame(() => ScrollTrigger.refresh());
+    return () => cancelAnimationFrame(id);
+  }, [pathname]);
 
   return (
     <ReactLenis
