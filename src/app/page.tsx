@@ -5,6 +5,8 @@ import { Trust } from "@/components/sections/trust";
 import { Statement } from "@/components/sections/statement";
 import { Platform } from "@/components/sections/platform";
 import { Features } from "@/components/sections/features";
+import { AiAssistant } from "@/components/sections/ai-assistant";
+import { Marketplace } from "@/components/sections/marketplace";
 import { Trades } from "@/components/sections/trades";
 import { Audiences } from "@/components/sections/audiences";
 import { Pricing } from "@/components/sections/pricing";
@@ -20,7 +22,9 @@ export default function Home() {
         <Trust />
         <Statement />
         <Platform />
+        <AiAssistant />
         <Features />
+        <Marketplace />
         <Trades />
         <Audiences />
         <Pricing />

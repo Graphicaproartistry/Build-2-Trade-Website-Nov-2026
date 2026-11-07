@@ -18,6 +18,14 @@ const faqs = [
     a: "Everyone gives their ABN when they sign up, and verified accounts show a badge. Trade licences, insurance and certifications are checked too, and reviews come from real jobs.",
   },
   {
+    q: "Does the AI do my estimating for me?",
+    a: "It does the heavy lifting. It reads your plans and documents, suggests trades and scopes, and produces a takeoff and material list you can export. You check and edit every line before anything is published or sent.",
+  },
+  {
+    q: "Can suppliers sell on Build2Trade?",
+    a: "Yes. Suppliers list products on the marketplace. Builders and tradies add items to a quote list, and suppliers send quotes and invoices through the platform.",
+  },
+  {
     q: "Can I bring my own tradies?",
     a: "Yes. Use Invite Preferred Tradies to send your regular tradies a link by email or phone. They join your network in minutes.",
   },

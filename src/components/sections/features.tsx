@@ -9,8 +9,8 @@ const D: [number, number] = [2000, 985]; // dashboard screenshot
 
 const cards = [
   {
-    title: "Post unlimited projects",
-    body: "Pick the trades and sub-trades you need. They're already set up, so there's nothing to configure.",
+    title: "Post projects in minutes",
+    body: "Unlimited projects with trades and sub-trades ready to tick. Set dates, budget or PO, notes and scopes for each trade.",
     icon: "M12 5v14M5 12h14",
     crop: {
       src: "/media/images/app/mobile/create-project.webp",
@@ -19,23 +19,23 @@ const cards = [
     },
   },
   {
-    title: "Quotes in one place",
-    body: "Tradies quote straight from your project. Compare, approve and keep every quote on record.",
+    title: "Quotes without the back-and-forth",
+    body: "Request quotes from a posted project and compare them in one place. Accept, or reject with a reason, and tradies can requote.",
     icon: "M7 3h10l3 3v15H4V3zM8 11h8M8 15h5",
-    crop: {
-      src: "/media/images/app/mobile/alerts.webp",
-      img: M,
-      rect: [34, 700, 853, 680] as const,
-    },
-  },
-  {
-    title: "Chat and files per job",
-    body: "Plans, photos and decisions stay with the project, not lost in text threads.",
-    icon: "M4 5h16v11H8l-4 4z",
     crop: {
       src: "/media/images/app/dashboard-dark.webp",
       img: D,
       rect: [907, 410, 500, 560] as const,
+    },
+  },
+  {
+    title: "Leads that match your trade",
+    body: "Tradies see new jobs for their trade and location range, and members get priority access to fresh projects.",
+    icon: "M12 21s-6-5.6-6-11a6 6 0 1112 0c0 5.4-6 11-6 11z",
+    crop: {
+      src: "/media/images/app/mobile/alerts.webp",
+      img: M,
+      rect: [34, 700, 853, 680] as const,
     },
   },
   {
@@ -50,13 +50,13 @@ const cards = [
   },
   {
     title: "Verified profiles and reviews",
-    body: "ABN, licences and insurance are checked. Ratings from real jobs show who turns up.",
+    body: "ABN-verified badges, plus ratings and reviews from completed work, so you know who you're hiring.",
     icon: "M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z",
     crop: { src: "/media/images/app/mobile/home.webp", img: M, rect: [0, 740, 921, 330] as const },
   },
   {
-    title: "Budgets and reports",
-    body: "Track budget, profit and loss and timelines, then export lifecycle reports to Excel or PDF.",
+    title: "Budgets, invoices and reports",
+    body: "Assign quotes to each trade, collect trade invoices and download lifecycle reports in Excel or PDF to see profit or loss.",
     icon: "M5 20V10M12 20V4M19 20v-7",
     crop: {
       src: "/media/images/app/mobile/my-projects.webp",
