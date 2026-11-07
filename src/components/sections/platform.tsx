@@ -46,7 +46,7 @@ export function Platform() {
           <span className="bg-b2t-yellow size-2 rounded-full" />
           Built for builders
         </p>
-        <h2 className="font-display text-b2t-navy text-5xl leading-[0.95] md:text-7xl">
+        <h2 className="font-display text-b2t-navy text-5xl leading-[0.95] md:text-8xl">
           Phone on site.
           <br />
           Desktop in the office.

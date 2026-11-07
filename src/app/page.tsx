@@ -1,4 +1,5 @@
 import { Nav } from "@/components/site/nav";
+import { HeadlineReveals } from "@/components/ui/headline-reveals";
 import { Footer } from "@/components/site/footer";
 import { Hero } from "@/components/sections/hero";
 import { Trust } from "@/components/sections/trust";
@@ -18,6 +19,7 @@ export default function Home() {
     <>
       <Nav />
       <main>
+        <HeadlineReveals />
         <Hero />
         <Trust />
         <Statement />

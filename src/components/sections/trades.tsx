@@ -30,7 +30,7 @@ export function Trades() {
     <section id="trades" className="px-5 py-24 md:px-12 md:py-36 lg:px-20">
       <Reveal className="grid gap-8 md:grid-cols-[1fr_1.6fr] md:gap-16">
         <div>
-          <h2 className="font-display text-b2t-navy max-w-[11ch] text-5xl leading-[0.95] md:text-7xl">
+          <h2 className="font-display text-b2t-navy max-w-[11ch] text-5xl leading-[0.95] md:text-8xl">
             Find the right trade.
           </h2>
           <p className="text-b2t-navy/60 mt-6 max-w-sm text-lg font-medium">

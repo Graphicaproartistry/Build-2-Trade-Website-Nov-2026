@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { Crop } from "@/components/ui/crop";
 
 const M: [number, number] = [921, 2000]; // mobile screenshots
@@ -71,79 +71,97 @@ export function Features() {
   const ref = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
 
+  // The cards slide sideways while the section is held in place (CSS sticky).
+  // Where the browser supports scroll-driven animations, the slide runs on the
+  // compositor in step with the finger (smooth on phones). Otherwise GSAP drives it.
+  // JS only measures the slide distance (--dist), which also sets the section height.
   useGSAP(
     () => {
-      const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const el = track.current;
-        if (!el) return;
-        const dist = () => el.scrollWidth - window.innerWidth;
-        gsap.to(el, {
-          x: () => -dist(),
+      const section = ref.current;
+      const el = track.current;
+      if (!section || !el) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const measure = () => {
+        const dist = Math.max(0, el.scrollWidth - window.innerWidth);
+        section.style.setProperty("--dist", `${dist}px`);
+      };
+      measure();
+      const ro = new ResizeObserver(() => {
+        measure();
+        ScrollTrigger.refresh();
+      });
+      ro.observe(el);
+
+      let tween: gsap.core.Tween | undefined;
+      if (!CSS.supports("animation-timeline: view()")) {
+        tween = gsap.to(el, {
+          x: () => -(el.scrollWidth - window.innerWidth),
           ease: "none",
           scrollTrigger: {
-            trigger: ref.current,
+            trigger: section,
             start: "top top",
-            end: () => `+=${dist()}`,
-            pin: true,
-            anticipatePin: 1,
+            end: "bottom bottom",
             scrub: true,
             invalidateOnRefresh: true,
           },
         });
-      });
-      return () => mm.revert();
+      }
+      ScrollTrigger.refresh();
+      return () => {
+        ro.disconnect();
+        tween?.scrollTrigger?.kill();
+        tween?.kill();
+      };
     },
     { scope: ref },
   );
 
   return (
-    <section
-      ref={ref}
-      id="how-it-works"
-      className="flex h-svh flex-col justify-center overflow-hidden"
-    >
-      <div className="px-5 md:px-12 lg:px-20">
-        <h2 className="font-display text-b2t-navy max-w-[16ch] text-5xl leading-[0.95] md:text-7xl">
-          Everything a build needs.
-        </h2>
-      </div>
-      <div className="motion-reduce:overflow-x-auto">
-        <div
-          ref={track}
-          className="mt-8 flex w-max gap-4 px-5 will-change-transform md:mt-14 md:px-12 lg:px-20"
-        >
-          {cards.map((c) => (
-            <article key={c.title} className="w-[74vw] shrink-0 sm:w-[22rem] md:w-[26rem]">
-              <div className="bg-b2t-sand flex aspect-[4/4.2] items-center justify-center overflow-hidden rounded-[28px] p-7">
-                <Crop
-                  src={c.crop.src}
-                  img={c.crop.img}
-                  rect={[...c.crop.rect]}
-                  alt={c.title}
-                  className="w-full max-w-[19rem] rounded-2xl shadow-[0_20px_40px_-12px_rgb(16_24_39/0.25)] ring-1 ring-black/5"
-                />
-              </div>
-              <h3 className="text-b2t-navy mt-5 flex items-center gap-2 text-lg font-semibold">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="size-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden
-                >
-                  <path d={c.icon} />
-                </svg>
-                {c.title}
-              </h3>
-              <p className="text-b2t-navy/60 mt-2 max-w-[24rem] text-[15px] leading-relaxed">
-                {c.body}
-              </p>
-            </article>
-          ))}
+    <section ref={ref} id="how-it-works" className="features-scroll relative">
+      <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden motion-reduce:static motion-reduce:h-auto motion-reduce:py-20">
+        <div className="px-5 md:px-12 lg:px-20">
+          <h2 className="font-display text-b2t-navy max-w-[16ch] text-5xl leading-[0.95] md:text-8xl">
+            Everything a build needs.
+          </h2>
+        </div>
+        <div className="motion-reduce:overflow-x-auto">
+          <div
+            ref={track}
+            className="features-track mt-8 flex w-max gap-4 px-5 will-change-transform md:mt-14 md:px-12 lg:px-20"
+          >
+            {cards.map((c) => (
+              <article key={c.title} className="w-[74vw] shrink-0 sm:w-[22rem] md:w-[26rem]">
+                <div className="bg-b2t-sand flex aspect-[4/4.2] items-center justify-center overflow-hidden rounded-[28px] p-7">
+                  <Crop
+                    src={c.crop.src}
+                    img={c.crop.img}
+                    rect={[...c.crop.rect]}
+                    alt={c.title}
+                    className="w-full max-w-[19rem] rounded-2xl shadow-[0_20px_40px_-12px_rgb(16_24_39/0.25)] ring-1 ring-black/5"
+                  />
+                </div>
+                <h3 className="text-b2t-navy mt-5 flex items-center gap-2 text-lg font-semibold">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="size-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden
+                  >
+                    <path d={c.icon} />
+                  </svg>
+                  {c.title}
+                </h3>
+                <p className="text-b2t-navy/60 mt-2 max-w-[24rem] text-[15px] leading-relaxed">
+                  {c.body}
+                </p>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
