@@ -31,7 +31,7 @@ const cards = [
   },
   {
     title: "Know where the money goes",
-    body: "Log every project expense with receipts and see totals by trade.",
+    body: "Log every project expense with receipts, see totals by trade, and download the project report as PDF or Excel.",
     icon: "M5 20V10M12 20V4M19 20v-7",
     image: { src: "/media/images/crops/feature-5.webp", w: 853, h: 740 },
   },

@@ -6,6 +6,7 @@ import { Audiences } from "@/components/sections/audiences";
 import { Platform } from "@/components/sections/platform";
 import { Features } from "@/components/sections/features";
 import { Trades } from "@/components/sections/trades";
+import { ProjectReport } from "@/components/sections/project-report";
 import { Spotlight } from "@/components/sections/spotlight";
 import { Marketplace } from "@/components/sections/marketplace";
 import { Pricing } from "@/components/sections/pricing";
@@ -31,6 +32,7 @@ export default function Home() {
       <Audiences />
       <Platform />
       <Features />
+      <ProjectReport />
       <Trades />
       <Spotlight />
       <Marketplace />
