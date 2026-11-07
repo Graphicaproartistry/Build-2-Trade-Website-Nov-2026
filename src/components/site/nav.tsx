@@ -8,30 +8,27 @@ import { Logo } from "@/components/site/logo";
 import { cn } from "@/lib/utils";
 
 const links = [
+  { label: "The app", href: "#app" },
   { label: "Platform", href: "#platform" },
-  { label: "App", href: "#app" },
-  { label: "Trades", href: "#trades" },
   { label: "How it works", href: "#how-it-works" },
   { label: "Pricing", href: "#pricing" },
+  { label: "FAQ", href: "#faq" },
 ];
 
-/** Floating pill navigation. It hides on scroll down and returns on scroll up. */
+/** Floating white pill navigation, centred (Umano-style). */
 export function Nav() {
   const [hidden, setHidden] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     let last = window.scrollY;
     const onScroll = () => {
       const y = window.scrollY;
-      setScrolled(y > 24);
       if (Math.abs(y - last) > 6) {
-        setHidden(y > last && y > 240);
+        setHidden(y > last && y > 400);
         last = y;
       }
     };
-    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -44,59 +41,52 @@ export function Nav() {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-3 z-50 flex justify-center px-3 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:top-5",
-          hidden && !open && "-translate-y-[140%]",
+          "fixed inset-x-0 top-3 z-50 flex justify-center px-3 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:top-4",
+          hidden && !open && "-translate-y-[150%]",
         )}
       >
         <nav
           aria-label="Main"
-          className={cn(
-            "flex w-full max-w-5xl items-center justify-between gap-6 rounded-full border py-2 pr-2 pl-4 transition-colors duration-300",
-            scrolled || open
-              ? "bg-b2t-navy/75 border-white/10 backdrop-blur-xl"
-              : "border-transparent bg-transparent",
-          )}
+          className="flex items-center gap-2 rounded-full bg-white/95 p-1.5 pl-4 shadow-[0_2px_4px_rgb(16_24_39/0.04),0_10px_30px_rgb(16_24_39/0.10)] ring-1 ring-black/5 backdrop-blur md:gap-6"
         >
           <Link href="/" aria-label="Build 2 Trade home" className="shrink-0">
             <Logo />
           </Link>
 
-          <ul className="hidden items-center gap-7 text-sm text-white/70 lg:flex">
+          <ul className="text-b2t-navy/70 hidden items-center gap-6 text-sm font-medium lg:flex">
             {links.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="transition-colors hover:text-white">
+                <a href={l.href} className="hover:text-b2t-navy transition-colors">
                   {l.label}
                 </a>
               </li>
             ))}
           </ul>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <a
               href={site.links.signIn}
-              className="hidden px-3 text-sm text-white/70 transition-colors hover:text-white sm:block"
+              className="text-b2t-navy/70 hover:text-b2t-navy hidden px-3 text-sm font-medium transition-colors sm:block"
             >
               Sign in
             </a>
-            <Button href={site.links.signUp} className="hidden sm:inline-flex">
-              Start free
-            </Button>
+            <Button href={site.links.signUp}>Start free</Button>
             <button
               type="button"
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
-              className="relative grid size-10 place-items-center rounded-full border border-white/15 lg:hidden"
+              className="bg-b2t-mist relative grid size-10 place-items-center rounded-full lg:hidden"
             >
               <span
                 className={cn(
-                  "absolute h-px w-4 bg-white transition-transform duration-300",
+                  "bg-b2t-navy absolute h-[1.5px] w-4 transition-transform duration-300",
                   open ? "rotate-45" : "-translate-y-[3px]",
                 )}
               />
               <span
                 className={cn(
-                  "absolute h-px w-4 bg-white transition-transform duration-300",
+                  "bg-b2t-navy absolute h-[1.5px] w-4 transition-transform duration-300",
                   open ? "-rotate-45" : "translate-y-[3px]",
                 )}
               />
@@ -105,10 +95,9 @@ export function Nav() {
         </nav>
       </header>
 
-      {/* Mobile menu */}
       <div
         className={cn(
-          "bg-b2t-navy fixed inset-0 z-40 transition-[opacity,visibility] duration-500 lg:hidden",
+          "bg-b2t-paper fixed inset-0 z-40 transition-[opacity,visibility] duration-500 lg:hidden",
           open ? "visible opacity-100" : "invisible opacity-0",
         )}
       >
@@ -126,7 +115,7 @@ export function Nav() {
                 <a
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="font-display block py-2 text-4xl font-semibold text-white"
+                  className="font-display text-b2t-navy block py-1.5 text-5xl"
                 >
                   {l.label}
                 </a>
@@ -137,7 +126,7 @@ export function Nav() {
             <Button href={site.links.signUp} size="lg" className="w-full">
               Start free for 3 months
             </Button>
-            <Button href={site.links.signIn} variant="ghost" size="lg" className="w-full">
+            <Button href={site.links.signIn} variant="outline" size="lg" className="w-full">
               Sign in
             </Button>
           </div>

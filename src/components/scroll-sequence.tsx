@@ -36,6 +36,8 @@ type Props = {
   id?: string;
   className?: string;
   stageClassName?: string;
+  /** Inset, rounded panel on the light page (Umano-style container). */
+  framed?: boolean;
   label: string;
   /** Background colour to fade the footage edges into when it doesn't fill the stage (mobile). */
   feather?: string;
@@ -92,6 +94,7 @@ export function ScrollSequence({
   id,
   className,
   stageClassName,
+  framed = false,
   label,
   feather,
   overlay,
@@ -273,7 +276,13 @@ export function ScrollSequence({
     >
       <div
         ref={stageRef}
-        className={cn("sticky top-0 h-dvh w-full overflow-hidden", stageClassName)}
+        className={cn(
+          "sticky w-full overflow-hidden",
+          framed
+            ? "top-1.5 mx-auto h-[calc(100dvh-12px)] w-[calc(100%-12px)] rounded-[28px] md:top-2 md:h-[calc(100dvh-16px)] md:w-[calc(100%-16px)] md:rounded-[44px]"
+            : "top-0 h-dvh",
+          stageClassName,
+        )}
       >
         <canvas ref={canvasRef} aria-hidden className="absolute inset-0 h-full w-full" />
         <div ref={overlayRef} className="pointer-events-none absolute" aria-hidden>

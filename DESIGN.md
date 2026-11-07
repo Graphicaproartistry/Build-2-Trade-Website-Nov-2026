@@ -4,7 +4,7 @@
 - **Must not look AI-generated.** Professional, restrained and smooth.
 - **No neon:** no glowing lines, coloured glows, gradient text, glowing borders,
   purple or blue "tech" gradients, or sci-fi HUD elements.
-- **Yellow is used selectively:** CTAs, active states and key details only, never as a section fill.
+- **Yellow is used selectively:** the hero panel, the footer brand card and CTAs on navy. Never inside headlines.
 - **One brand across the website and the app:** the website accent is the app's yellow.
 
 ## Palette
@@ -18,11 +18,19 @@
 | White | #FFFFFF | Cards, type on dark |
 | Yellow ink | #8A6100 | Yellow-family *text* on light surfaces (AA) |
 
-## Dark vs light
-- **Dark:** hero and laptop, product showcase and dashboard demos, full-width construction
-  footage, feature storytelling and transitions, final CTA and footer.
-- **Light:** reading-heavy content (pricing detail, FAQ, blog).
-- **Dark look:** navy, a neutral overhead light falloff, large white type, yellow highlights.
+## Layout system (reference: umanodesign.studio)
+- **Page:** light, warm off-white `#FAFAFA`, navy text.
+- **Hero:** a single bold **B2T Yellow panel** with rounded bottom corners. A centred, heavy headline
+  sits above the gloved hand holding the phone.
+- **Panels:** dramatic content (the scroll-scrubbed footage, who-it's-for, the closing CTA) sits in
+  **large rounded navy panels** (radius 28px mobile / 44px desktop) inset 6–8px from the edges.
+- **Cards:** sand `#EDE7DB` tiles with real app crops, then an icon, a bold title and short grey text.
+- **Type:** Fraunces 900 (opsz 48, tight tracking) for headlines; Inter for text.
+- **Buttons:** navy pills by default; yellow pills only on navy.
+- **Nav:** a white floating pill with a soft shadow.
+- **Footer:** a yellow brand card plus a white links card, with the email set huge and faint below.
+- **Not used:** eyebrow labels, yellow words inside headlines, glass chips, decorative glows,
+  ambient or stock video.
 
 ## What keeps it from looking AI-made
 - **Real material:** genuine product UI and photographic footage. No abstract "tech" filler.

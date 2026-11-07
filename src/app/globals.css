@@ -22,6 +22,11 @@
   --color-b2t-navy-700: #1f2b43; /* borders and dividers on navy */
   --color-b2t-slate-300: #a3aec2; /* muted text on navy (7.9:1) */
   --color-b2t-slate-600: #475569; /* muted text on light (7.1:1) */
+
+  /* Umano-style light system */
+  --color-b2t-paper: #fafafa; /* page background */
+  --color-b2t-sand: #ede7db; /* warm card tiles */
+  --color-b2t-mist: #f0f1f3; /* neutral tiles */
 }
 
 /* ============================================================
@@ -80,19 +85,19 @@
   --color-accent-hover: var(--accent-hover);
   --color-accent-text: var(--accent-text);
   --color-link: var(--link);
-  --font-sans: var(--font-geist-sans);
-  --font-display: var(--font-archivo);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-fraunces);
 }
 
 html {
-  background-color: var(--color-b2t-navy);
-  color-scheme: dark;
+  background-color: var(--color-b2t-paper);
+  color-scheme: light;
 }
 
 body {
-  background-color: var(--color-b2t-navy);
-  color: var(--color-b2t-white);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  background-color: var(--color-b2t-paper);
+  color: var(--color-b2t-navy);
+  font-family: var(--font-inter), system-ui, sans-serif;
 }
 
 ::selection {
@@ -100,10 +105,15 @@ body {
   color: var(--color-b2t-navy);
 }
 
-/* Display type: slightly condensed, tight, confident */
+/* Display type: chunky, heavy, tight (Umano-style) */
 .font-display {
-  font-stretch: 88%;
-  letter-spacing: -0.02em;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 900;
+  font-variation-settings:
+    "opsz" 48,
+    "SOFT" 0,
+    "WONK" 0;
+  letter-spacing: -0.04em;
 }
 
 /* Fine film grain over dark sections to avoid flat, "digital" gradients */
