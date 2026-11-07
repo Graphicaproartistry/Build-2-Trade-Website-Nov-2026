@@ -193,3 +193,35 @@ h2.font-display > div[aria-hidden] {
   padding-bottom: 0.18em;
   margin-bottom: -0.18em;
 }
+
+/* Hero entrance: plain CSS so it runs from the first paint (before any JS). */
+.hero-in {
+  animation: heroIn 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-rise {
+  animation: heroRise 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+@keyframes heroIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes heroRise {
+  from {
+    transform: translateY(16%);
+  }
+  to {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-in,
+  .hero-rise {
+    animation: none;
+  }
+}
