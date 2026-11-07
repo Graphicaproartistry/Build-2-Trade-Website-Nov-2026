@@ -23,6 +23,9 @@ export function HeadlineReveals() {
             ease: "expo.out",
             stagger: 0.09,
             scrollTrigger: { trigger: el, start: "top 88%", once: true },
+            // Remove the masks afterwards so nothing (like the tails of g, y, p)
+            // can ever be clipped once the headline is in place.
+            onComplete: () => self.revert(),
           });
         },
       }),

@@ -186,3 +186,10 @@ body {
     transform: translateX(calc(-1 * var(--dist, 0px)));
   }
 }
+
+/* Headline reveal masks (SplitText): extend the clip box below each line so the
+   tails of g, y, p, q aren't cut while the lines rise in. */
+h2.font-display > div[aria-hidden] {
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
+}
