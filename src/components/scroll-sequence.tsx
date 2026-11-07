@@ -28,8 +28,8 @@ type Props = {
   /** Frame count of the mobile set if it differs (phones get a lighter sequence). */
   mobileFrameCount?: number;
   /**
-   * Phones: "autoplay" shows the sequence in a normal-height panel and plays it once
-   * when it comes into view (smooth and short); "scrub" pins and scrubs as on desktop.
+   * Phones: "autoplay" shows the sequence in a normal-height panel (no pinning) and plays
+   * it as the panel scrolls through the screen; "scrub" pins and scrubs as on desktop.
    */
   mobileMode?: "scrub" | "autoplay";
   /** Panel height in autoplay mode (CSS length). */
@@ -282,32 +282,12 @@ export function ScrollSequence({
       const state = { f: 0 };
       const tl = gsap.timeline({
         defaults: { ease: "none" },
-        ...(autoplay
-          ? { paused: true }
-          : {
-              scrollTrigger: { trigger: wrap, start: "top top", end: "bottom bottom", scrub: true },
-            }),
+        scrollTrigger: autoplay
+          ? // Phones: no pinning. The sequence plays as the panel scrolls up through the
+            // screen, so it always animates in step with the finger (and in reverse).
+            { trigger: wrap, start: "top 85%", end: "bottom 45%", scrub: 0.3 }
+          : { trigger: wrap, start: "top top", end: "bottom bottom", scrub: true },
       });
-      if (autoplay) {
-        // Play once when the panel is well in view, after the frames have loaded.
-        ScrollTrigger.create({
-          trigger: wrap,
-          start: "top 65%",
-          once: true,
-          onEnter: () => {
-            const begin = Date.now();
-            const go = () => {
-              const n = loaded.current.reduce((a, b) => a + b, 0);
-              if (n >= frameCount * 0.9 || Date.now() - begin > 3000) {
-                gsap.to(tl, { progress: 1, duration: 2.8, ease: "power1.inOut" });
-              } else {
-                setTimeout(go, 100);
-              }
-            };
-            go();
-          },
-        });
-      }
       tl.to(
         state,
         {
