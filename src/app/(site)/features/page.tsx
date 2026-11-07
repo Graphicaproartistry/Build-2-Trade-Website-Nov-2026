@@ -27,6 +27,12 @@ const rows: [string, Cell, Cell, Cell][] = [
   ["Chat and push notifications", true, true, true],
   ["Invoices with GST", "Receive", "Send", "Send"],
   ["Project expenses with receipts, totals by trade and export", true, false, false],
+  [
+    "Project report (PDF and Excel): hired tradies, quotes, budget, expenses, schedules",
+    true,
+    false,
+    false,
+  ],
   ["Permits per project", true, false, false],
   ["Material quote requests to suppliers", true, "Once hired", "Receive"],
   ["Order tracking, deposit and final invoices", true, true, true],

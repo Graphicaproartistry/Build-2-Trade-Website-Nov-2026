@@ -5,6 +5,7 @@ import { Cards, Section, TickList } from "@/components/page/section";
 import { CtaBand } from "@/components/page/cta-band";
 import { FaqList } from "@/components/page/faq-list";
 import { BookDemo } from "@/components/sections/book-demo";
+import { ProjectReport } from "@/components/sections/project-report";
 import { JsonLd, faqJsonLd } from "@/components/seo/json-ld";
 import { pageMeta } from "@/lib/seo";
 import { HeadlineReveals } from "@/components/ui/headline-reveals";
@@ -60,6 +61,10 @@ const features = [
     body: "Log every cost against the project and trade: materials, hire, labour and more. Attach receipts and invoices. See totals by trade and for the whole project, and export the project's expenses as a report.",
   },
   {
+    title: "Project reports in PDF and Excel",
+    body: "Download a full report for any project: hired tradies and their quotes, pending trades, budget or PO, total project cost, every expense and each trade's dates and scope.",
+  },
+  {
     title: "Permits in one place",
     body: "Keep track of the permits for each project and who issued them.",
   },
@@ -110,6 +115,10 @@ const faqs = [
     a: "Yes, by phone or email, before the project goes public.",
   },
   {
+    q: "Can I export a report for a project?",
+    a: "Yes. Download a project report as PDF or Excel with hired tradies, quotes, budget, expenses and schedules.",
+  },
+  {
     q: "Do I pay tradies through Build2Trade?",
     a: "No. Invoices come through Build2Trade and you pay the tradie directly.",
   },
@@ -138,6 +147,8 @@ export default function Page() {
       <Section title="What you get" className="pt-0 md:pt-0">
         <Cards items={features} />
       </Section>
+
+      <ProjectReport title="Know every job inside out." />
 
       <section className="px-1.5 md:px-2">
         <div className="bg-b2t-navy rounded-[28px] px-5 py-20 text-white md:rounded-[44px] md:px-12 md:py-28 lg:px-20">

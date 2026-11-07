@@ -5,7 +5,7 @@ const audiences = [
   {
     who: "For Builders",
     href: "/builders",
-    body: "Post your project once and get quotes from local tradies who actually do that trade. Compare, hire, schedule and track costs on every job.",
+    body: "Post your project once and get quotes from local tradies who actually do that trade. Compare, hire, schedule, track costs and download a full project report on every job.",
     cta: "See how it works for builders",
   },
   {
