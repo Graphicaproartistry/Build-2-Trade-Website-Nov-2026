@@ -1,8 +1,9 @@
 # B2T mobile app: UI reference for the website mockups
 
-The original screenshots live in `reference/app/`, which is git-ignored because they contain
-real customer names, logos, addresses and budgets. The phone mockups on the website are rebuilt
-in code with **made-up demo data only**.
+Screenshots: `public/media/images/app/mobile/` (home, alerts, create-project, my-projects,
+invite-tradies) and `public/media/images/app/dashboard-{dark,light}.webp`. The client has confirmed
+that all names, logos, addresses and budgets in them are dummy data. The website mockups are
+rebuilt in code from these designs.
 
 ## App palette (sampled from the screenshots)
 | Role | Hex |
