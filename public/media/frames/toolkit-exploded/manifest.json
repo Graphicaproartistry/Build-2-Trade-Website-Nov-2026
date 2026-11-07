@@ -1,0 +1,9 @@
+{
+  "name": "toolkit-exploded",
+  "source": "media-src/toolkit-exploded.mp4",
+  "frameCount": 143,
+  "fps": 24,
+  "pattern": "%03d.webp",
+  "sizes": { "desktop": [1920, 1080], "mobile": [1080, 608] },
+  "notes": "0-1s tool stack at rest on the floor; 1-4s the tools separate and float apart; 4-6s exploded layout holds. Bottom edge crops some items, so cover it with a dark gradient in the layout."
+}
