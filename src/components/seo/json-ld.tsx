@@ -23,7 +23,7 @@ export function homeJsonLd() {
     description: site.description,
     areaServed: { "@type": "Country", name: "Australia" },
     email: site.contact.email,
-    telephone: site.contact.phone,
+    telephone: site.contact.phoneIntl,
     taxID: site.contact.abn,
     sameAs: [site.social.facebook, site.social.youtube],
   };

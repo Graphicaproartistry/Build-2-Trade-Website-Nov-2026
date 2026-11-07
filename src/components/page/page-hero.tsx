@@ -14,10 +14,10 @@ export function PageHero({
   className?: string;
 }) {
   return (
-    <header className="px-1.5 md:px-2">
+    <header className="p-1.5 pb-0 md:p-2 md:pb-0">
       <div
         className={cn(
-          "bg-b2t-yellow flex flex-col items-center rounded-b-[28px] px-5 pt-32 pb-16 text-center md:rounded-b-[44px] md:pt-40 md:pb-24",
+          "bg-b2t-yellow flex flex-col items-center rounded-[28px] px-5 pt-32 pb-16 text-center md:rounded-[44px] md:pt-40 md:pb-24",
           className,
         )}
       >

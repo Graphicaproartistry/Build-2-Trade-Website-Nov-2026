@@ -88,7 +88,15 @@ export function Footer() {
           </div>
           <div className="text-b2t-navy/50 flex flex-col justify-between gap-4 text-xs sm:flex-row sm:items-center">
             <p>
-              © 2026 Build2Trade · ABN {c.abn} · {site.credit}
+              © 2026 Build2Trade · ABN {c.abn} · {site.credit.text}{" "}
+              <a
+                href={site.credit.url}
+                target="_blank"
+                rel="noopener"
+                className="text-b2t-navy/70 hover:text-b2t-navy font-semibold underline-offset-4 hover:underline"
+              >
+                {site.credit.name}
+              </a>
             </p>
             <div className="flex gap-2">
               <Button href={site.links.signIn} variant="outline">

@@ -60,7 +60,7 @@ export function Hero() {
 
   // Size the hand so the phone fills the space left under the headline. The photo has
   // empty background above the phone (top ~10.7% of its height), which is tucked under
-  // the button; the phone itself spans ~10.7%-72.5% of the photo height.
+  // the button; the phone itself spans ~10.7%-74% of the photo height.
   useEffect(() => {
     const panel = panelRef.current;
     const head = headRef.current;
@@ -69,8 +69,11 @@ export function Hero() {
     const fit = () => {
       const headBottom = head.offsetTop + head.offsetHeight;
       const gap = window.innerWidth < 768 ? 16 : 24;
-      const avail = panel.clientHeight - headBottom - gap - 10;
-      const h = Math.max(300, avail / 0.618);
+      // Leave clear space under the phone so its bottom bezel is never cut off;
+      // the phone body runs from ~10.7% to ~74% of the photo's height.
+      const bottomSpace = window.innerWidth < 768 ? 28 : 40;
+      const avail = panel.clientHeight - headBottom - gap - bottomSpace;
+      const h = Math.max(200, avail / 0.633);
       hand.style.height = `${h}px`;
       hand.style.marginTop = `${gap - 0.107 * h}px`;
     };
@@ -239,10 +242,10 @@ export function Hero() {
       aria-label="Build 2 Trade: connecting builders to quality trades"
       className="relative h-[310vh] md:h-[440vh]"
     >
-      <div className="sticky top-0 h-svh px-1.5 pb-1.5 md:px-2 md:pb-2">
+      <div className="sticky top-0 h-svh p-1.5 md:p-2">
         <div
           ref={panelRef}
-          className="bg-b2t-yellow relative flex h-full flex-col items-center overflow-hidden rounded-b-[28px] md:rounded-b-[44px]"
+          className="bg-b2t-yellow relative flex h-full flex-col items-center overflow-hidden rounded-[28px] md:rounded-[44px]"
         >
           <div
             ref={headRef}
@@ -282,6 +285,7 @@ export function Hero() {
                 <Button
                   href="/builders"
                   size="lg"
+                  arrow
                   className="max-md:h-10 max-md:px-4 max-md:text-sm"
                 >
                   I&apos;m a Builder
@@ -289,6 +293,7 @@ export function Hero() {
                 <Button
                   href="/tradies"
                   size="lg"
+                  arrow
                   variant="outline"
                   className="max-md:h-10 max-md:px-4 max-md:text-sm"
                 >
@@ -297,6 +302,7 @@ export function Hero() {
                 <Button
                   href="/suppliers"
                   size="lg"
+                  arrow
                   variant="outline"
                   className="max-md:h-10 max-md:px-4 max-md:text-sm"
                 >

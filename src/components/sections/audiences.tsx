@@ -72,10 +72,21 @@ export function Audiences() {
             {steps.map(([t, b], i) => (
               <li
                 key={t}
-                className="grid grid-cols-[2.5rem_1fr] gap-4 py-6 md:grid-cols-[4rem_1fr] md:py-8"
+                className="group relative grid grid-cols-[2.5rem_1fr] gap-4 py-6 md:grid-cols-[4rem_1fr] md:py-8"
               >
-                <span className="font-display text-3xl text-white/40 md:text-4xl">{i + 1}</span>
-                <div>
+                {/* yellow shade that sweeps in from the left, plus an edge bar */}
+                <span
+                  aria-hidden
+                  className="from-b2t-yellow/20 via-b2t-yellow/[0.06] pointer-events-none absolute inset-y-1 -right-2 -left-4 origin-left scale-x-0 rounded-2xl bg-gradient-to-r to-transparent transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 md:-left-6"
+                />
+                <span
+                  aria-hidden
+                  className="bg-b2t-yellow pointer-events-none absolute inset-y-5 -left-4 w-[3px] origin-center scale-y-0 rounded-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-y-100 md:-left-6"
+                />
+                <span className="font-display group-hover:text-b2t-yellow relative text-3xl text-white/40 transition-colors duration-300 md:text-4xl">
+                  {i + 1}
+                </span>
+                <div className="relative transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-2">
                   <h3 className="text-xl font-semibold md:text-2xl">{t}</h3>
                   <p className="mt-2 max-w-md leading-relaxed text-white/60">{b}</p>
                 </div>
