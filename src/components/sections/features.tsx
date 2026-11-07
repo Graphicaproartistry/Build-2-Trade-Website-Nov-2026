@@ -2,71 +2,44 @@
 
 import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import { Crop } from "@/components/ui/crop";
-
-const M: [number, number] = [921, 2000]; // mobile screenshots
-const D: [number, number] = [2000, 985]; // dashboard screenshot
+import Image from "next/image";
 
 const cards = [
   {
     title: "Quotes from the right tradies",
     body: "Projects go to tradies by trade and by distance, so you hear from people who can actually do the job.",
     icon: "M12 21s-6-5.6-6-11a6 6 0 1112 0c0 5.4-6 11-6 11z",
-    crop: {
-      src: "/media/images/app/mobile/create-project.webp",
-      img: M,
-      rect: [34, 380, 853, 760] as const,
-    },
+    image: { src: "/media/images/crops/feature-1.webp", w: 853, h: 760 },
   },
   {
     title: "Fair, recorded quotes",
     body: "Every quote version and every project change is saved with the date and time. No more “that wasn't in the scope”.",
     icon: "M7 3h10l3 3v15H4V3zM8 11h8M8 15h5",
-    crop: {
-      src: "/media/images/app/dashboard-dark.webp",
-      img: D,
-      rect: [907, 410, 500, 560] as const,
-    },
+    image: { src: "/media/images/crops/feature-2.webp", w: 500, h: 560 },
   },
   {
     title: "Your trades on one calendar",
     body: "Start and end dates for every trade, with reminders before work starts.",
     icon: "M4 6h16v14H4zM4 10h16M9 3v4M15 3v4",
-    crop: {
-      src: "/media/images/app/dashboard-dark.webp",
-      img: D,
-      rect: [374, 410, 500, 560] as const,
-    },
+    image: { src: "/media/images/crops/feature-3.webp", w: 500, h: 560 },
   },
   {
     title: "Materials sorted",
     body: "Ask suppliers for a quote, compare them, accept, and track delivery and invoices.",
     icon: "M4 9l2-5h12l2 5M4 9h16v11H4zM9 20v-6h6v6",
-    crop: {
-      src: "/media/images/app/dashboard-dark.webp",
-      img: D,
-      rect: [0, 620, 330, 365] as const,
-    },
+    image: { src: "/media/images/crops/feature-4.webp", w: 330, h: 365 },
   },
   {
     title: "Know where the money goes",
     body: "Log every project expense with receipts and see totals by trade.",
     icon: "M5 20V10M12 20V4M19 20v-7",
-    crop: {
-      src: "/media/images/app/mobile/my-projects.webp",
-      img: M,
-      rect: [34, 570, 853, 740] as const,
-    },
+    image: { src: "/media/images/crops/feature-5.webp", w: 853, h: 740 },
   },
   {
     title: "Chat built in",
     body: "Message tradies and suppliers about the job, with notifications on your phone.",
     icon: "M4 5h16v11H8l-4 4z",
-    crop: {
-      src: "/media/images/app/mobile/alerts.webp",
-      img: M,
-      rect: [34, 470, 853, 700] as const,
-    },
+    image: { src: "/media/images/crops/feature-6.webp", w: 853, h: 700 },
   },
 ];
 
@@ -86,14 +59,22 @@ export function Features() {
       if (!section || !el) return;
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+      let last = -1;
+      let timer: ReturnType<typeof setTimeout> | undefined;
       const measure = () => {
         const dist = Math.max(0, el.scrollWidth - window.innerWidth);
+        if (dist === last) return false;
+        last = dist;
         section.style.setProperty("--dist", `${dist}px`);
+        return true;
       };
       measure();
+      // Only when the slide distance really changes, and debounced: recalculating every
+      // scroll trigger is expensive, and doing it mid-scroll causes a hitch.
       const ro = new ResizeObserver(() => {
-        measure();
-        ScrollTrigger.refresh();
+        if (!measure()) return;
+        clearTimeout(timer);
+        timer = setTimeout(() => ScrollTrigger.refresh(), 200);
       });
       ro.observe(el);
 
@@ -113,6 +94,7 @@ export function Features() {
       }
       ScrollTrigger.refresh();
       return () => {
+        clearTimeout(timer);
         ro.disconnect();
         tween?.scrollTrigger?.kill();
         tween?.kill();
@@ -137,12 +119,13 @@ export function Features() {
             {cards.map((c) => (
               <article key={c.title} className="w-[74vw] shrink-0 sm:w-[22rem] md:w-[26rem]">
                 <div className="bg-b2t-sand flex aspect-[4/4.2] items-center justify-center overflow-hidden rounded-[28px] p-7">
-                  <Crop
-                    src={c.crop.src}
-                    img={c.crop.img}
-                    rect={[...c.crop.rect]}
+                  <Image
+                    src={c.image.src}
                     alt={c.title}
-                    className="w-full max-w-[19rem] rounded-2xl shadow-[0_20px_40px_-12px_rgb(16_24_39/0.25)] ring-1 ring-black/5"
+                    width={c.image.w}
+                    height={c.image.h}
+                    sizes="(max-width: 768px) 70vw, 19rem"
+                    className="h-auto w-full max-w-[19rem] rounded-2xl shadow-[0_20px_40px_-12px_rgb(16_24_39/0.25)] ring-1 ring-black/5"
                   />
                 </div>
                 <h3 className="text-b2t-navy mt-5 flex items-center gap-2 text-lg font-semibold">

@@ -11,7 +11,7 @@ export const metadata = pageMeta(
 export default function Page() {
   return (
     <div className="pt-24 md:pt-28">
-      <BookDemo title="Book a demo." />
+      <BookDemo title="Book a demo." autoLoad />
       <HeadlineReveals />
     </div>
   );
