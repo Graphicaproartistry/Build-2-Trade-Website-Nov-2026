@@ -136,29 +136,47 @@ export function BookDemo({
                   <p className="text-b2t-navy/65 text-sm">30 minute demo with the team</p>
                 </div>
               </div>
-              <p className="font-display mt-8 text-3xl">Pick a day and time</p>
-              <div className="mt-6 grid grid-cols-7 gap-1.5 text-center text-sm" aria-hidden>
+              <p className="font-display mt-8 text-3xl md:text-4xl">Pick a day and time</p>
+              <p className="text-b2t-navy/65 mt-2 text-sm">
+                Weekdays, Mon–Fri. Tap a day to see the times.
+              </p>
+              <div
+                className="mt-6 mb-8 grid w-full max-w-[26rem] grid-cols-7 gap-x-1 gap-y-1.5 text-center text-sm"
+                role="group"
+                aria-label="Choose a day"
+              >
                 {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
-                  <span key={i} className="text-b2t-navy/55 py-1 text-xs font-semibold">
+                  <span key={i} className="text-b2t-navy/55 py-1 text-xs font-semibold" aria-hidden>
                     {d}
                   </span>
                 ))}
-                {Array.from({ length: 28 }).map((_, i) => (
-                  <span
-                    key={i}
-                    className={cn(
-                      "grid aspect-square place-items-center rounded-full",
-                      i % 7 < 5 && i > 3 ? "bg-white/70 font-semibold" : "text-b2t-navy/35",
-                    )}
-                  >
-                    {i + 1}
-                  </span>
-                ))}
+                {Array.from({ length: 28 }).map((_, i) => {
+                  const weekday = i % 7 < 5;
+                  return weekday ? (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setOpen(true)}
+                      aria-label={`Day ${i + 1}: see times`}
+                      className="hover:bg-b2t-navy focus-visible:bg-b2t-navy mx-auto grid size-9 place-items-center rounded-full bg-white/70 font-semibold transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:outline-none sm:size-11"
+                    >
+                      {i + 1}
+                    </button>
+                  ) : (
+                    <span
+                      key={i}
+                      aria-hidden
+                      className="text-b2t-navy/35 mx-auto grid size-9 place-items-center sm:size-11"
+                    >
+                      {i + 1}
+                    </span>
+                  );
+                })}
               </div>
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="bg-b2t-navy mt-auto h-14 w-full rounded-full text-base font-semibold text-white transition-colors hover:bg-[#1c2740]"
+                className="bg-b2t-navy mt-auto h-14 w-full shrink-0 rounded-full text-base font-semibold text-white transition-colors hover:bg-[#1c2740]"
               >
                 Pick a time
               </button>

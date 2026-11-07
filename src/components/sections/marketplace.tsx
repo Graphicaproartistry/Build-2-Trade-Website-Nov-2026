@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
  * so it stays smooth on phones) with example data.
  */
 
-const STEP_MS = 3200;
+const STEP_MS = 2000;
 
 function Panel({ children, className }: { children: ReactNode; className?: string }) {
   return (
@@ -42,7 +42,7 @@ function ImportVisual() {
       </div>
       <p className="mt-3 text-xs font-semibold">Importing your catalogue</p>
       <div className="bg-b2t-navy/10 mt-2 h-1.5 overflow-hidden rounded-full">
-        <div className="bg-b2t-navy h-full w-full origin-left animate-[spotlightBar_2.4s_cubic-bezier(0.22,1,0.36,1)_both] rounded-full" />
+        <div className="bg-b2t-navy h-full w-full origin-left animate-[spotlightBar_1.2s_cubic-bezier(0.22,1,0.36,1)_both] rounded-full" />
       </div>
       <p className="text-b2t-navy/55 mt-2 text-[11px]">Products · photos · prices · specs</p>
     </Panel>
@@ -62,8 +62,8 @@ function ListedVisual() {
         {items.map(([n, p], i) => (
           <li
             key={n}
-            className="bg-b2t-mist flex animate-[fadeUp_0.5s_both] items-center justify-between gap-2 rounded-xl px-3 py-2 text-[11px]"
-            style={{ animationDelay: `${i * 120}ms` }}
+            className="bg-b2t-mist flex animate-[fadeUp_0.3s_both] items-center justify-between gap-2 rounded-xl px-3 py-2 text-[11px]"
+            style={{ animationDelay: `${i * 60}ms` }}
           >
             <span className="truncate font-medium">{n}</span>
             <span className="shrink-0 font-semibold tabular-nums">{p} + GST</span>
@@ -100,7 +100,7 @@ function RequestVisual() {
 function ApproveVisual() {
   return (
     <Panel>
-      <div className="bg-b2t-yellow flex animate-[fadeUp_0.45s_both] items-start gap-2.5 rounded-xl px-3 py-2.5">
+      <div className="bg-b2t-yellow flex animate-[fadeUp_0.3s_both] items-start gap-2.5 rounded-xl px-3 py-2.5">
         <svg
           viewBox="0 0 24 24"
           className="mt-0.5 size-4 shrink-0"
@@ -161,7 +161,7 @@ export function Marketplace({ showCta = true }: { showCta?: boolean }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.3 });
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.12 });
     io.observe(el);
     return () => io.disconnect();
   }, []);
@@ -214,7 +214,7 @@ export function Marketplace({ showCta = true }: { showCta?: boolean }) {
                   onClick={() => setActive(i)}
                   aria-current={on}
                   className={cn(
-                    "flex h-full w-full flex-col rounded-[24px] p-5 text-left ring-1 transition-colors duration-500 md:p-6",
+                    "flex h-full w-full flex-col rounded-[24px] p-5 text-left ring-1 transition-colors duration-300 md:p-6",
                     on
                       ? "bg-white/[0.09] ring-white/25"
                       : "bg-white/[0.03] ring-white/10 hover:bg-white/[0.06]",
@@ -238,8 +238,8 @@ export function Marketplace({ showCta = true }: { showCta?: boolean }) {
                     <span
                       key={on ? `on-${i}` : `off-${i}`}
                       className={cn(
-                        "block transition-opacity duration-500",
-                        on ? "opacity-100" : "opacity-35",
+                        "block transition-opacity duration-300",
+                        on ? "opacity-100" : "opacity-60",
                       )}
                     >
                       <Visual />

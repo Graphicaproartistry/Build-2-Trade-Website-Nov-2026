@@ -97,24 +97,14 @@ export function Hero() {
 
       const dims = q("[data-dim]");
       const heads = q("[data-head]");
-      const isMobile = window.matchMedia("(max-width: 767px)").matches;
       const last = steps.length - 1;
 
       gsap.set(shots.slice(1), { xPercent: 100 });
       gsap.set(lines.slice(1), { autoAlpha: 0, y: 16 });
       gsap.set(heads.slice(1), { autoAlpha: 0, yPercent: 30 });
 
-      // Entrance on load (blur is skipped on phones; it's expensive there).
-      gsap.from(q("[data-intro]"), {
-        opacity: 0,
-        y: 24,
-        ...(isMobile ? {} : { filter: "blur(8px)" }),
-        duration: 1.1,
-        ease: "expo.out",
-        stagger: 0.08,
-        clearProps: "filter",
-      });
-      if (hand) gsap.from(hand, { yPercent: 18, duration: 1.4, ease: "expo.out", delay: 0.15 });
+      // The entrance is a CSS animation (see the hero markup), so it starts with the
+      // very first paint instead of waiting for this script.
 
       // Gentle sway tied to scroll (a single transform on one layer: cheap).
       if (hand) {
@@ -256,7 +246,8 @@ export function Hero() {
                 Screen readers get the brand tagline only. */}
             <h1
               data-intro
-              className="font-display text-b2t-navy grid w-full max-w-[14ch] text-[10vw] leading-[0.95] md:max-w-[22ch] md:text-[4.3vw]"
+              style={{ animationDelay: "0ms" }}
+              className="hero-in font-display text-b2t-navy grid w-full max-w-[14ch] text-[10vw] leading-[0.95] md:max-w-[22ch] md:text-[4.3vw]"
             >
               {steps.map((s, i) => (
                 <span
@@ -264,23 +255,33 @@ export function Hero() {
                   data-head
                   aria-hidden={i > 0 || undefined}
                   className="col-start-1 row-start-1 self-center"
+                  style={i > 0 ? { opacity: 0, visibility: "hidden" } : undefined}
                 >
                   {s.head}
                 </span>
               ))}
             </h1>
-            <div data-intro className="mt-4 grid w-full max-w-xl md:mt-5">
-              {steps.map((s) => (
+            <div
+              data-intro
+              style={{ animationDelay: "90ms" }}
+              className="hero-in mt-4 grid w-full max-w-xl md:mt-5"
+            >
+              {steps.map((s, i) => (
                 <p
                   key={s.src}
                   data-line
                   className="text-b2t-navy/75 col-start-1 row-start-1 text-base font-semibold md:text-xl"
+                  style={i > 0 ? { opacity: 0, visibility: "hidden" } : undefined}
                 >
                   {s.line}
                 </p>
               ))}
             </div>
-            <div data-intro className="mt-5 flex flex-col items-center gap-3 md:mt-7">
+            <div
+              data-intro
+              style={{ animationDelay: "180ms" }}
+              className="hero-in mt-5 flex flex-col items-center gap-3 md:mt-7"
+            >
               <div className="flex flex-wrap justify-center gap-2">
                 <Button
                   href="/builders"
@@ -336,7 +337,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="relative flex w-full shrink-0 justify-center">
+          <div className="hero-rise relative flex w-full shrink-0 justify-center">
             <div
               ref={handRef}
               data-hand
