@@ -1,0 +1,11 @@
+{
+  "handshake": {
+    "source": "media-src/closing-handshake.mp4",
+    "duration": 5.96,
+    "files": ["handshake.av1.mp4", "handshake.mp4", "handshake.mobile.mp4"],
+    "poster": "handshake.poster.webp",
+    "endFrame": "handshake.end.webp",
+    "usage": "Plays once when the closing CTA enters view, then holds on handshake.end.webp.",
+    "notes": "AI artefact around 3.8-4.6s: the builder's free hand appears to pat the tradie's shoulder from an odd angle. Trim to 0-3.6s if it bothers you."
+  }
+}
