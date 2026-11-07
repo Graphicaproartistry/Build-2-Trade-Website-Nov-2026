@@ -41,7 +41,7 @@ export function Platform() {
       <ScrollSequence
         name="laptop-open"
         frameCount={FRAMES}
-        length={3}
+        length={2.4}
         framed
         feather="#101827"
         label="A laptop opens to the Build 2 Trade dashboard"
