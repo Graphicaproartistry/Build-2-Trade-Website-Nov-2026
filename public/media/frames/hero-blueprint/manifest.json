@@ -1,6 +1,6 @@
 {
   "name": "hero-blueprint",
-  "source": "media-src/hero-blueprint.mp4",
+  "source": "media-src/hero-blueprint-graded.mp4 (graded from media-src/hero-blueprint.mp4: cyan neutralised, black lifted to navy)",
   "frameCount": 95,
   "sourceFps": 24,
   "frameStep": 2,
