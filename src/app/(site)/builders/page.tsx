@@ -6,6 +6,7 @@ import { CtaBand } from "@/components/page/cta-band";
 import { FaqList } from "@/components/page/faq-list";
 import { BookDemo } from "@/components/sections/book-demo";
 import { ProjectReport } from "@/components/sections/project-report";
+import { ScheduleShowcase } from "@/components/sections/schedule-showcase";
 import { JsonLd, faqJsonLd } from "@/components/seo/json-ld";
 import { pageMeta } from "@/lib/seo";
 import { HeadlineReveals } from "@/components/ui/headline-reveals";
@@ -54,7 +55,7 @@ const features = [
   },
   {
     title: "Calendar and reminders",
-    body: "Every hired trade sits on the project calendar with its dates. Reminders go out before the project and each trade starts.",
+    body: "Every trade on a calendar and a Gantt chart, across all your projects. See what's on today and this week, what's overdue or delayed, and which trades still have no tradie. Filter by postcode, trade, tradie or status. Reminders go out before the project and each trade starts.",
   },
   {
     title: "Expenses and receipts",
@@ -79,6 +80,10 @@ const features = [
   {
     title: "Your dashboard",
     body: "A home screen with your projects, quotes waiting, hired trades and costs at a glance, plus a checklist to finish setting up your profile.",
+  },
+  {
+    title: "Guides and a full user manual",
+    body: "Step-by-step guides for every part of Build2Trade, from creating a project to hiring, invoices and support tickets, plus the complete user manual to preview or download.",
   },
   {
     title: "Chat, notifications, reviews",
@@ -132,7 +137,7 @@ export default function Page() {
         title="Run every job from one place"
         sub="Get quotes from the right tradies, keep every trade on schedule, and know what each project is costing you."
       >
-        <Button href={site.links.signUp} size="lg">
+        <Button href={site.links.signUpBuilder} size="lg">
           Sign up as a builder
         </Button>
         <Button href="/get-the-app" variant="outline" size="lg">
@@ -149,6 +154,8 @@ export default function Page() {
       </Section>
 
       <ProjectReport title="Know every job inside out." />
+
+      <ScheduleShowcase />
 
       <section className="px-1.5 md:px-2">
         <div className="bg-b2t-navy rounded-[28px] px-5 py-20 text-white md:rounded-[44px] md:px-12 md:py-28 lg:px-20">
@@ -183,7 +190,7 @@ export default function Page() {
       </Section>
 
       <CtaBand title="Run your next job on Build2Trade">
-        <Button href={site.links.signUp} variant="accent" size="lg">
+        <Button href={site.links.signUpBuilder} variant="accent" size="lg">
           Sign up as a builder
         </Button>
       </CtaBand>

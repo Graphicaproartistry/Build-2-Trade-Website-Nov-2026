@@ -1,22 +1,30 @@
 import Link from "next/link";
+import { site } from "@/content/site";
+import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 
 const audiences = [
   {
     who: "For Builders",
     href: "/builders",
+    signUp: site.links.signUpBuilder,
+    signUpLabel: "Sign up as a builder",
     body: "Post your project once and get quotes from local tradies who actually do that trade. Compare, hire, schedule, track costs and download a full project report on every job.",
     cta: "See how it works for builders",
   },
   {
     who: "For Tradies",
     href: "/tradies",
+    signUp: site.links.signUpTradie,
+    signUpLabel: "Sign up as a tradie",
     body: "See real projects near you that match your trade. Send a quote in minutes, win the work, get paid, and build your reputation with reviews.",
     cta: "See how it works for tradies",
   },
   {
     who: "For Suppliers",
     href: "/suppliers",
+    signUp: site.links.signUpSupplier,
+    signUpLabel: "Sign up as a supplier",
     body: "Get in front of builders and tradies the moment they need materials. Receive quote requests, send quotes, invoice and deliver, and sell from your own online shop.",
     cta: "See how it works for suppliers",
   },
@@ -43,18 +51,25 @@ export function Audiences() {
 
         <Reveal className="mt-14 grid gap-3 md:mt-20 md:grid-cols-3" stagger={0.08}>
           {audiences.map((a) => (
-            <Link
+            <div
               key={a.who}
-              href={a.href}
               className="group flex flex-col rounded-[24px] bg-white/[0.06] p-7 ring-1 ring-white/10 transition-colors hover:bg-white/[0.1] md:p-9"
             >
               <h3 className="font-display text-3xl md:text-4xl">{a.who}</h3>
               <p className="mt-4 leading-relaxed text-white/65">{a.body}</p>
-              <span className="text-b2t-yellow mt-8 inline-flex items-center gap-2 text-sm font-semibold">
-                {a.cta}
-                <span className="transition-transform group-hover:translate-x-1">→</span>
-              </span>
-            </Link>
+              <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-8">
+                <Button href={a.signUp} variant="accent" arrow>
+                  {a.signUpLabel}
+                </Button>
+                <Link
+                  href={a.href}
+                  className="text-b2t-yellow inline-flex items-center gap-2 text-sm font-semibold"
+                >
+                  How it works
+                  <span className="transition-transform group-hover:translate-x-1">→</span>
+                </Link>
+              </div>
+            </div>
           ))}
         </Reveal>
 
