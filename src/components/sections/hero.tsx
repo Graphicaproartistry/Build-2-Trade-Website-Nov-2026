@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { site } from "@/content/site";
 import { Button } from "@/components/ui/button";
@@ -50,6 +50,32 @@ const steps = [
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const headRef = useRef<HTMLDivElement>(null);
+  const handRef = useRef<HTMLDivElement>(null);
+
+  // Size the hand so the phone fills the space left under the headline. The photo has
+  // empty background above the phone (top ~10.7% of its height), which is tucked under
+  // the button; the phone itself spans ~10.7%-72.5% of the photo height.
+  useEffect(() => {
+    const panel = panelRef.current;
+    const head = headRef.current;
+    const hand = handRef.current;
+    if (!panel || !head || !hand) return;
+    const fit = () => {
+      const headBottom = head.offsetTop + head.offsetHeight;
+      const gap = window.innerWidth < 768 ? 16 : 24;
+      const avail = panel.clientHeight - headBottom - gap - 10;
+      const h = Math.max(300, avail / 0.618);
+      hand.style.height = `${h}px`;
+      hand.style.marginTop = `${gap - 0.107 * h}px`;
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(panel);
+    ro.observe(head);
+    return () => ro.disconnect();
+  }, []);
 
   useGSAP(
     () => {
@@ -137,8 +163,14 @@ export function Hero() {
       style={{ height: `${steps.length * 80 + 40}vh` }}
     >
       <div className="sticky top-0 h-dvh px-1.5 pb-1.5 md:px-2 md:pb-2">
-        <div className="bg-b2t-yellow relative flex h-full flex-col items-center overflow-hidden rounded-b-[28px] md:rounded-b-[44px]">
-          <div className="relative z-10 flex flex-col items-center px-5 pt-28 text-center md:pt-28">
+        <div
+          ref={panelRef}
+          className="bg-b2t-yellow relative flex h-full flex-col items-center overflow-hidden rounded-b-[28px] md:rounded-b-[44px]"
+        >
+          <div
+            ref={headRef}
+            className="relative z-10 flex flex-col items-center px-5 pt-28 text-center md:pt-28"
+          >
             <h1
               data-intro
               className="font-display text-b2t-navy max-w-[13ch] text-[12.5vw] leading-[0.95] md:max-w-[17ch] md:text-[4.6vw]"
@@ -176,10 +208,11 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="relative mt-5 flex w-full shrink-0 justify-center md:mt-6">
+          <div className="relative flex w-full shrink-0 justify-center">
             <div
+              ref={handRef}
               data-hand
-              className="relative aspect-[1122/1402] h-[calc((100dvh-24rem)/0.74)] max-h-[86dvh] shrink-0 origin-bottom md:h-[calc((100dvh-25rem)/0.74)]"
+              className="relative aspect-[1122/1402] h-[64dvh] shrink-0 origin-bottom"
             >
               <div
                 className="absolute overflow-hidden bg-white"
