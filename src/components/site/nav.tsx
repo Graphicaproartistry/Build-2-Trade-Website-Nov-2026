@@ -10,7 +10,6 @@ import { cn } from "@/lib/utils";
 const links = [
   { label: "The app", href: "#app" },
   { label: "Platform", href: "#platform" },
-  { label: "Network", href: "#publishing" },
   { label: "AI", href: "#ai" },
   { label: "Marketplace", href: "#marketplace" },
   { label: "Pricing", href: "#pricing" },

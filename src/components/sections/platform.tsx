@@ -25,17 +25,59 @@ const toBox = ([l, t, r, b]: [number, number, number, number]) => ({
   height: `${(b - t) * 100}%`,
 });
 
+const devices = [
+  {
+    label: "iPhone & Android",
+    icon: "M8 2h8a1 1 0 011 1v18a1 1 0 01-1 1H8a1 1 0 01-1-1V3a1 1 0 011-1zM11 18h2",
+  },
+  {
+    label: "Tablet",
+    icon: "M5 3h14a1 1 0 011 1v16a1 1 0 01-1 1H5a1 1 0 01-1-1V4a1 1 0 011-1zM11 18h2",
+  },
+  { label: "Laptop", icon: "M5 5h14v10H5zM2 19h20" },
+  { label: "Desktop & web", icon: "M3 4h18v12H3zM9 20h6M12 16v4" },
+];
+
 export function Platform() {
   return (
     <div id="platform">
-      <Reveal className="mx-auto max-w-3xl px-5 pt-20 pb-14 text-center md:pt-28">
-        <h2 className="font-display text-b2t-navy text-5xl leading-[0.95] md:text-7xl">
-          One dashboard for every job.
-        </h2>
-        <p className="text-b2t-navy/65 mx-auto mt-6 max-w-xl text-lg font-medium">
-          Projects, schedules, quotes, chat and supplier invoices side by side, with reports you can
-          export to Excel or PDF.
+      <Reveal className="mx-auto max-w-4xl px-5 pt-20 pb-14 text-center md:pt-28">
+        <p className="text-b2t-navy mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-sm font-semibold ring-1 ring-black/5">
+          <span className="bg-b2t-yellow size-2 rounded-full" />
+          Built for builders
         </p>
+        <h2 className="font-display text-b2t-navy text-5xl leading-[0.95] md:text-7xl">
+          Phone on site.
+          <br />
+          Desktop in the office.
+        </h2>
+        <p className="text-b2t-navy/65 mx-auto mt-6 max-w-2xl text-lg font-medium">
+          Build2Trade isn&apos;t just an app. Open it on a laptop, desktop or tablet and you get the
+          full builder dashboard: every project, schedule, quote, chat and supplier invoice, with
+          reports you can export to Excel or PDF. It&apos;s all in sync with your phone.
+        </p>
+        <ul className="mt-9 flex flex-wrap items-center justify-center gap-2">
+          {devices.map((d) => (
+            <li
+              key={d.label}
+              className="text-b2t-navy flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold ring-1 ring-black/5"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="size-[18px]"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <path d={d.icon} />
+              </svg>
+              {d.label}
+            </li>
+          ))}
+        </ul>
       </Reveal>
 
       <ScrollSequence
