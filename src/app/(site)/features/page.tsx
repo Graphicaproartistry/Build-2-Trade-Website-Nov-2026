@@ -24,6 +24,7 @@ const rows: [string, Cell, Cell, Cell][] = [
   ["Told exactly what changed when the project changes", false, true, false],
   ["Compare quotes and hire in one tap", true, false, false],
   ["Project calendar and start reminders", true, true, false],
+  ["Gantt chart, overdue / delayed tracking and schedule filters", true, false, false],
   ["Chat and push notifications", true, true, true],
   ["Invoices with GST", "Receive", "Send", "Send"],
   ["Project expenses with receipts, totals by trade and export", true, false, false],
@@ -45,6 +46,7 @@ const rows: [string, Cell, Cell, Cell][] = [
   ["AI assistant: project from plans, take-off, quote compare, receipt scan", true, false, false],
   ["Login with password, email link, fingerprint or Face ID (app)", true, true, true],
   ["Help & Support tickets and built-in user guides", true, true, true],
+  ["Complete user manual to preview or download", true, true, false],
   ["Web + iPhone + Android", true, true, true],
 ];
 
@@ -59,7 +61,10 @@ const everyone = [
   },
   { title: "Chat", body: "One conversation per job, per request or per supplier order." },
   { title: "Help & Support", body: "Raise a ticket from the app or website and track the reply." },
-  { title: "User guides", body: "Step-by-step guides for every part of the app, built in." },
+  {
+    title: "User guides and manual",
+    body: "Step-by-step guides for every part of the app, built in, plus the complete Build2Trade user manual to preview, open or download.",
+  },
   {
     title: "ABN and GST built in",
     body: "Your ABN is checked against the Australian Business Register, and GST is handled on every quote and invoice whether you're registered or not.",

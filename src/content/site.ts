@@ -18,7 +18,9 @@ export const site = {
   links: {
     signUp: `${APP_URL}/role-selection`,
     signIn: `${APP_URL}/sign-in`,
+    signUpBuilder: `${APP_URL}/sign-up?role=Builder`,
     signUpTradie: `${APP_URL}/sign-up?role=Tradie`,
+    signUpSupplier: `${APP_URL}/sign-up?role=Supplier`,
     demo: "https://calendly.com/build2tradeaus/30min",
     // TODO: App Store and Google Play links (the Get the app buttons stay hidden until set).
     appStore: null as string | null,

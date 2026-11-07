@@ -19,7 +19,7 @@ const cards = [
   },
   {
     title: "Your trades on one calendar",
-    body: "Start and end dates for every trade, with reminders before work starts.",
+    body: "Calendar and Gantt chart for every trade, with reminders, overdue alerts and filters by trade, tradie and postcode.",
     icon: "M4 6h16v14H4zM4 10h16M9 3v4M15 3v4",
     image: { src: "/media/images/crops/feature-3.webp", w: 500, h: 560 },
   },

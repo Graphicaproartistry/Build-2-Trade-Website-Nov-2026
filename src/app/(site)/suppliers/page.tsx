@@ -69,7 +69,7 @@ export default function Page() {
         title="Be there when they need the materials"
         sub="Builders and tradies on Build2Trade need materials every day. Get their quote requests, send quotes, invoice, deliver and sell from your own online shop."
       >
-        <Button href={site.links.signUp} size="lg">
+        <Button href={site.links.signUpSupplier} size="lg">
           Sign up as a supplier
         </Button>
         <Button href="/contact" variant="outline" size="lg">
@@ -90,7 +90,7 @@ export default function Page() {
       </Section>
 
       <CtaBand title="Get your business on Build2Trade">
-        <Button href={site.links.signUp} variant="accent" size="lg">
+        <Button href={site.links.signUpSupplier} variant="accent" size="lg">
           Sign up as a supplier
         </Button>
         <Button href="/contact" variant="light" size="lg">
