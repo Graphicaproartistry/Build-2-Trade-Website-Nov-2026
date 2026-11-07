@@ -18,6 +18,10 @@ const faqs = [
     a: "Everyone gives their ABN when they sign up, and verified accounts show a badge. Trade licences, insurance and certifications are checked too, and reviews come from real jobs.",
   },
   {
+    q: "Can I keep a project to my own tradies?",
+    a: "Yes. Publish to network and only the tradies you invite or select can see the project and plans and send a quote. Choose how many days it stays private (7 to 60). If it's still open after that, it becomes public and tradies nearby whose trade isn't hired yet are notified.",
+  },
+  {
     q: "Does the AI do my estimating for me?",
     a: "It does the heavy lifting. It reads your plans and documents, suggests trades and scopes, and produces a takeoff and material list you can export. You check and edit every line before anything is published or sent.",
   },
