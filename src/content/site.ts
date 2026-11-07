@@ -90,26 +90,76 @@ export const site = {
 
   steps: {
     builders: [
-      { title: "Create your account", body: "Set up in minutes and start building your network of trusted tradies." },
-      { title: "Post your project", body: "Choose the trades you need and manage everything in one place." },
-      { title: "Connect and manage", body: "Communicate, organise and run your projects efficiently." },
+      {
+        title: "Create your account",
+        body: "Set up in minutes and start building your network of trusted tradies.",
+      },
+      {
+        title: "Post your project",
+        body: "Choose the trades you need and manage everything in one place.",
+      },
+      {
+        title: "Connect and manage",
+        body: "Communicate, organise and run your projects efficiently.",
+      },
     ],
     tradies: [
-      { title: "Create your account", body: "Sign up in seconds and start finding quality projects." },
-      { title: "Complete your profile", body: "Choose your trade and add your experience to connect with more builders." },
-      { title: "Explore project leads", body: "Find leads, connect with builders and grow your network." },
+      {
+        title: "Create your account",
+        body: "Sign up in seconds and start finding quality projects.",
+      },
+      {
+        title: "Complete your profile",
+        body: "Choose your trade and add your experience to connect with more builders.",
+      },
+      {
+        title: "Explore project leads",
+        body: "Find leads, connect with builders and grow your network.",
+      },
     ],
   },
 
   features: [
-    { key: "chat", title: "Collaborate on every project", body: "Share documents, images and decisions in project chat, with real-time notifications." },
-    { key: "hiring", title: "Make smarter hiring decisions", body: "See budgets, timelines, reviews and verified credentials before you hire." },
-    { key: "tracking", title: "Track projects easily", body: "Statuses, approvals, Gantt timelines, reminders and budgets on one dashboard." },
-    { key: "verified", title: "Verified professionals", body: "ABN, trade licences, insurance and certifications checked, plus transparent reviews." },
-    { key: "quotes", title: "Simpler quoting", body: "Itemised quotes with drawings attached, real-time status and digital approval." },
-    { key: "reports", title: "Project lifecycle reports", body: "Budgets, profit and loss and timelines, with Excel and PDF downloads." },
-    { key: "alerts", title: "Real-time alerts", body: "Instant notifications for new quotes, messages and milestones." },
-    { key: "mobile", title: "Run it from your phone", body: "Everything on the web dashboard, in the mobile app." },
+    {
+      key: "chat",
+      title: "Collaborate on every project",
+      body: "Share documents, images and decisions in project chat, with real-time notifications.",
+    },
+    {
+      key: "hiring",
+      title: "Make smarter hiring decisions",
+      body: "See budgets, timelines, reviews and verified credentials before you hire.",
+    },
+    {
+      key: "tracking",
+      title: "Track projects easily",
+      body: "Statuses, approvals, Gantt timelines, reminders and budgets on one dashboard.",
+    },
+    {
+      key: "verified",
+      title: "Verified professionals",
+      body: "ABN, trade licences, insurance and certifications checked, plus transparent reviews.",
+    },
+    {
+      key: "quotes",
+      title: "Simpler quoting",
+      body: "Itemised quotes with drawings attached, real-time status and digital approval.",
+    },
+    {
+      key: "reports",
+      title: "Project lifecycle reports",
+      body: "Budgets, profit and loss and timelines, with Excel and PDF downloads.",
+    },
+    {
+      key: "alerts",
+      title: "Real-time alerts",
+      body: "Instant notifications for new quotes, messages and milestones.",
+    },
+    {
+      key: "mobile",
+      title: "Run it from your phone",
+      body: "Everything on the web dashboard, in the mobile app.",
+    },
   ],
 
   founders: [
