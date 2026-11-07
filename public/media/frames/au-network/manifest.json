@@ -1,10 +1,10 @@
 {
   "name": "au-network",
-  "source": "media-src/au-network.mp4",
+  "source": "media-src/au-network-v3-graded.mp4 (graded from au-network-v3.mp4: cyan lines turned white, black lifted to navy)",
   "frameCount": 95,
   "sourceFps": 24,
   "frameStep": 2,
   "pattern": "%03d.webp",
   "sizes": { "desktop": [1600, 900], "mobile": [960, 540] },
-  "notes": "Temporary: the baked-in city labels are wrong (Brisbane appears three times). Replace with a no-label version and overlay labels in code."
+  "notes": "No baked-in labels; city labels are overlaid in code."
 }
