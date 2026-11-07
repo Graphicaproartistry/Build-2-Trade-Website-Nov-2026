@@ -77,7 +77,7 @@ function AutofillVisual() {
           </div>
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold">Lot 12 – plans & engineering.pdf</p>
-            <p className="text-b2t-navy/55 text-xs">Read in 40 seconds</p>
+            <p className="text-b2t-navy/55 text-xs">Plans uploaded</p>
           </div>
         </div>
       </div>
@@ -280,64 +280,6 @@ function ReceiptVisual() {
   );
 }
 
-function NetworkVisual() {
-  const network = ["MK", "JT", "SR", "AL", "DP"];
-  return (
-    <div className="flex w-full flex-col items-center gap-4">
-      <svg viewBox="-170 -170 340 340" className="w-[78%] max-w-[22rem]" aria-hidden>
-        <circle r="150" fill="none" stroke="#101827" strokeOpacity="0.12" strokeDasharray="2 5" />
-        <circle r="82" fill="none" stroke="#101827" strokeOpacity="0.15" />
-        {Array.from({ length: 24 }).map((_, i) => {
-          const a = (i / 24) * Math.PI * 2 + 0.2;
-          const r = 138 + (i % 3) * 10;
-          return (
-            <circle
-              key={i}
-              cx={Math.cos(a) * r}
-              cy={Math.sin(a) * r}
-              r="5"
-              fill="#101827"
-              className="animate-[fadeUp_0.5s_both] opacity-20"
-              style={{ animationDelay: `${1200 + i * 40}ms` }}
-            />
-          );
-        })}
-        {network.map((n, i) => {
-          const a = (i / network.length) * Math.PI * 2 - Math.PI / 2;
-          return (
-            <g key={n} transform={`translate(${Math.cos(a) * 82} ${Math.sin(a) * 82})`}>
-              <circle r="19" fill="#fff" stroke="#101827" strokeWidth="2" />
-              <text textAnchor="middle" dy="4.5" fontSize="12" fontWeight="700" fill="#101827">
-                {n}
-              </text>
-            </g>
-          );
-        })}
-        <circle r="34" fill="#fec124" />
-        <path
-          d="M-12 2 L0 -10 L12 2 M-8 -1 V11 H8 V-1"
-          fill="none"
-          stroke="#101827"
-          strokeWidth="2.4"
-          strokeLinejoin="round"
-          strokeLinecap="round"
-        />
-      </svg>
-      <div
-        style={appear(3).style}
-        className={cn(appear(3).className, "flex flex-wrap justify-center gap-2")}
-      >
-        <span className="bg-b2t-navy rounded-full px-4 py-2 text-sm font-semibold text-white">
-          Network only · 20 days
-        </span>
-        <span className="text-b2t-navy rounded-full bg-white px-4 py-2 text-sm font-semibold">
-          Then public to tradies in range
-        </span>
-      </div>
-    </div>
-  );
-}
-
 /* ---------- content ---------- */
 
 type Feature = {
@@ -353,37 +295,31 @@ type Feature = {
 const features: Feature[] = [
   {
     key: "autofill",
-    title: "Upload plans. AI fills in the project.",
+    title: "Set up a project from plans",
     tag: "AI",
-    body: "Drop in your plans, engineering and reports. AI writes the project and fills in the trades, sub-trades and scopes for you to check. Prefer to do it yourself? Fill it in manually.",
+    body: "AI reads your plans and suggests the trades, sub-trades and scopes, ready to check in the Create Project form. Prefer to do it yourself? Fill it in by hand.",
     visual: AutofillVisual,
   },
   {
     key: "compare",
-    title: "Compare quotes and pick the best tradie.",
+    title: "Compare quotes",
     tag: "AI",
-    body: "AI lines up every quote for a trade by price, reviews and start date, recommends the best one and tells you why. The result is saved so you can open it again any time.",
+    body: "Pick a project and a trade, and AI compares every tradie's quote, explains the differences and suggests the best fit. Results are saved so you can open them again.",
     visual: CompareVisual,
   },
   {
     key: "takeoff",
-    title: "Takeoffs and material lists from your drawings.",
+    title: "Take-off and material list",
     tag: "Beta",
-    body: "Floor area, walls, openings, roof and trade quantities, plus a bill of quantities with waste. Export it as a PDF.",
+    body: "A material list with quantities from your plans or photos, ready to send to a supplier for a quote.",
     visual: TakeoffVisual,
   },
   {
     key: "receipt",
-    title: "Snap a receipt. The expense fills itself in.",
+    title: "Expense from a receipt photo",
     tag: "AI",
-    body: "Take a photo of a receipt and AI reads the supplier, amount and GST and adds it to the right project for you to check and save.",
+    body: "Snap a receipt or tax invoice and AI fills in the expense for you to check.",
     visual: ReceiptVisual,
-  },
-  {
-    key: "network",
-    title: "Your tradies first, then everyone.",
-    body: "Publish to your network so only the tradies you pick see the plans and quote. After the days you choose, the job goes public to tradies in range.",
-    visual: NetworkVisual,
   },
 ];
 
@@ -419,11 +355,13 @@ export function Spotlight() {
     <section ref={ref} id="ai" className="px-5 py-24 md:px-12 md:py-36 lg:px-20">
       <Reveal className="max-w-3xl">
         <h2 className="font-display text-b2t-navy text-5xl leading-[0.95] md:text-8xl">
-          Let B2T do the paperwork.
+          Less paperwork. More building.
         </h2>
         <p className="text-b2t-navy/60 mt-6 max-w-xl text-lg font-medium">
-          AI built into Build2Trade fills in most of the admin for you, so you spend less time
-          typing and more time building.
+          Upload your plans and Build2Trade&apos;s AI helps set up the project: trades, scopes and
+          notes. It can draft a material list, compare the quotes you receive side by side, and fill
+          in an expense from a photo of a receipt. You always check and approve before anything is
+          saved.
         </p>
       </Reveal>
 
@@ -480,8 +418,8 @@ export function Spotlight() {
             );
           })}
           <p className="text-b2t-navy/45 mt-3 px-1 text-xs leading-relaxed">
-            Examples shown. AI can make mistakes, so check trades, quantities, specs and prices
-            before you publish or send anything. Your files are only used to answer your request.
+            Examples shown. You check and approve everything: AI never publishes or saves on its
+            own.
           </p>
         </ol>
 

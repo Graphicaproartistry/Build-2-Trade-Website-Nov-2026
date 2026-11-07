@@ -2,18 +2,18 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { site } from "@/content/site";
+import { pages, site } from "@/content/site";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/site/logo";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { label: "The app", href: "#app" },
-  { label: "Platform", href: "#platform" },
-  { label: "AI", href: "#ai" },
-  { label: "Marketplace", href: "#marketplace" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
+  pages.howItWorks,
+  pages.builders,
+  pages.tradies,
+  pages.suppliers,
+  pages.pricing,
+  pages.faq,
 ];
 
 /** Floating white pill navigation, centred (Umano-style). */
@@ -71,7 +71,10 @@ export function Nav() {
             >
               Sign in
             </a>
-            <Button href={site.links.signUp}>Start free</Button>
+            <Button href="/book-a-demo" variant="outline" className="hidden xl:inline-flex">
+              Book a demo
+            </Button>
+            <Button href={site.links.signUp}>Sign up</Button>
             <button
               type="button"
               aria-label={open ? "Close menu" : "Open menu"}
@@ -113,19 +116,22 @@ export function Nav() {
                 )}
                 style={{ transitionDelay: open ? `${80 + i * 50}ms` : "0ms" }}
               >
-                <a
+                <Link
                   href={l.href}
                   onClick={() => setOpen(false)}
                   className="font-display text-b2t-navy block py-1.5 text-5xl"
                 >
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
           <div className="space-y-3">
             <Button href={site.links.signUp} size="lg" className="w-full">
-              Start free for 3 months
+              Sign up
+            </Button>
+            <Button href="/book-a-demo" variant="outline" size="lg" className="w-full">
+              Book a demo
             </Button>
             <Button href={site.links.signIn} variant="outline" size="lg" className="w-full">
               Sign in

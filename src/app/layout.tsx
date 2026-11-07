@@ -15,15 +15,31 @@ const display = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: `${site.name} | ${site.tagline}`,
+  metadataBase: new URL(site.url),
+  title: { default: `${site.name}: Builders, Tradies & Suppliers in One App`, template: `%s` },
   description: site.description,
-  metadataBase: new URL("https://build2trade.com.au"),
+  applicationName: site.name,
+  keywords: [
+    "construction app Australia",
+    "find tradies",
+    "tradie quotes",
+    "builder software",
+    "subcontractor quotes",
+    "building supplies quotes",
+    "construction project management",
+    "tradie jobs near me",
+  ],
   openGraph: {
-    title: `${site.name} | ${site.tagline}`,
-    description: site.description,
     siteName: site.name,
     locale: "en_AU",
     type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: site.name }],
+  },
+  twitter: { card: "summary_large_image", images: ["/og.png"] },
+  // Search Console / Bing Webmaster verification (set the codes in src/content/site.ts).
+  verification: {
+    ...(site.verification.google ? { google: site.verification.google } : {}),
+    ...(site.verification.bing ? { other: { "msvalidate.01": site.verification.bing } } : {}),
   },
 };
 
