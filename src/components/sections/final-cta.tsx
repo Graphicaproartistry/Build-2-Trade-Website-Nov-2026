@@ -26,7 +26,7 @@ export function FinalCta() {
 
   return (
     <section className="px-1.5 md:px-2">
-      <div className="bg-b2t-navy relative flex min-h-[88dvh] items-end overflow-hidden rounded-[28px] md:rounded-[44px]">
+      <div className="bg-b2t-navy relative flex min-h-[88svh] items-end overflow-hidden rounded-[28px] md:rounded-[44px]">
         <video
           ref={ref}
           muted

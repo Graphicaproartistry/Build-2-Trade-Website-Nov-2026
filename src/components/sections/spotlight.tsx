@@ -456,18 +456,13 @@ export function Spotlight() {
                       </span>
                     )}
                   </span>
-                  <span
-                    className={cn(
-                      "grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                      on ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
-                    )}
-                  >
-                    <span className="overflow-hidden">
-                      <span className="block pt-2 text-[15px] leading-relaxed text-white/70">
-                        {feat.body}
-                      </span>
+                  {/* Only the active item shows its text: no height animation, so the
+                      page never re-lays out frame by frame while someone scrolls. */}
+                  {on && (
+                    <span className="block animate-[fadeUp_0.45s_cubic-bezier(0.22,1,0.36,1)_both] pt-2 text-[15px] leading-relaxed text-white/70">
+                      {feat.body}
                     </span>
-                  </span>
+                  )}
                   {on && (
                     <span className="absolute inset-x-0 bottom-0 h-[3px] bg-white/10">
                       <span

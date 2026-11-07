@@ -83,11 +83,14 @@ export function Platform() {
       <ScrollSequence
         name="laptop-open"
         frameCount={FRAMES}
+        mobileFrameCount={72}
+        mobileMode="autoplay"
+        autoplayHeight="56svh"
         length={2.4}
         framed
         feather="#101827"
         label="A laptop opens to the Build 2 Trade dashboard"
-        mobileFit={{ mode: "width", visible: 0.66, align: 0.5 }}
+        mobileFit={{ mode: "width", visible: 0.6, align: 0.5 }}
         stageClassName="bg-[#121212]"
         overlay={
           <div

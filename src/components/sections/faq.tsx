@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     q: "Can suppliers sell on Build2Trade?",
-    a: "Yes. Suppliers list products on the marketplace. Builders and tradies add items to a quote list, and suppliers send quotes and invoices through the platform.",
+    a: "Yes. List your products on the B2T marketplace by importing them from Shopify or WordPress, or by adding them by hand. Builders and tradies send you quote requests. You get a notification, review the request, then approve or adjust it and send your quote.",
   },
   {
     q: "Can I bring my own tradies?",
