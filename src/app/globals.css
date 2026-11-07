@@ -2,19 +2,21 @@
 
 /* ============================================================
    B2T brand tokens
-   Orange is the signature accent. Use it selectively for CTAs,
-   highlights, active states and key details, never as a section fill.
+   B2T Yellow is the signature accent and matches the mobile app exactly.
+   Use it selectively for CTAs, highlights, active states and key details,
+   never as a section fill.
    ============================================================ */
 @theme {
   /* Core palette */
-  --color-b2t-orange: #ff9d2e; /* primary accent: CTAs, highlights, active states */
+  --color-b2t-yellow: #fec124; /* primary accent: the app's yellow. CTAs, highlights, key brand elements */
+  --color-b2t-yellow-deep: #e0a50f; /* hover states and subtle emphasis (same hue, darker) */
   --color-b2t-navy: #101827; /* premium dark backgrounds, nav, footer */
   --color-b2t-soft-white: #f5f7fa; /* main light background */
   --color-b2t-blue: #2563eb; /* secondary accent: links, info, selected UI */
   --color-b2t-white: #ffffff; /* cards, surfaces, dark-mode contrast */
 
   /* Accessible companions (WCAG AA for body text) */
-  --color-b2t-orange-ink: #a65400; /* orange TEXT on light surfaces (5.0:1 on soft white) */
+  --color-b2t-yellow-ink: #8a6100; /* yellow-family TEXT on light surfaces (5.2:1 on soft white) */
   --color-b2t-blue-bright: #60a5fa; /* links on navy (7.0:1); #2563EB is only 3.4:1 there */
   --color-b2t-navy-800: #172135; /* raised surface on navy */
   --color-b2t-navy-700: #1f2b43; /* borders and dividers on navy */
@@ -29,7 +31,8 @@
      full-width construction footage, storytelling transitions,
      final CTA and footer.
    - .theme-light: reading-heavy sections (pricing detail, FAQ, blog).
-   Text on orange buttons is always navy (8.6:1); white on orange fails (2.1:1).
+   Text on yellow buttons is always navy (10.9:1); white on yellow fails (1.6:1).
+   Yellow text on light backgrounds fails (1.5:1), so use --color-b2t-yellow-ink there.
    ============================================================ */
 .theme-dark {
   --surface: var(--color-b2t-navy);
@@ -37,8 +40,9 @@
   --border: var(--color-b2t-navy-700);
   --ink: var(--color-b2t-white);
   --ink-muted: var(--color-b2t-slate-300);
-  --accent: var(--color-b2t-orange);
-  --accent-text: var(--color-b2t-orange); /* 8.6:1 on navy */
+  --accent: var(--color-b2t-yellow);
+  --accent-hover: var(--color-b2t-yellow-deep);
+  --accent-text: var(--color-b2t-yellow); /* 10.9:1 on navy */
   --link: var(--color-b2t-blue-bright);
   background-color: var(--surface);
   color: var(--ink);
@@ -50,8 +54,9 @@
   --border: #e3e8ef;
   --ink: var(--color-b2t-navy);
   --ink-muted: var(--color-b2t-slate-600);
-  --accent: var(--color-b2t-orange);
-  --accent-text: var(--color-b2t-orange-ink);
+  --accent: var(--color-b2t-yellow);
+  --accent-hover: var(--color-b2t-yellow-deep);
+  --accent-text: var(--color-b2t-yellow-ink);
   --link: var(--color-b2t-blue); /* 4.8:1 on soft white */
   background-color: var(--surface);
   color: var(--ink);
@@ -72,6 +77,7 @@
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-accent-text: var(--accent-text);
   --color-link: var(--link);
   --font-sans: var(--font-geist-sans);
@@ -90,6 +96,6 @@ body {
 }
 
 ::selection {
-  background: var(--color-b2t-orange);
+  background: var(--color-b2t-yellow);
   color: var(--color-b2t-navy);
 }
