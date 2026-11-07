@@ -71,10 +71,21 @@ export function Steps({ items }: { items: { title: string; body: ReactNode }[] }
       {items.map((s, i) => (
         <li
           key={s.title}
-          className="grid grid-cols-[3rem_1fr] gap-4 py-8 md:grid-cols-[6rem_1fr] md:py-10"
+          className="group relative grid grid-cols-[3rem_1fr] gap-4 py-8 md:grid-cols-[6rem_1fr] md:py-10"
         >
-          <span className="font-display text-b2t-navy/30 text-4xl md:text-6xl">{i + 1}</span>
-          <div>
+          {/* yellow shade that sweeps in from the left, plus an edge bar */}
+          <span
+            aria-hidden
+            className="from-b2t-yellow/45 via-b2t-yellow/10 pointer-events-none absolute inset-y-1 -right-2 -left-4 origin-left scale-x-0 rounded-2xl bg-gradient-to-r to-transparent transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 md:-left-6"
+          />
+          <span
+            aria-hidden
+            className="bg-b2t-yellow pointer-events-none absolute inset-y-6 -left-4 w-1 scale-y-0 rounded-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-y-100 md:-left-6"
+          />
+          <span className="font-display text-b2t-navy/30 group-hover:text-b2t-navy relative text-4xl transition-colors duration-300 md:text-6xl">
+            {i + 1}
+          </span>
+          <div className="relative transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-2">
             <h3 className="text-b2t-navy text-2xl font-semibold md:text-3xl">{s.title}</h3>
             <div className="text-b2t-navy/65 mt-3 max-w-2xl text-base leading-relaxed md:text-lg">
               {s.body}

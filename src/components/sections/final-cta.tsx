@@ -57,7 +57,7 @@ export function FinalCta() {
               href="/book-a-demo"
               variant="outline"
               size="lg"
-              className="border-white/25 text-white hover:border-white/50"
+              className="text-white ring-white/30"
             >
               Book a demo
             </Button>

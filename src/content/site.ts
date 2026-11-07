@@ -19,7 +19,7 @@ export const site = {
     signUp: `${APP_URL}/role-selection`,
     signIn: `${APP_URL}/sign-in`,
     signUpTradie: `${APP_URL}/sign-up?role=Tradie`,
-    demo: "https://calendly.com/build2tradeaus",
+    demo: "https://calendly.com/build2tradeaus/30min",
     // TODO: App Store and Google Play links (the Get the app buttons stay hidden until set).
     appStore: null as string | null,
     googlePlay: null as string | null,
@@ -28,8 +28,10 @@ export const site = {
   contact: {
     // From the current website; TODO: confirm support email, phone and hours.
     email: "admin@build2trade.com.au",
-    phone: "+61 485 000 915",
-    phoneHref: "tel:+61485000915",
+    phone: "0485 000 915",
+    phoneHref: "tel:0485000915",
+    /** International format, used only in search-engine structured data. */
+    phoneIntl: "+61 485 000 915",
     hours: "Mon–Fri, 9am–5pm AEST",
     abn: "82 688 987 948",
   },
@@ -53,7 +55,11 @@ export const site = {
     bing: null as string | null,
   },
 
-  credit: "Designed and developed by Graphica Pro Artistry",
+  credit: {
+    text: "Designed and developed by",
+    name: "Graphica Pro Artistry",
+    url: "https://graphicaproartistry.com.au",
+  },
 } as const;
 
 export const yearlySaving = Math.round(site.pricing.monthly * 12 - site.pricing.yearly);

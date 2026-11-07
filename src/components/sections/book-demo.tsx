@@ -9,7 +9,10 @@ import { cn } from "@/lib/utils";
  * Book a demo: copy on the left, the Calendly scheduler embedded on the right
  * (lazy-loaded, with a skeleton until it's ready and a direct link as a fallback).
  */
-const embedUrl = `${site.links.demo}?hide_gdpr_banner=1&background_color=ffffff&text_color=101827&primary_color=101827`;
+// Calendly themed to the brand (yellow, navy text and buttons) with the duplicate event
+// header hidden. Note: Calendly only applies colour settings on its paid plans, so on the
+// free plan the scheduler stays white inside our yellow frame.
+const embedUrl = `${site.links.demo}?hide_event_type_details=1&hide_gdpr_banner=1&background_color=fec124&text_color=101827&primary_color=101827`;
 
 export function BookDemo({
   title = "Book a demo.",
@@ -87,35 +90,56 @@ export function BookDemo({
           </a>
         </Reveal>
 
-        <div className="text-b2t-navy relative min-h-[34rem] overflow-hidden rounded-[24px] bg-white">
+        <div className="text-b2t-navy bg-b2t-yellow relative min-h-[34rem] overflow-hidden rounded-[24px]">
           {open ? (
-            <>
-              {!loaded && <CalendarSkeleton />}
-              <iframe
-                title="Book a Build2Trade demo"
-                src={embedUrl}
-                onLoad={() => setLoaded(true)}
-                className={cn(
-                  "relative block h-[1040px] w-full transition-opacity duration-500 md:h-[720px]",
-                  loaded ? "opacity-100" : "opacity-0",
-                )}
-              />
-            </>
+            <div className="flex h-full flex-col p-2 md:p-3">
+              <div className="flex items-center justify-between gap-3 px-3 pt-2 pb-3 md:px-4 md:pt-3">
+                <div className="flex items-center gap-3">
+                  <span className="bg-b2t-navy grid size-9 place-items-center rounded-full text-xs font-semibold text-white">
+                    B2T
+                  </span>
+                  <div className="leading-tight">
+                    <p className="font-semibold">Build2Trade demo</p>
+                    <p className="text-b2t-navy/65 text-sm">30 minutes · online</p>
+                  </div>
+                </div>
+                <a
+                  href={site.links.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-semibold underline-offset-4 hover:underline"
+                >
+                  New tab ↗
+                </a>
+              </div>
+              <div className="relative overflow-hidden rounded-[18px] bg-white">
+                {!loaded && <CalendarSkeleton />}
+                <iframe
+                  title="Book a Build2Trade demo"
+                  src={embedUrl}
+                  onLoad={() => setLoaded(true)}
+                  className={cn(
+                    "relative block h-[820px] w-full transition-opacity duration-500 md:h-[660px]",
+                    loaded ? "opacity-100" : "opacity-0",
+                  )}
+                />
+              </div>
+            </div>
           ) : (
             <div className="flex h-full min-h-[34rem] flex-col p-7 md:p-9">
               <div className="flex items-center gap-3">
-                <span className="bg-b2t-yellow grid size-11 place-items-center rounded-full font-semibold">
+                <span className="bg-b2t-navy grid size-11 place-items-center rounded-full text-sm font-semibold text-white">
                   B2T
                 </span>
                 <div>
                   <p className="font-semibold">Build2Trade</p>
-                  <p className="text-b2t-navy/55 text-sm">Demo with the team</p>
+                  <p className="text-b2t-navy/65 text-sm">30 minute demo with the team</p>
                 </div>
               </div>
               <p className="font-display mt-8 text-3xl">Pick a day and time</p>
               <div className="mt-6 grid grid-cols-7 gap-1.5 text-center text-sm" aria-hidden>
                 {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
-                  <span key={i} className="text-b2t-navy/45 py-1 text-xs font-semibold">
+                  <span key={i} className="text-b2t-navy/55 py-1 text-xs font-semibold">
                     {d}
                   </span>
                 ))}
@@ -124,7 +148,7 @@ export function BookDemo({
                     key={i}
                     className={cn(
                       "grid aspect-square place-items-center rounded-full",
-                      i % 7 < 5 && i > 3 ? "bg-b2t-mist font-semibold" : "text-b2t-navy/30",
+                      i % 7 < 5 && i > 3 ? "bg-white/70 font-semibold" : "text-b2t-navy/35",
                     )}
                   >
                     {i + 1}
