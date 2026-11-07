@@ -30,7 +30,14 @@ export function Reveal({
       if (!el) return;
       const items = el.children.length ? Array.from(el.children) : [el];
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      gsap.fromTo(items, reduce ? { opacity: 0 } : { opacity: 0, y, filter: "blur(10px)" }, {
+      // Blur is costly on phones, so they get a plain fade-up.
+      const mobile = window.matchMedia("(max-width: 767px)").matches;
+      const from = reduce
+        ? { opacity: 0 }
+        : mobile
+          ? { opacity: 0, y }
+          : { opacity: 0, y, filter: "blur(10px)" };
+      gsap.fromTo(items, from, {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",

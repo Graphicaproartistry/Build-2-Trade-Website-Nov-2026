@@ -1,164 +1,288 @@
+"use client";
+
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { site } from "@/content/site";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
+import { cn } from "@/lib/utils";
 
 /**
- * Supplier Marketplace: suppliers list products; builders and tradies browse by
- * supplier and state, add items to a quote list and get prices from the supplier.
- * Product visuals are simple line drawings (no third-party brands).
+ * B2T Marketplace, pitched to suppliers: import your catalogue (Shopify, WordPress or
+ * by hand), get listed with your pricing, receive quote requests from builders and
+ * tradies, then approve and send your quote. An animated four-step flow (time-based,
+ * so it stays smooth on phones) with example data.
  */
-const products = [
+
+const STEP_MS = 3200;
+
+function Panel({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <div
+      className={cn(
+        "text-b2t-navy rounded-2xl bg-white p-3.5 shadow-[0_20px_50px_-25px_rgb(0_0_0/0.6)]",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+function ImportVisual() {
+  return (
+    <Panel>
+      <div className="flex gap-2">
+        {["Shopify", "WordPress"].map((s) => (
+          <span
+            key={s}
+            className="bg-b2t-mist flex-1 rounded-xl px-3 py-2 text-center text-xs font-semibold"
+          >
+            {s}
+          </span>
+        ))}
+      </div>
+      <p className="mt-3 text-xs font-semibold">Importing your catalogue</p>
+      <div className="bg-b2t-navy/10 mt-2 h-1.5 overflow-hidden rounded-full">
+        <div className="bg-b2t-navy h-full w-full origin-left animate-[spotlightBar_2.4s_cubic-bezier(0.22,1,0.36,1)_both] rounded-full" />
+      </div>
+      <p className="text-b2t-navy/55 mt-2 text-[11px]">1,248 products · photos · prices · stock</p>
+    </Panel>
+  );
+}
+
+function ListedVisual() {
+  const items = [
+    ["Plasterboard 10mm 2400×1200", "$18.90"],
+    ["Stud adhesive 5.2 kg", "$20.00"],
+    ["MGP10 90×45 per lm", "$6.85"],
+  ];
+  return (
+    <Panel>
+      <p className="text-xs font-semibold">Your store on B2T</p>
+      <ul className="mt-2 space-y-1.5">
+        {items.map(([n, p], i) => (
+          <li
+            key={n}
+            className="bg-b2t-mist flex animate-[fadeUp_0.5s_both] items-center justify-between gap-2 rounded-xl px-3 py-2 text-[11px]"
+            style={{ animationDelay: `${i * 120}ms` }}
+          >
+            <span className="truncate font-medium">{n}</span>
+            <span className="shrink-0 font-semibold tabular-nums">{p} + GST</span>
+          </li>
+        ))}
+      </ul>
+    </Panel>
+  );
+}
+
+function RequestVisual() {
+  return (
+    <Panel>
+      <div className="flex items-center gap-2.5">
+        <span className="bg-b2t-navy grid size-8 shrink-0 place-items-center rounded-full text-[11px] font-semibold text-white">
+          CH
+        </span>
+        <div className="min-w-0">
+          <p className="truncate text-xs font-semibold">Coastline Homes</p>
+          <p className="text-b2t-navy/55 truncate text-[11px]">Lot 12, Bonnie Brook · VIC</p>
+        </div>
+      </div>
+      <div className="bg-b2t-mist mt-3 rounded-xl px-3 py-2.5">
+        <p className="text-xs font-semibold">Quote request · 14 items</p>
+        <p className="text-b2t-navy/55 mt-0.5 text-[11px]">
+          Plasterboard, adhesives, cornice, screws
+        </p>
+      </div>
+      <p className="text-b2t-navy/55 mt-2 text-[11px]">Needed on site: 24 Nov</p>
+    </Panel>
+  );
+}
+
+function ApproveVisual() {
+  return (
+    <Panel>
+      <div className="bg-b2t-yellow flex animate-[fadeUp_0.45s_both] items-start gap-2.5 rounded-xl px-3 py-2.5">
+        <svg
+          viewBox="0 0 24 24"
+          className="mt-0.5 size-4 shrink-0"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          aria-hidden
+        >
+          <path
+            d="M6 8a6 6 0 1112 0c0 7 3 9 3 9H3s3-2 3-9M10 21h4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <p className="text-[11px] leading-snug font-semibold">
+          New quote request from Coastline Homes
+        </p>
+      </div>
+      <div className="mt-3 flex gap-2">
+        <span className="bg-b2t-navy flex-1 rounded-full py-2 text-center text-[11px] font-semibold text-white">
+          Approve & send quote
+        </span>
+        <span className="bg-b2t-mist rounded-full px-3 py-2 text-[11px] font-semibold">Adjust</span>
+      </div>
+      <p className="text-b2t-navy/55 mt-2 text-[11px]">
+        Then invoice through B2T when it&apos;s delivered.
+      </p>
+    </Panel>
+  );
+}
+
+const steps = [
   {
-    name: "Perforated acoustic ceiling panel",
-    price: 100,
-    was: 173.29,
-    supplier: "Harbour City Building Supplies",
-    state: "NSW",
-    art: (
-      <g>
-        <path d="M20 70 L80 40 L140 70 L80 100 Z" />
-        {Array.from({ length: 18 }).map((_, i) => {
-          const x = 40 + (i % 6) * 14 + Math.floor(i / 6) * 6;
-          const y = 62 + Math.floor(i / 6) * 9 - (i % 6) * 4;
-          return <circle key={i} cx={x} cy={y} r="1.6" />;
-        })}
-      </g>
-    ),
+    title: "Import your catalogue",
+    body: "Connect your Shopify or WordPress store and bring in your products, photos and prices. Or add products by hand.",
+    visual: ImportVisual,
   },
   {
-    name: "Stud adhesive, 5.2 kg tub",
-    price: 20,
-    was: 29,
-    supplier: "Westside Plaster & Trade",
-    state: "VIC",
-    art: (
-      <g>
-        <ellipse cx="80" cy="38" rx="34" ry="8" />
-        <path d="M46 38 L52 102 Q80 112 108 102 L114 38" />
-        <path d="M48 50 Q80 60 112 50" />
-        <path d="M52 30 Q80 6 108 30" />
-      </g>
-    ),
+    title: "Get listed on B2T",
+    body: "Your products appear in the B2T marketplace with your pricing, specials and the states you supply.",
+    visual: ListedVisual,
   },
   {
-    name: "Cornice adhesive, 20 kg bag",
-    price: 25,
-    was: 48,
-    supplier: "Westside Plaster & Trade",
-    state: "VIC",
-    art: (
-      <g>
-        <path d="M56 26 L104 26 L110 106 L50 106 Z" />
-        <path d="M56 26 L60 18 L100 18 L104 26" />
-        <path d="M62 50 L98 50 M62 58 L90 58" />
-        <rect x="64" y="70" width="32" height="22" rx="3" />
-      </g>
-    ),
+    title: "Receive quote requests",
+    body: "Builders and tradies add your products to a quote request for their project and send it straight to you.",
+    visual: RequestVisual,
+  },
+  {
+    title: "Approve and send your quote",
+    body: "You get a notification, check the request, adjust anything you need to, and send your quote.",
+    visual: ApproveVisual,
   },
 ];
 
-const fmt = (n: number) => `$${n.toFixed(2)}`;
-
 export function Marketplace() {
+  const [active, setActive] = useState(0);
+  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.3 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!visible) return;
+    const id = setTimeout(() => setActive((a) => (a + 1) % steps.length), STEP_MS);
+    return () => clearTimeout(id);
+  }, [active, visible]);
+
   return (
-    <section id="marketplace" className="px-5 py-24 md:px-12 md:py-36 lg:px-20">
-      <Reveal className="mx-auto max-w-3xl text-center">
-        <h2 className="font-display text-b2t-navy text-5xl leading-[0.95] md:text-7xl">
-          A marketplace for building supplies.
-        </h2>
-        <p className="text-b2t-navy/60 mx-auto mt-6 max-w-xl text-lg font-medium">
-          Suppliers list their products. Builders and tradies browse, add items to a quote list and
-          get prices straight from the supplier.
-        </p>
-      </Reveal>
-
-      <Reveal className="mt-14 grid gap-3 md:grid-cols-3" stagger={0.08}>
-        {products.map((p) => (
-          <article
-            key={p.name}
-            className="overflow-hidden rounded-[28px] bg-white ring-1 ring-black/5"
-          >
-            <div className="bg-b2t-sand relative flex aspect-[4/3] items-center justify-center">
-              <svg
-                viewBox="0 0 160 120"
-                className="text-b2t-navy h-3/4 w-3/4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinejoin="round"
-                aria-hidden
-              >
-                {p.art}
-              </svg>
-              <span className="text-b2t-navy absolute top-4 left-4 rounded-full bg-white px-2.5 py-1 text-xs font-semibold">
-                Sale
-              </span>
-            </div>
-            <div className="p-6">
-              <h3 className="text-b2t-navy text-lg leading-snug font-semibold">{p.name}</h3>
-              <p className="text-b2t-navy mt-3 text-xl font-semibold">
-                {fmt(p.price)} + GST{" "}
-                <span className="text-b2t-navy/40 text-sm font-medium line-through">
-                  {fmt(p.was)}
-                </span>
-              </p>
-              <p className="text-b2t-navy/55 text-sm">{fmt(p.price * 1.1)} incl. GST</p>
-              <p className="text-b2t-navy/55 mt-4 text-sm">
-                by <span className="text-b2t-navy font-medium">{p.supplier}</span> · {p.state}
-              </p>
-              <div className="bg-b2t-yellow text-b2t-navy mt-5 rounded-full py-2.5 text-center text-sm font-semibold">
-                Add to quote list
-              </div>
-            </div>
-          </article>
-        ))}
-      </Reveal>
-
-      <div className="mt-16 grid gap-3 md:mt-20 md:grid-cols-2">
-        {[
-          {
-            who: "For suppliers",
-            title: "Sell to builders who are already buying.",
-            steps: [
-              "List your products with prices and specials",
-              "Get quote requests from live projects",
-              "Send quotes and invoices from one place",
-            ],
-            cta: "List your products",
-          },
-          {
-            who: "For builders and tradies",
-            title: "Get materials priced without the phone calls.",
-            steps: [
-              "Browse products by supplier and state",
-              "Add items to a quote list for your project",
-              "Compare supplier quotes and keep invoices on the job",
-            ],
-            cta: "Browse the marketplace",
-          },
-        ].map((c) => (
-          <Reveal key={c.who}>
-            <div className="bg-b2t-mist h-full rounded-[28px] p-7 md:p-10">
-              <p className="text-b2t-navy/55 text-sm font-semibold">{c.who}</p>
-              <h3 className="font-display text-b2t-navy mt-4 max-w-[18ch] text-3xl leading-tight md:text-4xl">
-                {c.title}
-              </h3>
-              <ol className="mt-8 space-y-3">
-                {c.steps.map((s, i) => (
-                  <li key={s} className="text-b2t-navy flex items-center gap-3 font-medium">
-                    <span className="bg-b2t-navy grid size-7 shrink-0 place-items-center rounded-full text-xs font-semibold text-white">
-                      {i + 1}
-                    </span>
-                    {s}
-                  </li>
-                ))}
-              </ol>
-              <Button href={site.links.signUp} className="mt-9">
-                {c.cta}
-              </Button>
-            </div>
+    <section id="marketplace" className="px-1.5 py-1.5 md:px-2 md:py-2">
+      <div
+        ref={ref}
+        className="bg-b2t-navy rounded-[28px] px-5 py-20 text-white md:rounded-[44px] md:px-12 md:py-28 lg:px-20"
+      >
+        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+          <Reveal className="max-w-3xl">
+            <p className="bg-b2t-yellow text-b2t-navy inline-flex rounded-full px-3 py-1 text-sm font-semibold">
+              B2T Marketplace
+            </p>
+            <h2 className="font-display mt-6 text-5xl leading-[0.95] md:text-8xl">
+              Your products, in front of every builder.
+            </h2>
+            <p className="mt-6 max-w-xl text-lg text-white/65">
+              Suppliers list their products on B2T, and builders and tradies request quotes for
+              whole projects in a few taps. You get the request, you approve the quote, and you get
+              the job.
+            </p>
           </Reveal>
-        ))}
+          <Reveal className="shrink-0">
+            <Button href={site.links.signUp} variant="accent" size="lg">
+              List your products
+            </Button>
+          </Reveal>
+        </div>
+
+        {/* Animated flow */}
+        <ol className="relative mt-16 grid gap-3 md:mt-20 md:grid-cols-2 xl:grid-cols-4">
+          {steps.map((s, i) => {
+            const on = i === active;
+            const done = i < active;
+            const Visual = s.visual;
+            return (
+              <li key={s.title}>
+                <button
+                  type="button"
+                  onClick={() => setActive(i)}
+                  aria-current={on}
+                  className={cn(
+                    "flex h-full w-full flex-col rounded-[24px] p-5 text-left ring-1 transition-colors duration-500 md:p-6",
+                    on
+                      ? "bg-white/[0.09] ring-white/25"
+                      : "bg-white/[0.03] ring-white/10 hover:bg-white/[0.06]",
+                  )}
+                >
+                  <span className="flex items-center gap-3">
+                    <span
+                      className={cn(
+                        "grid size-8 shrink-0 place-items-center rounded-full text-sm font-semibold transition-colors duration-500",
+                        on || done ? "bg-b2t-yellow text-b2t-navy" : "bg-white/10 text-white/70",
+                      )}
+                    >
+                      {done ? "✓" : i + 1}
+                    </span>
+                    <span className="text-lg font-semibold">{s.title}</span>
+                  </span>
+                  <span className="mt-3 block text-[15px] leading-relaxed text-white/60">
+                    {s.body}
+                  </span>
+                  <span className="relative mt-6 block min-h-[11rem]">
+                    <span
+                      key={on ? `on-${i}` : `off-${i}`}
+                      className={cn(
+                        "block transition-opacity duration-500",
+                        on ? "opacity-100" : "opacity-35",
+                      )}
+                    >
+                      <Visual />
+                    </span>
+                  </span>
+                  <span className="mt-5 block h-[3px] overflow-hidden rounded-full bg-white/10">
+                    {on && visible && (
+                      <span
+                        key={`bar-${active}`}
+                        className="bg-b2t-yellow block h-full origin-left"
+                        style={{ animation: `spotlightBar ${STEP_MS}ms linear both` }}
+                      />
+                    )}
+                    {done && <span className="bg-b2t-yellow/60 block h-full" />}
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ol>
+
+        {/* For builders and tradies */}
+        <div className="mt-16 grid gap-8 border-t border-white/10 pt-12 md:mt-20 md:grid-cols-[1fr_2fr] md:gap-16">
+          <h3 className="font-display text-3xl leading-tight md:text-4xl">
+            For builders and tradies: materials priced without the phone calls.
+          </h3>
+          <ul className="grid gap-6 sm:grid-cols-3">
+            {[
+              ["Browse suppliers", "Find suppliers by product and by the state they deliver to."],
+              [
+                "One request, whole project",
+                "Add everything the job needs to one quote request and send it.",
+              ],
+              ["Keep it on the job", "Supplier quotes and invoices stay with the project budget."],
+            ].map(([t, b]) => (
+              <li key={t}>
+                <p className="font-semibold">{t}</p>
+                <p className="mt-2 text-[15px] leading-relaxed text-white/60">{b}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

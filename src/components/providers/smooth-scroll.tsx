@@ -17,9 +17,16 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     gsap.ticker.lagSmoothing(0);
     const lenis = lenisRef.current?.lenis;
     lenis?.on("scroll", ScrollTrigger.update);
+
+    // Late layout changes (web fonts, images) move sections around: recalculate once
+    // they settle so pinned sections start and end in the right place.
+    const refresh = () => ScrollTrigger.refresh();
+    document.fonts?.ready.then(refresh);
+    window.addEventListener("load", refresh);
     return () => {
       gsap.ticker.remove(update);
       lenis?.off("scroll", ScrollTrigger.update);
+      window.removeEventListener("load", refresh);
     };
   }, []);
 

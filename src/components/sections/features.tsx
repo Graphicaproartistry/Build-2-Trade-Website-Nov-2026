@@ -74,7 +74,7 @@ export function Features() {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
-      mm.add("(min-width: 768px)", () => {
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
         const el = track.current;
         if (!el) return;
         const dist = () => el.scrollWidth - window.innerWidth;
@@ -86,6 +86,7 @@ export function Features() {
             start: "top top",
             end: () => `+=${dist()}`,
             pin: true,
+            anticipatePin: 1,
             scrub: true,
             invalidateOnRefresh: true,
           },
@@ -100,48 +101,50 @@ export function Features() {
     <section
       ref={ref}
       id="how-it-works"
-      className="overflow-hidden py-20 md:flex md:h-dvh md:flex-col md:justify-center md:py-0"
+      className="flex h-svh flex-col justify-center overflow-hidden"
     >
       <div className="px-5 md:px-12 lg:px-20">
         <h2 className="font-display text-b2t-navy max-w-[16ch] text-5xl leading-[0.95] md:text-7xl">
           Everything a build needs.
         </h2>
       </div>
-      <div
-        ref={track}
-        className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 md:mt-14 md:w-max md:snap-none md:overflow-visible md:px-12 lg:px-20 [&::-webkit-scrollbar]:hidden"
-      >
-        {cards.map((c) => (
-          <article key={c.title} className="w-[78vw] shrink-0 snap-start sm:w-[22rem] md:w-[26rem]">
-            <div className="bg-b2t-sand flex aspect-[4/4.2] items-center justify-center overflow-hidden rounded-[28px] p-7">
-              <Crop
-                src={c.crop.src}
-                img={c.crop.img}
-                rect={[...c.crop.rect]}
-                alt={c.title}
-                className="w-full max-w-[19rem] rounded-2xl shadow-[0_20px_40px_-12px_rgb(16_24_39/0.25)] ring-1 ring-black/5"
-              />
-            </div>
-            <h3 className="text-b2t-navy mt-5 flex items-center gap-2 text-lg font-semibold">
-              <svg
-                viewBox="0 0 24 24"
-                className="size-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden
-              >
-                <path d={c.icon} />
-              </svg>
-              {c.title}
-            </h3>
-            <p className="text-b2t-navy/60 mt-2 max-w-[24rem] text-[15px] leading-relaxed">
-              {c.body}
-            </p>
-          </article>
-        ))}
+      <div className="motion-reduce:overflow-x-auto">
+        <div
+          ref={track}
+          className="mt-8 flex w-max gap-4 px-5 will-change-transform md:mt-14 md:px-12 lg:px-20"
+        >
+          {cards.map((c) => (
+            <article key={c.title} className="w-[74vw] shrink-0 sm:w-[22rem] md:w-[26rem]">
+              <div className="bg-b2t-sand flex aspect-[4/4.2] items-center justify-center overflow-hidden rounded-[28px] p-7">
+                <Crop
+                  src={c.crop.src}
+                  img={c.crop.img}
+                  rect={[...c.crop.rect]}
+                  alt={c.title}
+                  className="w-full max-w-[19rem] rounded-2xl shadow-[0_20px_40px_-12px_rgb(16_24_39/0.25)] ring-1 ring-black/5"
+                />
+              </div>
+              <h3 className="text-b2t-navy mt-5 flex items-center gap-2 text-lg font-semibold">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="size-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <path d={c.icon} />
+                </svg>
+                {c.title}
+              </h3>
+              <p className="text-b2t-navy/60 mt-2 max-w-[24rem] text-[15px] leading-relaxed">
+                {c.body}
+              </p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

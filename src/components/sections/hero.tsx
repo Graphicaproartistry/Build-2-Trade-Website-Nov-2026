@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { site } from "@/content/site";
 import { Button } from "@/components/ui/button";
 
@@ -88,14 +88,18 @@ export function Hero() {
       const tap = root.querySelector<HTMLElement>("[data-tap]");
       const hand = root.querySelector<HTMLElement>("[data-hand]");
 
-      gsap.set(shots.slice(1), { xPercent: 100 });
-      gsap.set(lines.slice(1), { opacity: 0, y: 16 });
+      const dims = q("[data-dim]");
+      const isMobile = window.matchMedia("(max-width: 767px)").matches;
+      const last = steps.length - 1;
 
-      // Entrance on load.
+      gsap.set(shots.slice(1), { xPercent: 100 });
+      gsap.set(lines.slice(1), { autoAlpha: 0, y: 16 });
+
+      // Entrance on load (blur is skipped on phones; it's expensive there).
       gsap.from(q("[data-intro]"), {
         opacity: 0,
         y: 24,
-        filter: "blur(8px)",
+        ...(isMobile ? {} : { filter: "blur(8px)" }),
         duration: 1.1,
         ease: "expo.out",
         stagger: 0.08,
@@ -103,52 +107,107 @@ export function Hero() {
       });
       if (hand) gsap.from(hand, { yPercent: 18, duration: 1.4, ease: "expo.out", delay: 0.15 });
 
-      const tl = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: true },
-      });
-      if (hand) tl.fromTo(hand, { rotate: -2 }, { rotate: 2, duration: 1 }, 0);
+      // Gentle sway tied to scroll (a single transform on one layer: cheap).
+      if (hand) {
+        gsap.fromTo(
+          hand,
+          { rotate: -2 },
+          {
+            rotate: 2,
+            ease: "none",
+            scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: true },
+          },
+        );
+      }
 
-      const seg = 1 / steps.length;
-      steps.forEach((s, i) => {
-        if (i === 0) return;
-        const t = i * seg - seg * 0.4;
-        const prev = shots[i - 1];
-        const next = shots[i];
-        if (s.tap && tap) {
-          tl.set(tap, { left: `${s.tap.x * 100}%`, top: `${s.tap.y * 100}%` }, t - 0.06)
-            .fromTo(
-              tap,
-              { opacity: 0, scale: 1.6 },
-              { opacity: 1, scale: 1, duration: 0.03, ease: "power2.out" },
-              t - 0.06,
-            )
-            .to(tap, { scale: 0.8, duration: 0.015 }, t - 0.025)
-            .to(tap, { opacity: 0, scale: 1.4, duration: 0.02 }, t - 0.01);
+      // Screen changes are triggered by scroll position but play as short timed
+      // animations, so they stay smooth however fast the page is flung on a phone.
+      let current = 0;
+      let running: gsap.core.Timeline | null = null;
+
+      const show = (to: number) => {
+        if (to === current) return;
+        const from = current;
+        current = to;
+        running?.progress(1);
+        const forward = to > from;
+        const step = steps[to];
+        const tl = gsap.timeline({ defaults: { ease: "power3.out", overwrite: "auto" } });
+        running = tl;
+
+        let at = 0;
+        if (forward && step.tap && tap) {
+          tl.set(tap, {
+            left: `${step.tap.x * 100}%`,
+            top: `${step.tap.y * 100}%`,
+            opacity: 0,
+            scale: 1.6,
+          })
+            .to(tap, { opacity: 1, scale: 1, duration: 0.16 })
+            .to(tap, { scale: 0.82, duration: 0.08, ease: "power1.inOut" })
+            .to(tap, { opacity: 0, scale: 1.4, duration: 0.2 });
+          at = 0.24;
         }
-        if (i === steps.length - 1) {
-          tl.fromTo(
-            next,
-            { xPercent: 0, yPercent: 100 },
-            { yPercent: 0, duration: 0.08, ease: "power3.out" },
-            t,
-          );
+
+        // Park every screen that isn't moving.
+        shots.forEach((el, i) => {
+          if (i === to || i === from) return;
+          gsap.set(el, i < to ? { xPercent: -30, yPercent: 0 } : { xPercent: 100, yPercent: 0 });
+          gsap.set(dims[i], { opacity: i < to ? 0.3 : 0 });
+        });
+
+        const dur = 0.55;
+        if (to === last && forward) {
+          // The last screen opens like a sheet from the bottom.
+          tl.fromTo(shots[to], { xPercent: 0, yPercent: 100 }, { yPercent: 0, duration: dur }, at);
+          tl.to(dims[from], { opacity: 0.3, duration: dur }, at);
+        } else if (from === last && !forward) {
+          tl.to(shots[from], { yPercent: 100, duration: dur }, at);
+          gsap.set(shots[to], { xPercent: 0, yPercent: 0 });
+          tl.to(dims[to], { opacity: 0, duration: dur }, at);
         } else {
-          tl.to(next, { xPercent: 0, duration: 0.08, ease: "power3.inOut" }, t).to(
-            prev,
-            { xPercent: -30, filter: "brightness(0.7)", duration: 0.08, ease: "power3.inOut" },
-            t,
-          );
-        }
-        tl.to(lines[i - 1], { opacity: 0, y: -16, duration: 0.04 }, t)
-          .fromTo(
-            lines[i],
-            { opacity: 0, y: 16 },
-            { opacity: 1, y: 0, duration: 0.05, ease: "power2.out" },
-            t + 0.03,
+          tl.fromTo(
+            shots[to],
+            { xPercent: forward ? 100 : -30, yPercent: 0 },
+            { xPercent: 0, duration: dur, ease: "power3.inOut" },
+            at,
           )
-          .to(dots[i - 1], { backgroundColor: "rgb(16 24 39 / 0.2)", width: 8, duration: 0.03 }, t)
-          .to(dots[i], { backgroundColor: "#101827", width: 24, duration: 0.03 }, t);
+            .to(
+              shots[from],
+              { xPercent: forward ? -30 : 100, duration: dur, ease: "power3.inOut" },
+              at,
+            )
+            .fromTo(dims[to], { opacity: forward ? 0 : 0.3 }, { opacity: 0, duration: dur }, at)
+            .to(dims[from], { opacity: forward ? 0.3 : 0, duration: dur }, at);
+        }
+
+        lines.forEach((el, i) => {
+          if (i !== to && i !== from) gsap.set(el, { autoAlpha: 0 });
+        });
+        tl.to(lines[from], { autoAlpha: 0, y: forward ? -16 : 16, duration: 0.25 }, at).fromTo(
+          lines[to],
+          { autoAlpha: 0, y: forward ? 16 : -16 },
+          { autoAlpha: 1, y: 0, duration: 0.4 },
+          at + 0.12,
+        );
+        dots.forEach((d, i) =>
+          tl.to(
+            d,
+            {
+              width: i === to ? 24 : 8,
+              backgroundColor: i === to ? "#101827" : "rgb(16 24 39 / 0.2)",
+              duration: 0.3,
+            },
+            at,
+          ),
+        );
+      };
+
+      ScrollTrigger.create({
+        trigger: root,
+        start: "top top",
+        end: "bottom bottom",
+        onUpdate: (self) => show(Math.min(last, Math.floor(self.progress * steps.length))),
       });
     },
     { scope: ref },
@@ -159,10 +218,9 @@ export function Hero() {
       ref={ref}
       id="app"
       aria-label="Build 2 Trade: connecting builders to quality trades"
-      className="relative"
-      style={{ height: `${steps.length * 80 + 40}vh` }}
+      className="relative h-[310vh] md:h-[440vh]"
     >
-      <div className="sticky top-0 h-dvh px-1.5 pb-1.5 md:px-2 md:pb-2">
+      <div className="sticky top-0 h-svh px-1.5 pb-1.5 md:px-2 md:pb-2">
         <div
           ref={panelRef}
           className="bg-b2t-yellow relative flex h-full flex-col items-center overflow-hidden rounded-b-[28px] md:rounded-b-[44px]"
@@ -212,7 +270,7 @@ export function Hero() {
             <div
               ref={handRef}
               data-hand
-              className="relative aspect-[1122/1402] h-[64dvh] shrink-0 origin-bottom"
+              className="relative aspect-[1122/1402] h-[64svh] shrink-0 origin-bottom will-change-transform"
             >
               <div
                 className="absolute overflow-hidden bg-white"
@@ -231,8 +289,13 @@ export function Hero() {
                       alt={i === 0 ? "Build 2 Trade app home screen" : ""}
                       fill
                       priority={i === 0}
+                      loading={i === 0 ? undefined : "eager"}
                       sizes="(max-width: 768px) 40vw, 18vw"
                       className="object-cover object-top"
+                    />
+                    <div
+                      data-dim
+                      className="pointer-events-none absolute inset-0 bg-black opacity-0"
                     />
                   </div>
                 ))}

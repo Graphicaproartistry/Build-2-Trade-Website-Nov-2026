@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 
 /**
@@ -25,6 +25,15 @@ export type SequenceFit =
 type Props = {
   name: string;
   frameCount: number;
+  /** Frame count of the mobile set if it differs (phones get a lighter sequence). */
+  mobileFrameCount?: number;
+  /**
+   * Phones: "autoplay" shows the sequence in a normal-height panel and plays it once
+   * when it comes into view (smooth and short); "scrub" pins and scrubs as on desktop.
+   */
+  mobileMode?: "scrub" | "autoplay";
+  /** Panel height in autoplay mode (CSS length). */
+  autoplayHeight?: string;
   /** Image aspect ratio, width / height. */
   aspect?: number;
   /** Total section height in viewport heights (scroll distance = length - 1). */
@@ -85,7 +94,10 @@ function mediaRect(w: number, h: number, aspect: number, fit: SequenceFit) {
 
 export function ScrollSequence({
   name,
-  frameCount,
+  frameCount: desktopFrameCount,
+  mobileFrameCount,
+  mobileMode = "scrub",
+  autoplayHeight = "60svh",
   aspect = 16 / 9,
   length = 3,
   fit = { mode: "cover" },
@@ -107,6 +119,9 @@ export function ScrollSequence({
   const overlayRef = useRef<HTMLDivElement>(null);
 
   const [variant, setVariant] = useState<"desktop" | "mobile" | null>(null);
+  const frameCount =
+    variant === "mobile" && mobileFrameCount ? mobileFrameCount : desktopFrameCount;
+  const autoplay = variant === "mobile" && mobileMode === "autoplay";
 
   const images = useRef<(HTMLImageElement | null)[]>([]);
   const loaded = useRef<Uint8Array>(new Uint8Array(frameCount));
@@ -122,6 +137,14 @@ export function ScrollSequence({
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
   }, []);
+
+  // Switching to the mobile layout (e.g. autoplay instead of a tall pinned section)
+  // changes the page height, so every scroll trigger below must be recalculated.
+  useEffect(() => {
+    if (!variant) return;
+    const id = requestAnimationFrame(() => ScrollTrigger.refresh());
+    return () => cancelAnimationFrame(id);
+  }, [variant, autoplay]);
 
   const fitKey = JSON.stringify(variant === "mobile" && mobileFit ? mobileFit : fit);
   const activeFit = useMemo(() => JSON.parse(fitKey) as SequenceFit, [fitKey]);
@@ -162,7 +185,13 @@ export function ScrollSequence({
     const resize = () => {
       const w = stage.clientWidth;
       const h = stage.clientHeight;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Phones: cap the canvas resolution; the frames are only 720px wide there anyway.
+      const frameWidth = variant === "mobile" ? 1080 : 1920;
+      const r0 = mediaRect(w, h, aspect, activeFit);
+      const dpr = Math.max(
+        1,
+        Math.min(window.devicePixelRatio || 1, 2, (frameWidth / r0.w) * 1.15),
+      );
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       rect.current = mediaRect(w, h, aspect, activeFit);
@@ -204,11 +233,17 @@ export function ScrollSequence({
                 img.decoding = "async";
                 img.src = frameUrl(name, variant, i);
                 img.onload = () => {
-                  if (cancelled) return resolve();
-                  images.current[i] = img;
-                  loaded.current[i] = 1;
-                  draw();
-                  resolve();
+                  // Decode before first use so scrubbing never stalls on a decode.
+                  img
+                    .decode()
+                    .catch(() => {})
+                    .finally(() => {
+                      if (cancelled) return resolve();
+                      images.current[i] = img;
+                      loaded.current[i] = 1;
+                      draw();
+                      resolve();
+                    });
                 };
                 img.onerror = () => resolve();
               }),
@@ -247,8 +282,32 @@ export function ScrollSequence({
       const state = { f: 0 };
       const tl = gsap.timeline({
         defaults: { ease: "none" },
-        scrollTrigger: { trigger: wrap, start: "top top", end: "bottom bottom", scrub: true },
+        ...(autoplay
+          ? { paused: true }
+          : {
+              scrollTrigger: { trigger: wrap, start: "top top", end: "bottom bottom", scrub: true },
+            }),
       });
+      if (autoplay) {
+        // Play once when the panel is well in view, after the frames have loaded.
+        ScrollTrigger.create({
+          trigger: wrap,
+          start: "top 65%",
+          once: true,
+          onEnter: () => {
+            const begin = Date.now();
+            const go = () => {
+              const n = loaded.current.reduce((a, b) => a + b, 0);
+              if (n >= frameCount * 0.9 || Date.now() - begin > 3000) {
+                gsap.to(tl, { progress: 1, duration: 2.8, ease: "power1.inOut" });
+              } else {
+                setTimeout(go, 100);
+              }
+            };
+            go();
+          },
+        });
+      }
       tl.to(
         state,
         {
@@ -263,7 +322,7 @@ export function ScrollSequence({
       );
       build?.(tl, wrap);
     },
-    { scope: wrapRef, dependencies: [variant], revertOnUpdate: true },
+    { scope: wrapRef, dependencies: [variant, autoplay, frameCount], revertOnUpdate: true },
   );
 
   return (
@@ -272,17 +331,20 @@ export function ScrollSequence({
       id={id}
       aria-label={label}
       className={cn("relative", className)}
-      style={{ height: `${length * 100}vh` }}
+      style={{ height: autoplay ? undefined : `${length * 100}vh` }}
     >
       <div
         ref={stageRef}
         className={cn(
-          "sticky w-full overflow-hidden",
-          framed
-            ? "top-1.5 mx-auto h-[calc(100dvh-12px)] w-[calc(100%-12px)] rounded-[28px] md:top-2 md:h-[calc(100dvh-16px)] md:w-[calc(100%-16px)] md:rounded-[44px]"
-            : "top-0 h-dvh",
+          "w-full overflow-hidden",
+          autoplay
+            ? cn("relative", framed && "mx-auto w-[calc(100%-12px)] rounded-[28px]")
+            : framed
+              ? "sticky top-1.5 mx-auto h-[calc(100svh-12px)] w-[calc(100%-12px)] rounded-[28px] md:top-2 md:h-[calc(100svh-16px)] md:w-[calc(100%-16px)] md:rounded-[44px]"
+              : "sticky top-0 h-svh",
           stageClassName,
         )}
+        style={autoplay ? { height: autoplayHeight } : undefined}
       >
         <canvas ref={canvasRef} aria-hidden className="absolute inset-0 h-full w-full" />
         <div ref={overlayRef} className="pointer-events-none absolute" aria-hidden>

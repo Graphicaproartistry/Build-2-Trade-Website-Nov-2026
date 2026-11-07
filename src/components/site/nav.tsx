@@ -48,7 +48,7 @@ export function Nav() {
       >
         <nav
           aria-label="Main"
-          className="flex items-center gap-2 rounded-full bg-white/95 p-1.5 pl-4 shadow-[0_2px_4px_rgb(16_24_39/0.04),0_10px_30px_rgb(16_24_39/0.10)] ring-1 ring-black/5 backdrop-blur md:gap-6"
+          className="flex items-center gap-2 rounded-full bg-white/95 p-1.5 pl-4 shadow-[0_2px_4px_rgb(16_24_39/0.04),0_10px_30px_rgb(16_24_39/0.10)] ring-1 ring-black/5 md:gap-6"
         >
           <Link href="/" aria-label="Build 2 Trade home" className="shrink-0">
             <Logo />

@@ -4,6 +4,17 @@
   "frameCount": 143,
   "fps": 24,
   "pattern": "%03d.webp",
-  "sizes": { "desktop": [1920, 1080], "mobile": [1080, 608] },
-  "notes": "Lid opens 0-3.4s (camera locked), slow push-in 3.4-6s. Screen content is AI-generated and will be covered by a live dashboard overlay."
+  "sizes": {
+    "desktop": [
+      1920,
+      1080
+    ],
+    "mobile": [
+      720,
+      405
+    ]
+  },
+  "notes": "Lid opens 0-3.4s (camera locked), slow push-in 3.4-6s. Screen content is AI-generated and will be covered by a live dashboard overlay.",
+  "mobileFrameCount": 72,
+  "mobileFrameStep": 2
 }
