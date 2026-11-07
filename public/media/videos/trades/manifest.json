@@ -1,0 +1,12 @@
+{
+  "loops": {
+    "welding": "Stick welding arc and sparks",
+    "electrical": "Hands stripping copper wire",
+    "metal-fab": "Angle-grinder sparks",
+    "carpentry": "Circular saw cutting timber, sawdust",
+    "concreting": "Trowel smoothing wet concrete",
+    "plumbing": "Water droplet from a pipe fitting"
+  },
+  "format": "4s seamless loops (last second cross-faded into the start), 1280x720, muted. <name>.av1.mp4 (preferred) + <name>.mp4 (H.264 fallback) + <name>.poster.webp",
+  "montage": "10s multi-shot montage, not looped. Contains one nonsensical shot (~5s: copper wire inside a brass plumbing fitting spraying water)."
+}
