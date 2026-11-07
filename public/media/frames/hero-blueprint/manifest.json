@@ -1,0 +1,10 @@
+{
+  "name": "hero-blueprint",
+  "source": "media-src/hero-blueprint.mp4",
+  "frameCount": 95,
+  "sourceFps": 24,
+  "frameStep": 2,
+  "pattern": "%03d.webp",
+  "sizes": { "desktop": [1600, 900], "mobile": [960, 540] },
+  "notes": "0-2s blueprint lines draw on black; 2-5s wireframe becomes a timber frame, then the finished home; 5-8s lights come on (headline hold)."
+}
