@@ -1,27 +1,27 @@
 import { Reveal } from "@/components/ui/reveal";
 
-// Common residential trades. TODO: replace with the exact list from the app's trade picker.
+// The first nine appear in the app; the rest are common residential trades. TODO: confirm against the app's full trade picker.
 const trades = [
-  "Bricklaying",
-  "Building surveying",
-  "Cabinet making",
-  "Carpentry",
-  "Concreting",
-  "Crane & truck hire",
+  "Building surveyor",
   "Demolition",
-  "Electrical",
-  "Excavation",
-  "Fencing",
-  "Glazing",
-  "Landscaping",
-  "Painting",
-  "Plastering",
+  "Site hire",
+  "Concrete slabs",
+  "Basements",
+  "In-ground pools",
   "Plumbing",
+  "Electrical",
+  "Crane truck services",
+  "Carpentry",
+  "Bricklaying",
   "Roofing",
-  "Scaffolding",
-  "Steel fabrication",
+  "Plastering",
   "Tiling",
+  "Painting",
+  "Glazing",
   "Waterproofing",
+  "Landscaping",
+  "Fencing",
+  "Steel fabrication",
 ];
 
 /** Text-only trades list (no video). */

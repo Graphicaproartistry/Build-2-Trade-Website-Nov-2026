@@ -78,13 +78,13 @@ export const site = {
       key: "tradies",
       label: "Tradies",
       title: "Access consistent work",
-      body: "Get matched with quality builders and steady work that fits your skills, and grow your network.",
+      body: "Get leads for your trade and area, send quotes and invoices from your phone, and build a verified reputation.",
     },
     {
       key: "suppliers",
       label: "Suppliers",
       title: "Streamline your workflow",
-      body: "Connect with builders and tradies actively looking for reliable suppliers.",
+      body: "List your products on the marketplace and get quote requests from builders and tradies on live projects.",
     },
   ],
 

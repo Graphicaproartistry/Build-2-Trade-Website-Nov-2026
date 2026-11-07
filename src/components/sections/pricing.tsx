@@ -5,6 +5,11 @@ import { Reveal } from "@/components/ui/reveal";
 
 const included = [
   { label: "Unlimited projects", d: "M12 5v14M5 12h14" },
+  {
+    label: "AI assistant for plans, takeoffs and quotes",
+    d: "M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6",
+  },
+  { label: "Supplier marketplace", d: "M4 9l2-5h12l2 5M4 9h16v11H4zM9 20v-6h6v6" },
   { label: "Quotes, chat and file sharing", d: "M4 5h16v11H8l-4 4z" },
   { label: "Calendar, Gantt and reminders", d: "M4 6h16v14H4zM4 10h16" },
   { label: "Lifecycle reports (Excel and PDF)", d: "M5 20V10M12 20V4M19 20v-7" },
