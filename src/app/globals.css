@@ -1,26 +1,94 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================
+   B2T brand tokens
+   Orange is the signature accent. Use it selectively for CTAs,
+   highlights, active states and key details, never as a section fill.
+   ============================================================ */
+@theme {
+  /* Core palette */
+  --color-b2t-orange: #ff9d2e; /* primary accent: CTAs, highlights, active states */
+  --color-b2t-navy: #101827; /* premium dark backgrounds, nav, footer */
+  --color-b2t-soft-white: #f5f7fa; /* main light background */
+  --color-b2t-blue: #2563eb; /* secondary accent: links, info, selected UI */
+  --color-b2t-white: #ffffff; /* cards, surfaces, dark-mode contrast */
+
+  /* Accessible companions (WCAG AA for body text) */
+  --color-b2t-orange-ink: #a65400; /* orange TEXT on light surfaces (5.0:1 on soft white) */
+  --color-b2t-blue-bright: #60a5fa; /* links on navy (7.0:1); #2563EB is only 3.4:1 there */
+  --color-b2t-navy-800: #172135; /* raised surface on navy */
+  --color-b2t-navy-700: #1f2b43; /* borders and dividers on navy */
+  --color-b2t-slate-300: #a3aec2; /* muted text on navy (7.9:1) */
+  --color-b2t-slate-600: #475569; /* muted text on light (7.1:1) */
+}
+
+/* ============================================================
+   Section themes
+   The site is mixed by design, not by OS preference:
+   - .theme-dark: hero/laptop, product showcase, dashboard demos,
+     full-width construction footage, storytelling transitions,
+     final CTA and footer.
+   - .theme-light: reading-heavy sections (pricing detail, FAQ, blog).
+   Text on orange buttons is always navy (8.6:1); white on orange fails (2.1:1).
+   ============================================================ */
+.theme-dark {
+  --surface: var(--color-b2t-navy);
+  --surface-raised: var(--color-b2t-navy-800);
+  --border: var(--color-b2t-navy-700);
+  --ink: var(--color-b2t-white);
+  --ink-muted: var(--color-b2t-slate-300);
+  --accent: var(--color-b2t-orange);
+  --accent-text: var(--color-b2t-orange); /* 8.6:1 on navy */
+  --link: var(--color-b2t-blue-bright);
+  background-color: var(--surface);
+  color: var(--ink);
+}
+
+.theme-light {
+  --surface: var(--color-b2t-soft-white);
+  --surface-raised: var(--color-b2t-white);
+  --border: #e3e8ef;
+  --ink: var(--color-b2t-navy);
+  --ink-muted: var(--color-b2t-slate-600);
+  --accent: var(--color-b2t-orange);
+  --accent-text: var(--color-b2t-orange-ink);
+  --link: var(--color-b2t-blue); /* 4.8:1 on soft white */
+  background-color: var(--surface);
+  color: var(--ink);
+}
+
+/* Soft lighting for dark sections: a faint top glow plus a navy vignette */
+.dark-glow {
+  background-image:
+    radial-gradient(60% 50% at 50% 0%, rgb(37 99 235 / 0.14), transparent 70%),
+    radial-gradient(40% 35% at 85% 100%, rgb(255 157 46 / 0.08), transparent 70%);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-link: var(--link);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background-color: var(--color-b2t-navy);
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-b2t-navy);
+  color: var(--color-b2t-white);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--color-b2t-orange);
+  color: var(--color-b2t-navy);
 }
