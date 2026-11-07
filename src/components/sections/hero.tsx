@@ -141,11 +141,11 @@ export function Hero() {
           <div className="relative z-10 flex flex-col items-center px-5 pt-28 text-center md:pt-28">
             <h1
               data-intro
-              className="font-display text-b2t-navy max-w-[13ch] text-[12.5vw] leading-[0.95] md:max-w-[16ch] md:text-[5.2vw]"
+              className="font-display text-b2t-navy max-w-[13ch] text-[12.5vw] leading-[0.95] md:max-w-[17ch] md:text-[4.6vw]"
             >
               Connecting builders to quality trades.
             </h1>
-            <div data-intro className="relative mt-5 h-16 w-full max-w-2xl md:mt-6">
+            <div data-intro className="relative mt-4 h-14 w-full max-w-2xl md:mt-5 md:h-10">
               {steps.map((s) => (
                 <p
                   key={s.src}
@@ -176,10 +176,10 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="relative mt-auto flex w-full justify-center">
+          <div className="relative mt-5 flex w-full shrink-0 justify-center md:mt-6">
             <div
               data-hand
-              className="relative aspect-[1122/1402] h-[50dvh] origin-bottom md:h-[57dvh]"
+              className="relative aspect-[1122/1402] h-[calc((100dvh-24rem)/0.74)] max-h-[86dvh] shrink-0 origin-bottom md:h-[calc((100dvh-25rem)/0.74)]"
             >
               <div
                 className="absolute overflow-hidden bg-white"
