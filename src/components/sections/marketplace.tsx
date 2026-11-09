@@ -184,7 +184,7 @@ export function Marketplace({ showCta = true }: { showCta?: boolean }) {
               B2T Marketplace
             </p>
             <h2 className="font-display mt-6 text-5xl leading-[0.95] md:text-8xl">
-              Your products, in front of every builder.
+              Your products, in front of every builder &amp; tradie.
             </h2>
             <p className="mt-6 max-w-xl text-lg text-white/65">
               Builders and tradies on Build2Trade need materials every day. Get their quote
