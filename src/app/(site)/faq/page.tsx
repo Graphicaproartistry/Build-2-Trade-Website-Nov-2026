@@ -22,7 +22,7 @@ const groups: { title: string; items: { q: string; a: string }[] }[] = [
       },
       {
         q: "Who is it for?",
-        a: "Builders and project managers, licensed tradies, and building material suppliers.",
+        a: "Builders and project managers, tradies, and building material suppliers.",
       },
       { q: "Where does it work?", a: "Australia." },
       {
