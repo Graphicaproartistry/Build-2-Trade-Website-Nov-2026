@@ -28,7 +28,7 @@ export const site = {
 
   contact: {
     // From the current website; TODO: confirm support email, phone and hours.
-    email: "admin@build2trade.com.au",
+    email: "support@build2trade.com.au",
     phone: "0485 000 915",
     phoneHref: "tel:0485000915",
     /** International format, used only in search-engine structured data. */

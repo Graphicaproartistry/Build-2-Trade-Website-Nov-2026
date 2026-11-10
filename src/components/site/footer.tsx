@@ -109,7 +109,7 @@ export function Footer() {
       </div>
       <a
         href={`mailto:${c.email}`}
-        className="font-display text-b2t-navy/[0.07] hover:text-b2t-navy/20 block overflow-hidden py-6 text-center text-[8.4vw] leading-none whitespace-nowrap transition-colors"
+        className="font-display text-b2t-navy/[0.07] hover:text-b2t-navy/20 block overflow-hidden py-6 text-center text-[6.8vw] leading-none whitespace-nowrap transition-colors"
       >
         {c.email}
       </a>
