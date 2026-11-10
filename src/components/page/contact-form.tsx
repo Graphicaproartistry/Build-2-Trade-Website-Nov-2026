@@ -21,9 +21,6 @@ export function ContactForm() {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const get = (k: string) => String(f.get(k) ?? "").trim();
-    // Spam trap: real people never see or fill this field.
-    if (get("_honey")) return setStatus("sent");
-
     const subject = `Website enquiry from ${get("name")} (${get("role")})`;
     const lines = [`Name: ${get("name")}`, `Email: ${get("email")}`];
     if (get("phone")) lines.push(`Phone: ${get("phone")}`);
@@ -34,32 +31,34 @@ export function ContactForm() {
 
     setStatus("sending");
     try {
-      const res = await fetch(site.contact.formEndpoint, {
+      // Our own server relays it to the support inbox (see src/app/api/contact/route.ts).
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: get("name"),
           email: get("email"),
-          phone: get("phone") || "-",
-          "I am a": get("role"),
+          phone: get("phone"),
+          role: get("role"),
           message: get("message"),
-          _subject: subject,
-          _replyto: get("email"),
-          _template: "table",
-          _captcha: "false",
+          _honey: get("_honey"),
         }),
+        signal: AbortSignal.timeout(15000),
       });
       const data = (await res.json().catch(() => ({}))) as {
-        success?: string | boolean;
+        ok?: boolean;
+        activation?: boolean;
         message?: string;
       };
-      if (res.ok && String(data.success) !== "false") return setStatus("sent");
+      if (data.ok) return setStatus("sent");
       setDetail(data.message ?? `Error ${res.status}`);
       // Before the form is activated, FormSubmit holds the message and emails an
-      // "Activate Form" link to the support address instead.
-      setStatus(/activat/i.test(data.message ?? "") ? "activation" : "error");
+      // "Activate Form" link to the inbox instead.
+      setStatus(data.activation ? "activation" : "error");
     } catch (err) {
-      setDetail(err instanceof Error ? err.message : "");
+      setDetail(
+        err instanceof Error && err.name === "TimeoutError" ? "Timed out" : "Network error",
+      );
       setStatus("error");
     }
   };
@@ -136,7 +135,8 @@ export function ContactForm() {
       {status === "activation" && (
         <p className="rounded-2xl bg-[#fff6dc] px-4 py-3 text-sm text-[#6b4e00]" role="alert">
           This form is waiting to be switched on. An &ldquo;Activate Form&rdquo; email has been sent
-          to {site.contact.email}. Once it&apos;s activated, messages will come through. For now,{" "}
+          to the Build2Trade admin inbox. Once it&apos;s activated, messages will come through. For
+          now,{" "}
           <a href={mailto} className="font-semibold underline">
             send it from your email app
           </a>
