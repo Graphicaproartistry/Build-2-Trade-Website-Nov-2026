@@ -1,0 +1,40 @@
+# Build2Trade
+
+> Build2Trade (also written "Build 2 Trade") is Australia's first digital networking platform for builders, tradies and building suppliers. Builders post a project and get quotes from local tradies who do that trade, then hire, schedule, chat, track costs, get invoiced and order materials, all in one place. It runs on the web, iPhone and Android, and is built for Australian construction (ABN and GST built in, prices in AUD).
+
+Key facts:
+
+- Who it's for: builders and project managers, tradies (60 trades, from building surveyors and concreters to plumbers, electricians, carpenters, roofers, tilers and painters), and building material suppliers.
+- Where: Australia only.
+- Platforms: website (sign up and manage your account) plus iPhone and Android apps (log in and work on site).
+- Pricing for builders and tradies: $49.99 AUD a month or $449.99 AUD a year. Suppliers have their own plan.
+- Builders pay tradies directly; invoices are sent through Build2Trade.
+- Sign up: https://app.build2trade.com.au/role-selection
+- Contact: admin@build2trade.com.au, 0485 000 915 (Mon–Fri, 9am–5pm AEST). ABN 82 688 987 948.
+
+## Main pages
+
+- [Home](https://build2trade.com.au/): overview for builders, tradies and suppliers
+- [How it works](https://build2trade.com.au/how-it-works): the job from first quote to final invoice, step by step
+- [For builders](https://build2trade.com.au/builders): posting projects, comparing quotes, hiring, schedules, expenses, project reports and AI tools
+- [For tradies](https://build2trade.com.au/tradies): finding local jobs by trade, quoting, getting hired and invoicing
+- [For suppliers](https://build2trade.com.au/suppliers): quote requests, orders, invoices and the B2T Marketplace shop
+- [Features](https://build2trade.com.au/features): every feature and who it is for
+- [Pricing](https://build2trade.com.au/pricing): monthly and yearly plans
+- [FAQ](https://build2trade.com.au/faq): common questions from builders, tradies and suppliers
+
+## Get started
+
+- [Get the app](https://build2trade.com.au/get-the-app): App Store and Google Play
+- [Book a demo](https://build2trade.com.au/book-a-demo): a 30 minute online demo with the team
+- [Contact](https://build2trade.com.au/contact): email, phone and contact form
+- [App Store](https://apps.apple.com/au/app/build-2-trade/id6752311076)
+- [Google Play](https://play.google.com/store/apps/details?id=com.build2trade)
+
+## Optional
+
+- [Full feature guide for AI assistants](https://build2trade.com.au/llms-full.txt): everything Build2Trade does, in one file
+- [About](https://build2trade.com.au/about)
+- [Terms and Conditions](https://build2trade.com.au/terms-and-conditions)
+- [Terms of Use](https://build2trade.com.au/terms-of-use)
+- [Privacy Policy](https://build2trade.com.au/privacy-policy)
