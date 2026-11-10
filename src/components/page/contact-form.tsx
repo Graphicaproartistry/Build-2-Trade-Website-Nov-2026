@@ -5,49 +5,78 @@ import { site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 /**
- * Contact form. There is no mail service connected yet, so sending opens the
- * visitor's email app with the message filled in, addressed to the support email.
- * TODO: post to a form/email service (e.g. Resend or Formspree) when one is chosen.
+ * Contact form. Sends the enquiry by email to the support address through FormSubmit
+ * (site.contact.formEndpoint). If sending fails, it falls back to opening the visitor's
+ * email app with the message filled in.
  */
-export function ContactForm() {
-  const [sent, setSent] = useState(false);
+type Status = "idle" | "sending" | "sent" | "error";
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+export function ContactForm() {
+  const [status, setStatus] = useState<Status>("idle");
+  const [mailto, setMailto] = useState("");
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const get = (k: string) => String(f.get(k) ?? "").trim();
+    // Spam trap: real people never see or fill this field.
+    if (get("_honey")) return setStatus("sent");
+
+    const subject = `Website enquiry from ${get("name")} (${get("role")})`;
     const lines = [`Name: ${get("name")}`, `Email: ${get("email")}`];
     if (get("phone")) lines.push(`Phone: ${get("phone")}`);
     lines.push(`I am a: ${get("role")}`, "", get("message"));
-    const body = lines.join("\n");
-    const subject = `Website enquiry from ${get("name")} (${get("role")})`;
-    window.location.href = `mailto:${site.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    setMailto(
+      `mailto:${site.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`,
+    );
+
+    setStatus("sending");
+    try {
+      const res = await fetch(site.contact.formEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: get("name"),
+          email: get("email"),
+          phone: get("phone") || "-",
+          "I am a": get("role"),
+          message: get("message"),
+          _subject: subject,
+          _replyto: get("email"),
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+      const data = (await res.json().catch(() => ({}))) as { success?: string | boolean };
+      setStatus(res.ok && String(data.success) !== "false" ? "sent" : "error");
+    } catch {
+      setStatus("error");
+    }
   };
 
   const field =
     "text-b2t-navy w-full rounded-2xl bg-white px-4 py-3.5 ring-1 ring-black/10 outline-none placeholder:text-b2t-navy/35 focus:ring-2 focus:ring-b2t-navy";
 
-  if (sent)
+  if (status === "sent")
     return (
-      <div className="rounded-[24px] bg-white p-8 ring-1 ring-black/5">
+      <div className="rounded-[24px] bg-white p-8 ring-1 ring-black/5" role="status">
         <p className="font-display text-b2t-navy text-3xl">Thanks, we&apos;ve got your message.</p>
         <p className="text-b2t-navy/65 mt-3">
-          Your email app should have opened with your message ready to send. If it didn&apos;t,
-          email us at{" "}
-          <a
-            href={`mailto:${site.contact.email}`}
-            className="text-b2t-navy font-semibold underline"
-          >
-            {site.contact.email}
-          </a>
-          .
+          We&apos;ll get back to you within business hours ({site.contact.hours}).
         </p>
       </div>
     );
 
   return (
     <form onSubmit={onSubmit} className="space-y-3">
+      <input
+        type="text"
+        name="_honey"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden
+        className="hidden"
+      />
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="block">
           <span className="text-b2t-navy mb-1.5 block text-sm font-semibold">Name</span>
@@ -94,11 +123,21 @@ export function ContactForm() {
         <span className="text-b2t-navy mb-1.5 block text-sm font-semibold">Message</span>
         <textarea name="message" required rows={6} className={cn(field, "resize-y")} />
       </label>
+      {status === "error" && (
+        <p className="rounded-2xl bg-[#fdecea] px-4 py-3 text-sm text-[#8a1c12]" role="alert">
+          Sorry, your message didn&apos;t send.{" "}
+          <a href={mailto} className="font-semibold underline">
+            Send it from your email app
+          </a>{" "}
+          instead, or email {site.contact.email}.
+        </p>
+      )}
       <button
         type="submit"
-        className="bg-b2t-navy h-12 rounded-full px-8 text-[15px] font-semibold text-white transition-colors hover:bg-[#1c2740]"
+        disabled={status === "sending"}
+        className="bg-b2t-navy h-12 rounded-full px-8 text-[15px] font-semibold text-white transition-colors hover:bg-[#1c2740] disabled:opacity-60"
       >
-        Send
+        {status === "sending" ? "Sending…" : "Send"}
       </button>
     </form>
   );

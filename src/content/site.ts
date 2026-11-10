@@ -22,9 +22,8 @@ export const site = {
     signUpTradie: `${APP_URL}/sign-up?role=Tradie`,
     signUpSupplier: `${APP_URL}/sign-up?role=Supplier`,
     demo: "https://calendly.com/build2tradeaus/30min",
-    // TODO: App Store and Google Play links (the Get the app buttons stay hidden until set).
-    appStore: null as string | null,
-    googlePlay: null as string | null,
+    appStore: "https://apps.apple.com/au/app/build-2-trade/id6752311076" as string | null,
+    googlePlay: "https://play.google.com/store/apps/details?id=com.build2trade" as string | null,
   },
 
   contact: {
@@ -36,6 +35,13 @@ export const site = {
     phoneIntl: "+61 485 000 915",
     hours: "Mon–Fri, 9am–5pm AEST",
     abn: "82 688 987 948",
+    /**
+     * Where the contact form posts (FormSubmit). The first message sends an activation
+     * email to admin@build2trade.com.au; nothing is delivered until "Activate" is clicked.
+     * After activating, FormSubmit's email also gives a random alias string: swap it in
+     * here instead of the address to keep the address out of the page source.
+     */
+    formEndpoint: "https://formsubmit.co/ajax/admin@build2trade.com.au",
   },
 
   social: {
