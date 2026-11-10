@@ -61,7 +61,8 @@ Business: Build2Trade, ABN 82 688 987 948, Australia
 - Order materials from suppliers for jobs you're hired on; the delivery address comes from the project.
 - Build your reputation: builders review you after each job. Your profile shows your trade, experience, certifications and reviews.
 - Saved projects, chat with the builder, a dashboard of new jobs and upcoming work, and "My quotations" showing every quote as waiting, accepted or rejected (with the builder's reason).
-- No fee per quote or per job: one subscription, then quote as much as you like.
+- Fully B2B: real projects posted by builders, not leads resold from homeowners.
+- No lead fees and no commission on the work you win: one flat subscription ($49.99 AUD a month or $449.99 AUD a year), then quote as much as you like.
 
 ## For suppliers
 

@@ -5,6 +5,7 @@ import { Cards, Section } from "@/components/page/section";
 import { CtaBand } from "@/components/page/cta-band";
 import { FaqList } from "@/components/page/faq-list";
 import { Trades } from "@/components/sections/trades";
+import { NoCommission } from "@/components/sections/no-commission";
 import { JsonLd, faqJsonLd } from "@/components/seo/json-ld";
 import { pageMeta } from "@/lib/seo";
 import { HeadlineReveals } from "@/components/ui/headline-reveals";
@@ -12,7 +13,7 @@ import { HeadlineReveals } from "@/components/ui/headline-reveals";
 export const metadata = pageMeta(
   "/tradies",
   "For Tradies: Find Local Jobs & Send Quotes | Build2Trade",
-  "See projects near you that match your trade, send quotes in minutes, get hired and get paid.",
+  "Real projects from builders near you. No lead fees and no commission on work you win: one flat subscription. Quote in minutes, get hired and get paid.",
 );
 
 const features = [
@@ -64,8 +65,8 @@ const features = [
 
 const faqs = [
   {
-    q: "Is there a fee per quote or per job?",
-    a: "No. One subscription, then quote as much as you like.",
+    q: "Is there a fee per lead, quote or job?",
+    a: `No. There are no lead fees and no commission on the work you win. You pay one subscription ($${site.pricing.monthly} a month or $${site.pricing.yearly} a year), then quote as much as you like.`,
   },
   {
     q: "I'm not GST-registered. Is that OK?",
@@ -92,6 +93,8 @@ export default function Page() {
           Get the app
         </Button>
       </PageHero>
+
+      <NoCommission />
 
       <Section title="What you get">
         <Cards items={features} />
