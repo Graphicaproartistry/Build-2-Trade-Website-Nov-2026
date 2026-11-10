@@ -1,7 +1,8 @@
-import type { NextConfig } from "next";
+// Plain JavaScript (not TypeScript) on purpose: the production host can't run Next's native
+// compiler, and its fallback compiler can't load a TypeScript config.
 
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import("next").NextConfig} */
+const nextConfig = {
   cacheComponents: true,
   // Old site pages that no longer exist: send visitors (and search engines) somewhere useful.
   async redirects() {
