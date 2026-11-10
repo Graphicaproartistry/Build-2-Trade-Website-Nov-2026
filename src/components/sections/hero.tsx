@@ -215,12 +215,55 @@ export function Hero() {
         );
       };
 
-      ScrollTrigger.create({
+      // Put the hero straight onto a step with no animation, so it can never be left
+      // half way between two screens (e.g. coming back to the home page from another page,
+      // or when the scroll position jumps without the hero seeing it scroll).
+      const snap = (to: number) => {
+        running?.kill();
+        running = null;
+        current = to;
+        if (tap) gsap.set(tap, { opacity: 0 });
+        shots.forEach((el, i) => {
+          // The last screen slides up over the one before it, which stays in place.
+          const under = to === last && i === last - 1;
+          gsap.set(el, {
+            xPercent: i === to || under ? 0 : i < to ? -30 : 100,
+            yPercent: 0,
+          });
+          gsap.set(dims[i], { opacity: i < to ? 0.3 : 0 });
+        });
+        heads.forEach((el, i) =>
+          gsap.set(el, i === to ? { autoAlpha: 1, yPercent: 0 } : { autoAlpha: 0, yPercent: 30 }),
+        );
+        lines.forEach((el, i) =>
+          gsap.set(el, i === to ? { autoAlpha: 1, y: 0 } : { autoAlpha: 0, y: 16 }),
+        );
+        dots.forEach((d, i) =>
+          gsap.set(d, {
+            width: i === to ? 24 : 8,
+            backgroundColor: i === to ? "#101827" : "rgb(16 24 39 / 0.2)",
+          }),
+        );
+      };
+
+      const stepAt = (progress: number) => Math.min(last, Math.floor(progress * steps.length));
+      const st = ScrollTrigger.create({
         trigger: root,
         start: "top top",
         end: "bottom bottom",
-        onUpdate: (self) => show(Math.min(last, Math.floor(self.progress * steps.length))),
+        onUpdate: (self) => show(stepAt(self.progress)),
+        // After every recalculation (page change, resize, fonts loading), make sure the
+        // hero is showing the step that matches where the page actually is.
+        onRefresh: (self) => {
+          const to = stepAt(self.progress);
+          if (to !== current) snap(to);
+        },
       });
+
+      // Always start from a known state. Next.js keeps the home page alive in the
+      // background while you visit other pages, so when you come back this code runs
+      // again on elements that may still be half way through an old transition.
+      snap(stepAt(st.progress));
     },
     { scope: ref },
   );
