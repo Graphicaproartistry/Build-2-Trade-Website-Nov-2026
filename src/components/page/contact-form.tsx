@@ -9,11 +9,13 @@ import { cn } from "@/lib/utils";
  * (site.contact.formEndpoint). If sending fails, it falls back to opening the visitor's
  * email app with the message filled in.
  */
-type Status = "idle" | "sending" | "sent" | "error";
+type Status = "idle" | "sending" | "sent" | "activation" | "error";
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [mailto, setMailto] = useState("");
+  // FormSubmit's own explanation when it doesn't send (shown under the error).
+  const [detail, setDetail] = useState("");
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,9 +49,17 @@ export function ContactForm() {
           _captcha: "false",
         }),
       });
-      const data = (await res.json().catch(() => ({}))) as { success?: string | boolean };
-      setStatus(res.ok && String(data.success) !== "false" ? "sent" : "error");
-    } catch {
+      const data = (await res.json().catch(() => ({}))) as {
+        success?: string | boolean;
+        message?: string;
+      };
+      if (res.ok && String(data.success) !== "false") return setStatus("sent");
+      setDetail(data.message ?? `Error ${res.status}`);
+      // Before the form is activated, FormSubmit holds the message and emails an
+      // "Activate Form" link to the support address instead.
+      setStatus(/activat/i.test(data.message ?? "") ? "activation" : "error");
+    } catch (err) {
+      setDetail(err instanceof Error ? err.message : "");
       setStatus("error");
     }
   };
@@ -123,6 +133,16 @@ export function ContactForm() {
         <span className="text-b2t-navy mb-1.5 block text-sm font-semibold">Message</span>
         <textarea name="message" required rows={6} className={cn(field, "resize-y")} />
       </label>
+      {status === "activation" && (
+        <p className="rounded-2xl bg-[#fff6dc] px-4 py-3 text-sm text-[#6b4e00]" role="alert">
+          This form is waiting to be switched on. An &ldquo;Activate Form&rdquo; email has been sent
+          to {site.contact.email}. Once it&apos;s activated, messages will come through. For now,{" "}
+          <a href={mailto} className="font-semibold underline">
+            send it from your email app
+          </a>
+          .
+        </p>
+      )}
       {status === "error" && (
         <p className="rounded-2xl bg-[#fdecea] px-4 py-3 text-sm text-[#8a1c12]" role="alert">
           Sorry, your message didn&apos;t send.{" "}
@@ -130,6 +150,7 @@ export function ContactForm() {
             Send it from your email app
           </a>{" "}
           instead, or email {site.contact.email}.
+          {detail && <span className="mt-1 block opacity-70">({detail})</span>}
         </p>
       )}
       <button
