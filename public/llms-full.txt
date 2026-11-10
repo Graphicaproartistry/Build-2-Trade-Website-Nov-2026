@@ -7,7 +7,7 @@ Web app and sign-up: https://app.build2trade.com.au/role-selection
 iPhone: https://apps.apple.com/au/app/build-2-trade/id6752311076
 Android: https://play.google.com/store/apps/details?id=com.build2trade
 Book a demo: https://build2trade.com.au/book-a-demo
-Contact: admin@build2trade.com.au · 0485 000 915 · Mon–Fri, 9am–5pm AEST
+Contact: support@build2trade.com.au · 0485 000 915 · Mon–Fri, 9am–5pm AEST
 Business: Build2Trade, ABN 82 688 987 948, Australia
 
 ## Summary
@@ -105,4 +105,4 @@ Building surveyor, Demolition, Timber & hardware, Site hire, Concrete slabs, Bas
 - How do tradies get paid? They send their invoice through Build2Trade and the builder pays them directly.
 - How do customers find suppliers? Through the supplier directory, project opportunities in their trades and area, and the marketplace.
 - Can suppliers import their products? Yes, from an existing online store, for example WooCommerce.
-- Who do I contact for help? admin@build2trade.com.au, or Help & Support in the app.
+- Who do I contact for help? support@build2trade.com.au, or Help & Support in the app.
