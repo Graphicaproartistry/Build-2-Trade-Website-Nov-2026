@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { pages, site } from "@/content/site";
 
 // Fixed date (no "now" at build time); bump it when page content changes.
-const UPDATED = "2026-11-07";
+const UPDATED = "2026-11-10";
 
 const priority: Record<string, number> = {
   "/": 1,

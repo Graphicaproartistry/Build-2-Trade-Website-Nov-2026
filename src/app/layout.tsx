@@ -36,6 +36,18 @@ export const metadata: Metadata = {
     images: [{ url: "/og.png", width: 1200, height: 630, alt: site.name }],
   },
   twitter: { card: "summary_large_image", images: ["/og.png"] },
+  // Let every search engine index every page and follow its links, with full-size previews.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   // Search Console / Bing Webmaster verification (set the codes in src/content/site.ts).
   verification: {
     ...(site.verification.google ? { google: site.verification.google } : {}),
