@@ -1,0 +1,108 @@
+# Build2Trade: full feature guide
+
+> Build2Trade (also written "Build 2 Trade") is Australia's first digital networking platform for builders, tradies and building suppliers. It connects Australian builders with local tradies and building suppliers, so projects get quoted, hired, scheduled, supplied and paid for in one app.
+
+Website: https://build2trade.com.au
+Web app and sign-up: https://app.build2trade.com.au/role-selection
+iPhone: https://apps.apple.com/au/app/build-2-trade/id6752311076
+Android: https://play.google.com/store/apps/details?id=com.build2trade
+Book a demo: https://build2trade.com.au/book-a-demo
+Contact: admin@build2trade.com.au · 0485 000 915 · Mon–Fri, 9am–5pm AEST
+Business: Build2Trade, ABN 82 688 987 948, Australia
+
+## Summary
+
+- Short line: Post the job. Get the quotes. Hire the right tradie. Order the materials. All in one place.
+- Who it's for: builders and project managers, tradies, and building material suppliers.
+- Where: Australia only. Prices in AUD. ABN and GST built in.
+- Platforms: website, iPhone and Android, with light and dark mode. Sign up on the website, then log in on the app.
+- Payments between builders and tradies: invoices go through Build2Trade and the builder pays the tradie directly.
+
+## How a job runs on Build2Trade
+
+1. The builder posts a project: title, address, start date, description, plans or photos, the trades and sub-trades needed, and a scope, budget and dates for each trade. They can publish to their own network of trusted tradies first for a set number of days, or to every tradie with that trade within range.
+2. Tradies who do that trade, and whose working area covers the site, are notified. They read the scope, open the plans and send a quote with their price, GST choice, inclusions and documents. A tradie can edit a quote while it is still waiting; the builder sees exactly what changed.
+3. The builder compares every quote for a trade side by side and hires in one tap. Everyone else is told the job has been filled. If the builder changes the project after quotes come in, every tradie who quoted is told exactly what changed and can update their quote. Every change is recorded with the date and time.
+4. Hired trades appear on the project calendar with start and end dates, and everyone gets a reminder before work starts. Chat keeps the conversation in one place.
+5. Builders and hired tradies ask suppliers to quote on materials (items, quantities, delivery address, needed-by date). The requester accepts a quote and the supplier tracks the order through to delivery, with deposit and final invoices.
+6. When a trade is finished, the tradie sends the invoice through Build2Trade with GST worked out. The builder pays the tradie directly, and both leave a review.
+
+## For builders
+
+- Post once, get the right quotes: projects go to tradies by trade and by distance, or to your own network first.
+- Save projects as drafts and finish them later on the web or the app.
+- Add, change or remove trades on a live project; the right tradies are told straight away.
+- Your network first: invite trusted tradies by phone or email and give them first look, then publish to everyone in one tap. "Publish again" reminds tradies about trades that are still open.
+- Bring your team: invite the tradies and suppliers you already work with to join, and see who has joined.
+- Compare quotes side by side (price, GST, inclusions, documents) and hire in one tap.
+- Every change recorded: project changes and quote edits are kept, with old and new prices, notes, dates and times.
+- Schedule: calendar and Gantt chart views of every trade across every project; see what's scheduled today, this week and what's overdue or delayed; filter by postcode, trade, tradie or status; spot trades with no tradie assigned; reminders before the project and each trade starts.
+- Expenses and receipts: log every cost against the project and trade, attach receipts and invoices, and see totals by trade and for the whole project.
+- Project reports: download a project report as a PDF or an Excel file. It shows hired tradies and their quoted amounts (excl. GST), trades still waiting on a quote, budget or PO, the accepted quotes total, total project cost with expenses, every expense itemised (date, item, category, supplier, quantity, unit price, paid or unpaid) with totals by trade, and each trade's start and end dates, budget and sub-trades.
+- Permits: keep track of the permits for each project and who issued them.
+- Suppliers and materials: find suppliers by trade and area with their reviews, send material quote requests, compare supplier quotes, accept one and track the order to delivery.
+- Supplier marketplace: browse products by category, see prices and sales, save products and add them to a quote list to send to the supplier.
+- Built-in AI (you check and approve everything; AI never publishes or saves on its own):
+  - Set up a project from your plans: suggests trades, sub-trades and scopes.
+  - Take-off and material list: quantities from plans or photos, ready to send to a supplier.
+  - Compare quotes: compares every tradie's quote for a trade, explains the differences and suggests the best fit.
+  - Expense from a receipt photo: fills in the expense from a photo of a receipt or tax invoice.
+- Dashboard: projects, quotes waiting, hired trades and costs at a glance, plus a profile checklist.
+- Chat, push notifications, emails and reviews.
+
+## For tradies
+
+- Jobs that match your trade and area: set your trade and how far you travel, and get notified when a builder posts a project that needs you.
+- Quote in minutes with your price, inclusions and documents. GST options: no GST, GST included, or GST added on top. Not GST-registered? Quotes stay GST-free automatically.
+- Edit a quote any time before the builder decides; the builder sees what changed and your note.
+- Protected when the scope changes: you're told exactly what changed and keep a record of what you priced.
+- Get hired and scheduled: the job lands on your calendar with a reminder before you start.
+- Invoice in a few taps from the job, with GST worked out from your quote.
+- Order materials from suppliers for jobs you're hired on; the delivery address comes from the project.
+- Build your reputation: builders review you after each job. Your profile shows your trade, experience, certifications and reviews.
+- Saved projects, chat with the builder, a dashboard of new jobs and upcoming work, and "My quotations" showing every quote as waiting, accepted or rejected (with the builder's reason).
+- No fee per quote or per job: one subscription, then quote as much as you like.
+
+## For suppliers
+
+- Quick sign-up with business name, contact person, ABN and GST. Type your ABN and your business name and GST status fill in from the Australian Business Register.
+- Business profile: logo, cover image, description, trades and sub-trades supplied, service area, contact options and reviews.
+- Opportunities: see projects in your trades and area as they are posted.
+- Quote requests from builders and tradies with items, quantities, delivery address and needed-by date.
+- Fast quotes: pre-filled from the request and your own product prices. Add GST, delivery date and notes; revise if needed (every version kept) and see when the customer opened it.
+- Orders: track confirmed, preparing, out for delivery and delivered; agree changes with the customer; send deposit and final invoices as PDF; mark invoices paid.
+- B2T Marketplace shop: list products with photos, prices, units, minimum order and specs; get category, unit and brand suggestions as you type; connect your online store (for example WooCommerce) and import products, then publish in bulk; run product sales with a SALE badge or a shop-wide sale. Builders and tradies add your products to a quote list and send it to you.
+- Chat and reviews for every request and order.
+
+## For everyone
+
+- Login with a password or a one-time email link; on the app, fingerprint or Face ID.
+- Push notifications and emails for new projects, quotes, changes, hires, invoices and messages.
+- Chat per job, per request and per supplier order.
+- Help & Support tickets from the app or website.
+- Built-in step-by-step user guides and the full user manual.
+- ABN checked against the Australian Business Register; GST handled on every quote and invoice, registered or not.
+
+## Pricing
+
+- Builders and tradies: $49.99 AUD per month, or $449.99 AUD per year (about $150 less than paying monthly). Both plans include every builder or tradie feature, unlimited projects and quotes, the web app and the mobile apps. Pay by card through Stripe on the website.
+- Suppliers: a separate supplier plan. Contact the team for details.
+- Details: https://build2trade.com.au/pricing
+
+## Trades on Build2Trade
+
+Building surveyor, Demolition, Timber & hardware, Site hire, Concrete slabs, Basement, In-ground pools, Plumbing, Electrical, Carpentry, Brickwork, Roof plumbing, Roof tiling, Plaster, Tiling, Painting, Waterproofing, Landscaping, Fencing & gates, Crane truck services, Site set out, Pest control, Prefab wall & roof systems, Structural steel, Windows, External cladding, Brick wash, Render, Scaffolding, External features, Garage door, External blinds, Stumpers, Insulation, Under floor heating, Concrete grinding, Heating & cooling, Stairs, Cabinetry, Bench tops, Screeding, Self level, Timber flooring, Sand & polish, Internal & external finishers, Carpet, Caulking, Flyscreens, Blinds, Paving, Concrete cutting, General builders clean, General maintenance, Labour hire, Bin hire, Fire rated wall systems, Truck & machine hire, Tree removal services, Site signage, Concrete resurfacing.
+
+## Frequently asked questions
+
+- What is Build2Trade? An Australian platform that connects builders, tradies and building suppliers: projects, quotes, hiring, schedules, materials, invoices and reviews in one place.
+- Who is it for? Builders and project managers, tradies, and building material suppliers.
+- Where does it work? Australia.
+- Is there an app? Yes, for iPhone and Android. Sign up on the website, then log in on the app.
+- How do tradies find a builder's project? It's sent to tradies with the right trade whose working area covers the site, or only to invited tradies if the builder publishes to their network.
+- What if the builder changes the project after getting quotes? Tradies who quoted are told exactly what changed and can update their quote. Every change is recorded.
+- Can a tradie change their quote? Yes, any time before the builder accepts or rejects it.
+- How do tradies get paid? They send their invoice through Build2Trade and the builder pays them directly.
+- How do customers find suppliers? Through the supplier directory, project opportunities in their trades and area, and the marketplace.
+- Can suppliers import their products? Yes, from an existing online store, for example WooCommerce.
+- Who do I contact for help? admin@build2trade.com.au, or Help & Support in the app.
