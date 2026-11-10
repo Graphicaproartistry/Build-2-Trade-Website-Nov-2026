@@ -48,6 +48,7 @@ export function homeJsonLd() {
       { "@type": "Offer", name: "Yearly", price: site.pricing.yearly, priceCurrency: "AUD" },
     ],
     publisher: { "@id": `${site.url}/#organization` },
+    sameAs: [site.links.appStore, site.links.googlePlay].filter(Boolean),
   };
   return [org, website, app];
 }
