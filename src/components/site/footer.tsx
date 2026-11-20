@@ -16,7 +16,10 @@ const columns = [
     ],
   },
   { title: "Company", links: [pages.about, pages.faq, pages.contact, pages.demo, pages.app] },
-  { title: "Legal", links: [pages.terms, pages.termsOfUse, pages.privacy] },
+  {
+    title: "Legal",
+    links: [pages.terms, pages.termsOfUse, pages.privacy, pages.deleteAccount],
+  },
 ];
 
 /** Umano-style footer: brand card + links card, then the email set huge and faint. */

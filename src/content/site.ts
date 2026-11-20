@@ -89,4 +89,5 @@ export const pages = {
   terms: { href: "/terms-and-conditions", label: "Terms and Conditions" },
   termsOfUse: { href: "/terms-of-use", label: "Terms of Use" },
   privacy: { href: "/privacy-policy", label: "Privacy Policy" },
+  deleteAccount: { href: "/delete-account", label: "Delete your account" },
 } as const;
