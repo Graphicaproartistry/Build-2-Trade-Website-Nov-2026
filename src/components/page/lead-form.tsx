@@ -32,7 +32,7 @@ export function LeadForm() {
     if (status !== "sent" && status !== "idle") return;
     const el = document.getElementById("lead-form");
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - 100;
+    const top = el.getBoundingClientRect().top + window.scrollY - 16;
     if (Math.abs(window.scrollY - top) > 40) window.scrollTo({ top, behavior: "instant" });
   }, [status]);
 
@@ -110,7 +110,7 @@ export function LeadForm() {
           <Button href={site.links.signUp} size="lg" arrow>
             Start free trial
           </Button>
-          <Button href="/get-the-app" variant="outline" size="lg">
+          <Button href="#get-started" variant="outline" size="lg">
             Get the app
           </Button>
         </div>

@@ -1,6 +1,7 @@
 import { clip, relay } from "@/lib/form-relay";
+import { saveLead } from "@/lib/lead-store";
 
-/** Expo lead capture form (/expo): emailed to the support inbox through FormSubmit. */
+/** Expo lead capture form (/expo): saved on the server for /expoleads and emailed to the support inbox. */
 const ROLES = ["Builder", "Tradie", "Supplier", "Other"];
 
 export async function POST(request: Request) {
@@ -36,6 +37,21 @@ export async function POST(request: Request) {
   const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const what = role === "Other" ? `Other: ${other}` : role;
+  const business = clip(body.business, 120);
+  const postcode = clip(body.postcode, 10);
+
+  // Keep a copy on the server for the leads page. Never let this stop the email.
+  await saveLead({
+    at: new Date().toISOString(),
+    name,
+    phone,
+    role: what,
+    trade,
+    email: validEmail ? email : "",
+    business,
+    postcode,
+  }).catch((err) => console.error("Could not save expo lead:", err));
+
   return relay(
     {
       "Full name": name,
@@ -43,8 +59,8 @@ export async function POST(request: Request) {
       "Are you a": what,
       "Trade type": trade || "-",
       Email: validEmail ? email : "-",
-      "Business name": clip(body.business, 120) || "-",
-      Postcode: clip(body.postcode, 10) || "-",
+      "Business name": business || "-",
+      Postcode: postcode || "-",
       "Agreed to be contacted": "Yes",
       Source: "Expo lead capture form",
       _subject: `Expo lead: ${name} (${trade ? `${what}, ${trade}` : what})`,

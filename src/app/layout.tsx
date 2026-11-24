@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
-import "lenis/dist/lenis.css";
-import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { site } from "@/content/site";
 
 const sans = Inter({ variable: "--font-inter", subsets: ["latin"] });
@@ -63,9 +61,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-AU" className={`${sans.variable} ${display.variable} antialiased`}>
-      <body className="min-h-dvh">
-        <SmoothScroll>{children}</SmoothScroll>
-      </body>
+      <body className="min-h-dvh">{children}</body>
     </html>
   );
 }
