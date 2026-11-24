@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Expo lead capture form: full name, number, builder / tradie / supplier / other (with a
- * text box for "other"), trade type for tradies and suppliers, optional email, business
+ * text box for "other"), email, trade type for tradies and suppliers, optional business
  * and postcode, and consent to be contacted. Sent through our server to the support inbox.
  * After sending, "Add another person" clears it for the next person at the stand.
  */
@@ -157,6 +157,18 @@ export function LeadForm() {
           className={field}
         />
       </label>
+      <label className="block">
+        <span className="text-b2t-navy mb-2 block font-semibold">Email</span>
+        <input
+          name="email"
+          type="email"
+          required
+          inputMode="email"
+          autoComplete="email"
+          autoCapitalize="off"
+          className={field}
+        />
+      </label>
       <fieldset>
         <legend className="text-b2t-navy mb-2 block font-semibold">Are you a</legend>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -221,12 +233,6 @@ export function LeadForm() {
       )}
 
       <div className="border-b2t-navy/10 grid gap-5 border-t pt-5 sm:grid-cols-2">
-        <label className="block sm:col-span-2">
-          <span className="text-b2t-navy mb-2 block font-semibold">
-            Email <span className="text-b2t-navy/45 font-medium">(optional)</span>
-          </span>
-          <input name="email" type="email" autoComplete="email" className={field} />
-        </label>
         <label className="block">
           <span className="text-b2t-navy mb-2 block font-semibold">
             Business name <span className="text-b2t-navy/45 font-medium">(optional)</span>

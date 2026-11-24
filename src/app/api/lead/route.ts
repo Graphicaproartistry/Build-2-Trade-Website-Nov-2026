@@ -34,7 +34,9 @@ export async function POST(request: Request) {
     );
   }
   const email = clip(body.email, 200);
-  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return Response.json({ ok: false, message: "Please enter a valid email." }, { status: 400 });
+  }
 
   const what = role === "Other" ? `Other: ${other}` : role;
   const business = clip(body.business, 120);
@@ -47,7 +49,7 @@ export async function POST(request: Request) {
     phone,
     role: what,
     trade,
-    email: validEmail ? email : "",
+    email,
     business,
     postcode,
   }).catch((err) => console.error("Could not save expo lead:", err));
@@ -58,13 +60,13 @@ export async function POST(request: Request) {
       Number: phone,
       "Are you a": what,
       "Trade type": trade || "-",
-      Email: validEmail ? email : "-",
+      Email: email,
       "Business name": business || "-",
       Postcode: postcode || "-",
       "Agreed to be contacted": "Yes",
       Source: "Expo lead capture form",
       _subject: `Expo lead: ${name} (${trade ? `${what}, ${trade}` : what})`,
-      ...(validEmail ? { _replyto: email } : {}),
+      _replyto: email,
     },
     "/expo",
     "Expo lead",
