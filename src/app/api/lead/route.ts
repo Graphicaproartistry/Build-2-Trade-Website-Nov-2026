@@ -1,7 +1,7 @@
-import { clip, relay } from "@/lib/form-relay";
+import { clip } from "@/lib/form-relay";
 import { saveLead } from "@/lib/lead-store";
 
-/** Expo lead capture form (/expo): saved on the server for /expoleads and emailed to the support inbox. */
+/** Expo lead capture form (/expo): saved on the server and shown at /expoleads/<key>. No email. */
 const ROLES = ["Builder", "Tradie", "Supplier", "Other"];
 
 export async function POST(request: Request) {
@@ -42,33 +42,25 @@ export async function POST(request: Request) {
   const business = clip(body.business, 120);
   const postcode = clip(body.postcode, 10);
 
-  // Keep a copy on the server for the leads page. Never let this stop the email.
-  await saveLead({
-    at: new Date().toISOString(),
-    name,
-    phone,
-    role: what,
-    trade,
-    email,
-    business,
-    postcode,
-  }).catch((err) => console.error("Could not save expo lead:", err));
-
-  return relay(
-    {
-      "Full name": name,
-      Number: phone,
-      "Are you a": what,
-      "Trade type": trade || "-",
-      Email: email,
-      "Business name": business || "-",
-      Postcode: postcode || "-",
-      "Agreed to be contacted": "Yes",
-      Source: "Expo lead capture form",
-      _subject: `Expo lead: ${name} (${trade ? `${what}, ${trade}` : what})`,
-      _replyto: email,
-    },
-    "/expo",
-    "Expo lead",
-  );
+  // Expo leads are only saved for the private leads page (/expoleads/<key>); no email is
+  // sent. Saving is the only record, so a failure must be reported, not hidden.
+  try {
+    await saveLead({
+      at: new Date().toISOString(),
+      name,
+      phone,
+      role: what,
+      trade,
+      email,
+      business,
+      postcode,
+    });
+  } catch (err) {
+    console.error("Could not save expo lead:", err);
+    return Response.json(
+      { ok: false, message: "Sorry, we couldn't save that. Please show this screen to our team." },
+      { status: 500 },
+    );
+  }
+  return Response.json({ ok: true });
 }

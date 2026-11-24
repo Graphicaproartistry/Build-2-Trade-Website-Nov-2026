@@ -13,6 +13,12 @@ const nextConfig = {
     ];
   },
   partialPrefetching: true,
+  // Don't announce the framework in every response header.
+  poweredByHeader: false,
+  // Some hosts (e.g. Hostinger's builder) only pass settings while building, not to the
+  // running app. Copy the Expo leads key in at build time too, under a separate name, so
+  // the leads page works either way. Only server code reads it; it never reaches browsers.
+  env: { BUILD_EXPO_LEADS_KEY: process.env.EXPO_LEADS_KEY || "" },
   turbopack: {
     rules: {
       "*.css": {

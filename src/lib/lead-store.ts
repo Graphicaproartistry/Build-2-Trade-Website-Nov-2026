@@ -53,7 +53,8 @@ export async function readLeads(): Promise<Lead[]> {
  * stored in the code, because the code repository is public.
  */
 export function keyMatches(given: string) {
-  const key = process.env.EXPO_LEADS_KEY ?? "";
+  // Set while running, or copied in when the site was built (see next.config.mjs).
+  const key = process.env.EXPO_LEADS_KEY || process.env.BUILD_EXPO_LEADS_KEY || "";
   if (key.length < 16) return false;
   const a = Buffer.from(given);
   const b = Buffer.from(key);
