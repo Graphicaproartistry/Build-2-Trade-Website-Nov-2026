@@ -2,74 +2,7 @@ import { site } from "@/content/site";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { TradeGrid } from "@/components/sections/trade-grid";
-
-// Trade names as they appear in the app (trade list export, Nov 2026).
-// The most-used trades show first; the rest open with "See all trades".
-const featured = [
-  "Building surveyor",
-  "Demolition",
-  "Timber & hardware",
-  "Site hire",
-  "Concrete slabs",
-  "Basement",
-  "In-ground pools",
-  "Plumbing",
-  "Electrical",
-  "Carpentry",
-  "Brickwork",
-  "Roof plumbing",
-  "Roof tiling",
-  "Plaster",
-  "Tiling",
-  "Painting",
-  "Waterproofing",
-  "Landscaping",
-  "Fencing & gates",
-  "Crane truck services",
-];
-
-const more = [
-  "Site set out",
-  "Pest control",
-  "Prefab wall & roof systems",
-  "Structural steel",
-  "Windows",
-  "External cladding",
-  "Brick wash",
-  "Render",
-  "Scaffolding",
-  "External features",
-  "Garage door",
-  "External blinds",
-  "Stumpers",
-  "Insulation",
-  "Under floor heating",
-  "Concrete grinding",
-  "Heating & cooling",
-  "Stairs",
-  "Cabinetry",
-  "Bench tops",
-  "Screeding",
-  "Self level",
-  "Timber flooring",
-  "Sand & polish",
-  "Internal & external finishers",
-  "Carpet",
-  "Caulking",
-  "Flyscreens",
-  "Blinds",
-  "Paving",
-  "Concrete cutting",
-  "General builders clean",
-  "General maintenance",
-  "Labour hire",
-  "Bin hire",
-  "Fire rated wall systems",
-  "Truck & machine hire",
-  "Tree removal services",
-  "Site signage",
-  "Concrete resurfacing",
-];
+import { featured, more } from "@/content/trades";
 
 /**
  * "Find the right trade": every trade is a link to tradie sign-up. On hover a navy
