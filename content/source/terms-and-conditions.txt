@@ -57,13 +57,14 @@ If you do not agree to be bound by this Deed, you must not register for or use t
 
 5.1 30-Day Free Trial
 Eligible users receive a 30-day free trial. The subscription automatically converts to a paid subscription unless cancelled before the trial expires and before the first payment is processed.
+If you signed up under a promotional offer, such as the 3-month free promotion, the free period of that promotion applies instead of the 30-day free trial.
 
 5.2 Minimum 12-Month Commitment
 Once the first subscription payment is deducted, users enter into a minimum 12-month paid commitment, commencing from the first payment date.
 
 5.3 Cancellation
 Users can cancel without charge during the initial 30-day free trial. Once the paid subscription starts, early cancellation does not remove the obligation to pay the remaining fees under the 12-month commitment.
-After completing the 12-month commitment, users may cancel by providing 30 days' written notice to admin@build2trade.com.au.
+After completing the 12-month commitment, users may cancel by giving written notice to admin@build2trade.com.au. The notice period depends on the offer you signed up under, as set out in clause 10.1.
 
 5.4 Refunds
 Subscription payments are non-refundable once the paid subscription commences, subject to applicable Australian Consumer Law rights.
@@ -112,7 +113,9 @@ You indemnify and hold harmless Build 2 Trade, its officers, employees, and agen
 
 10. TERMINATION AND SUSPENSION
 
-10.1 You may request termination by emailing admin@build2trade.com.au with at least 3 months' notice.
+10.1 You may request termination by emailing admin@build2trade.com.au. The notice period depends on the offer you signed up under:
+• If you signed up under the 3-month free promotion, at least 3 months' written notice applies;
+• If you signed up under the 30-day free trial, at least 30 days' written notice applies.
 10.2 If terminated before the Minimum Term, outstanding fees remain payable and may be charged.
 10.3 Build 2 Trade may suspend or terminate your account for breach, non-payment, or misconduct without notice.
 10.4 Upon termination, project data and plans uploaded by you will be deleted; personal information may be retained as per Privacy Policy.
