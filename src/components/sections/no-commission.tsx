@@ -77,6 +77,9 @@ export function NoCommission() {
             <p className="mt-4 text-sm font-medium text-white/55">
               That&apos;s it. Every tradie feature, unlimited quotes, web and app.
             </p>
+            <p className="bg-b2t-yellow text-b2t-navy mt-5 inline-flex rounded-full px-4 py-2 text-sm font-semibold">
+              {site.pricing.trialLine}
+            </p>
             <div className="mt-8">
               <Button href={site.links.signUpTradie} variant="accent" size="lg" arrow>
                 Sign up as a tradie

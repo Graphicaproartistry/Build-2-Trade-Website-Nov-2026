@@ -7,7 +7,7 @@ Key facts:
 - Who it's for: builders and project managers, tradies (60 trades, from building surveyors and concreters to plumbers, electricians, carpenters, roofers, tilers and painters), and building material suppliers.
 - Where: Australia only.
 - Platforms: website (sign up and manage your account) plus iPhone and Android apps (log in and work on site).
-- Pricing for builders and tradies: $49.99 AUD a month or $449.99 AUD a year. Suppliers have their own plan.
+- Pricing for builders and tradies: $49.99 AUD a month or $449.99 AUD a year, with a 1 month free trial (cancel anytime before the trial ends). Suppliers have their own plan.
 - Builders pay tradies directly; invoices are sent through Build2Trade.
 - For tradies: fully B2B (real projects posted by builders), no lead fees and no commission on work won. One flat subscription.
 - Sign up: https://app.build2trade.com.au/role-selection

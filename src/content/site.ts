@@ -53,6 +53,9 @@ export const site = {
     currency: "AUD",
     monthly: 49.99,
     yearly: 449.99,
+    /** Free trial for builder and tradie plans (Terms and Conditions, clause 5). */
+    trial: "1 month free trial",
+    trialLine: "1 month free trial. Cancel anytime before your trial ends.",
     // TODO: supplier plan price (confirm with GM).
     supplier: null as number | null,
   },

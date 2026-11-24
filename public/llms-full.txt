@@ -87,6 +87,7 @@ Business: Build2Trade, ABN 82 688 987 948, Australia
 ## Pricing
 
 - Builders and tradies: $49.99 AUD per month, or $449.99 AUD per year (about $150 less than paying monthly). Both plans include every builder or tradie feature, unlimited projects and quotes, the web app and the mobile apps. Pay by card through Stripe on the website.
+- Free trial: builders and tradies get a 1 month free trial and can cancel anytime before the trial ends at no charge. After the trial, the paid subscription has a minimum 12-month commitment from the first payment date; after that, cancel with 30 days' written notice (see the Terms and Conditions).
 - Suppliers: a separate supplier plan. Contact the team for details.
 - Details: https://build2trade.com.au/pricing
 

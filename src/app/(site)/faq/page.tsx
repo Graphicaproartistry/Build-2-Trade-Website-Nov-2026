@@ -76,7 +76,7 @@ const groups: { title: string; items: { q: string; a: string }[] }[] = [
     items: [
       {
         q: "How much does it cost?",
-        a: `Builders and tradies pay $${site.pricing.monthly} AUD a month or $${site.pricing.yearly} AUD a year. Suppliers have their own plan. See the Pricing page for details.`,
+        a: `Builders and tradies pay $${site.pricing.monthly} AUD a month or $${site.pricing.yearly} AUD a year, starting with a 1 month free trial you can cancel anytime before it ends. Suppliers have their own plan. See the Pricing page for details.`,
       },
       {
         q: "Who do I contact for help?",

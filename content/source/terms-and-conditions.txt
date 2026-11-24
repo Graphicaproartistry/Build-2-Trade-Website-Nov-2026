@@ -8,7 +8,7 @@ Contact Us
 Get Started
 Terms and Conditions
 
-Last updated: January 2026
+Last updated: November 2026
 
 Effective Date: [Date of registration / sign up onto the application]
 
@@ -53,13 +53,20 @@ If you do not agree to be bound by this Deed, you must not register for or use t
 4.2 Build 2 Trade does not enter into contracts on behalf of Users and is not responsible for work quality or disputes beyond mediation.
 4.3 Users must conduct all communication and transactions through the App.
 
-5. SUBSCRIPTIONS, FEES AND PAYMENT TERMS
+5. SUBSCRIPTION, FREE TRIAL AND CANCELLATION
 
-5.1 You agree to pay all Subscription Fees via direct debit as invoiced, including monthly fees and per-quote fees.
-5.2 Subscription has a minimum term of 12 months from registration date. Early termination will incur payment of outstanding fees for the remainder of the Minimum Term.
-5.3 All fees are non-refundable.
-5.4 Build 2 Trade may suspend or terminate access for non-payment.
-5.5 Chargebacks or disputed payments without prior notice constitute breach of this Deed and may lead to immediate suspension and legal action.
+5.1 30-Day Free Trial
+Eligible users receive a 30-day free trial. The subscription automatically converts to a paid subscription unless cancelled before the trial expires and before the first payment is processed.
+
+5.2 Minimum 12-Month Commitment
+Once the first subscription payment is deducted, users enter into a minimum 12-month paid commitment, commencing from the first payment date.
+
+5.3 Cancellation
+Users can cancel without charge during the initial 30-day free trial. Once the paid subscription starts, early cancellation does not remove the obligation to pay the remaining fees under the 12-month commitment.
+After completing the 12-month commitment, users may cancel by providing 30 days' written notice to admin@build2trade.com.au.
+
+5.4 Refunds
+Subscription payments are non-refundable once the paid subscription commences, subject to applicable Australian Consumer Law rights.
 
 6. USER OBLIGATIONS AND CONDUCT
 

@@ -24,6 +24,9 @@ export function Pricing() {
           One subscription for builders and tradies: monthly or yearly. Suppliers have their own
           plan.
         </p>
+        <p className="bg-b2t-yellow text-b2t-navy mt-6 inline-flex rounded-full px-4 py-2 text-sm font-semibold">
+          {p.trialLine}
+        </p>
       </div>
       <div className="mx-auto mt-12 grid max-w-3xl gap-3 md:grid-cols-2">
         {plans.map((plan) => (

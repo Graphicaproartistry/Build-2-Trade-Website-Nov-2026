@@ -13,6 +13,14 @@ export const metadata = pageMeta(
 );
 
 const faqs = [
+  {
+    q: "Is there a free trial?",
+    a: "Yes. Builders and tradies get a 1 month free trial. Cancel anytime before your trial ends and you won't be charged.",
+  },
+  {
+    q: "What happens after the trial?",
+    a: "If you don't cancel before the trial ends, your subscription starts and the first payment is taken. From then on there is a minimum 12-month commitment from the first payment date. After the 12 months, you can cancel with 30 days' written notice. See the Terms and Conditions for the full details.",
+  },
   { q: "How do I pay?", a: "By card, securely through Stripe, on the website." },
   {
     q: "Can I subscribe in the app?",
@@ -33,7 +41,7 @@ export default function Page() {
   ];
   return (
     <>
-      <PageHero title="Simple pricing for every business on the job">
+      <PageHero title="Simple pricing for every business on the job" sub={p.trialLine}>
         <Button href={site.links.signUp} size="lg">
           Sign up
         </Button>
@@ -49,7 +57,12 @@ export default function Page() {
               key={plan.name}
               className="rounded-[28px] bg-white p-8 ring-1 ring-black/5 md:p-10"
             >
-              <h3 className="text-b2t-navy/55 text-sm font-semibold">{plan.name}</h3>
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="text-b2t-navy/55 text-sm font-semibold">{plan.name}</h3>
+                <span className="bg-b2t-yellow text-b2t-navy rounded-full px-3 py-1 text-xs font-semibold">
+                  {p.trial}
+                </span>
+              </div>
               <p className="font-display text-b2t-navy mt-4 text-6xl md:text-7xl">
                 ${plan.price}
                 <span className="text-b2t-navy/55 font-sans text-base font-medium">
@@ -59,8 +72,11 @@ export default function Page() {
               </p>
               <p className="text-b2t-navy/65 mt-4">{plan.best}</p>
               <Button href={site.links.signUp} size="lg" className="mt-8 w-full">
-                Choose {plan.name.toLowerCase()}
+                Start free trial
               </Button>
+              <p className="text-b2t-navy/55 mt-3 text-center text-sm">
+                Cancel anytime before your trial ends.
+              </p>
             </article>
           ))}
         </div>
